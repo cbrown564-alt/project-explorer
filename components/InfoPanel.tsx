@@ -66,7 +66,7 @@ export function InfoPanel() {
               <Calendar className="h-4 w-4" /> Key Information
             </h4>
             <ul className="space-y-1 text-muted-foreground ml-5 list-disc">
-              <li>65 projects across 6 themed areas</li>
+              <li>61 projects across 6 themed areas</li>
               <li>17 supervisors</li>
               <li>10 industrial projects (Thales, Pytilia, Cirdan, Sourcing Lens)</li>
               <li>MSc Artificial Intelligence — Queen&apos;s University Belfast</li>

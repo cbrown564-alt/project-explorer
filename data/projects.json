@@ -389,18 +389,6 @@
   },
   {
     "id": 27,
-    "title": "Your own propose project",
-    "supervisor": "Muhammad Fahim",
-    "email": "m.fahim@qub.ac.uk",
-    "theme": "AI for Health",
-    "keywords": [
-      "AI"
-    ],
-    "description": "The project should be related to apply AI in healthcare.",
-    "industrial": null
-  },
-  {
-    "id": 28,
     "title": "Fairness in Clustering",
     "supervisor": "Deepak Padmanabhan",
     "email": "d.padmanabhan@qub.ac.uk",
@@ -412,7 +400,7 @@
     "industrial": null
   },
   {
-    "id": 29,
+    "id": 28,
     "title": "Fairness in Retrieval",
     "supervisor": "Deepak Padmanabhan",
     "email": "d.padmanabhan@qub.ac.uk",
@@ -424,7 +412,7 @@
     "industrial": null
   },
   {
-    "id": 30,
+    "id": 29,
     "title": "AI Diagnostic Tool for Childhood Brain Tumour (Medulloblastoma)",
     "supervisor": "Reza Rafiee",
     "email": "g.rafiee@qub.ac.uk",
@@ -439,7 +427,7 @@
     "industrial": null
   },
   {
-    "id": 31,
+    "id": 30,
     "title": "Machine Learning Analysis of DNA Methylation Signatures for Predicting Diabetic Kidney Disease in Type 1 Diabetes",
     "supervisor": "Reza Rafiee",
     "email": "g.rafiee@qub.ac.uk",
@@ -465,48 +453,20 @@
     "industrial": null
   },
   {
+    "id": 31,
+    "title": "DNA Language Model",
+    "supervisor": "Reza Rafiee",
+    "email": "g.rafiee@qub.ac.uk",
+    "theme": "AI for Health",
+    "keywords": [
+      "AI",
+      "DNA Language Model"
+    ],
+    "description": "Fine-Tuning a Genomic Language Model for Colorectal Gene Enhancer Classification",
+    "industrial": null
+  },
+  {
     "id": 32,
-    "title": "DNA Language Model",
-    "supervisor": "Reza Rafiee",
-    "email": "g.rafiee@qub.ac.uk",
-    "theme": "AI for Health",
-    "keywords": [
-      "AI",
-      "DNA Language Model"
-    ],
-    "description": "Fine-Tuning a Genomic Language Model for Colorectal Gene Enhancer Classification",
-    "industrial": null
-  },
-  {
-    "id": 33,
-    "title": "DNA Language Model",
-    "supervisor": "Reza Rafiee",
-    "email": "g.rafiee@qub.ac.uk",
-    "theme": "AI for Health",
-    "keywords": [
-      "AI",
-      "DNA Language Model"
-    ],
-    "description": "Fine-Tuning a Genomic Language Model for Colorectal Gene Enhancer Classification",
-    "industrial": null
-  },
-  {
-    "id": 34,
-    "title": "AI Diagnostic Tool for Childhood Brain Tumour (Medulloblastoma)",
-    "supervisor": "Reza Rafiee",
-    "email": "g.rafiee@qub.ac.uk",
-    "theme": "AI for Health",
-    "keywords": [
-      "AI",
-      "Brain Tumour",
-      "Classification",
-      "Cross Platform"
-    ],
-    "description": "Cross-Platform DNA Methylation Classifier for the Seven Molecular Subtypes of Medulloblastoma",
-    "industrial": null
-  },
-  {
-    "id": 35,
     "title": "AI-enabled Retinal Screening",
     "supervisor": "Iain Styles",
     "email": "i.styles@qub.ac.uk",
@@ -519,7 +479,7 @@
     "industrial": null
   },
   {
-    "id": 36,
+    "id": 33,
     "title": "Disentangling Hyperspectral Images",
     "supervisor": "Iain Styles",
     "email": "i.styles@qub.ac.uk",
@@ -532,7 +492,7 @@
     "industrial": null
   },
   {
-    "id": 37,
+    "id": 34,
     "title": "Reconstruction of single molecule microscopy images with Physics-informed networks",
     "supervisor": "Iain Styles",
     "email": "i.styles@qub.ac.uk",
@@ -546,7 +506,7 @@
     "industrial": null
   },
   {
-    "id": 38,
+    "id": 35,
     "title": "Scalable virtual staining for whole slide imaging",
     "supervisor": "Iain Styles",
     "email": "i.styles@qub.ac.uk",
@@ -559,7 +519,7 @@
     "industrial": null
   },
   {
-    "id": 39,
+    "id": 36,
     "title": "Improve data augmentation for data-efficient deep generative models via Adaptive Negative Data Augmentation",
     "supervisor": "Yang Hua",
     "email": "y.hua@qub.ac.uk",
@@ -571,7 +531,7 @@
     "industrial": null
   },
   {
-    "id": 40,
+    "id": 37,
     "title": "Improve data augmentation for data-efficient deep generative models via fairness enhancement in GANs training",
     "supervisor": "Yang Hua",
     "email": "y.hua@qub.ac.uk",
@@ -583,7 +543,7 @@
     "industrial": null
   },
   {
-    "id": 41,
+    "id": 38,
     "title": "Improve the training of data-efficient GANs via discriminator rejection sampling",
     "supervisor": "Yang Hua",
     "email": "y.hua@qub.ac.uk",
@@ -595,7 +555,7 @@
     "industrial": null
   },
   {
-    "id": 42,
+    "id": 39,
     "title": "Improve data augmentation for data-efficient deep generative models via adaptive discriminator augmentation",
     "supervisor": "Yang Hua",
     "email": "y.hua@qub.ac.uk",
@@ -607,7 +567,7 @@
     "industrial": null
   },
   {
-    "id": 43,
+    "id": 40,
     "title": "Dataset Dissimilarity Measures for Run-time Formal Verification of Image-based Classifier",
     "supervisor": "Vishal Sharma, Paul Miller and Thales Team",
     "email": "v.sharma@qub.ac.uk",
@@ -619,7 +579,7 @@
     "industrial": "Thales"
   },
   {
-    "id": 44,
+    "id": 41,
     "title": "Boundary Computations for Dataset Similarity using CNN Softmax Scores and Activation Values",
     "supervisor": "Vishal Sharma, Paul Miller and Thales Team",
     "email": "v.sharma@qub.ac.uk",
@@ -632,7 +592,7 @@
     "industrial": "Thales"
   },
   {
-    "id": 45,
+    "id": 42,
     "title": "Malicious behaviour indentification in Agent-as-a-Service Systems",
     "supervisor": "Vishal Sharma",
     "email": "v.sharma@qub.ac.uk",
@@ -646,7 +606,7 @@
     "industrial": "TBC (Pytilia)"
   },
   {
-    "id": 46,
+    "id": 43,
     "title": "Assurance agents for net-zero traceability",
     "supervisor": "Vishal Sharma",
     "email": "v.sharma@qub.ac.uk",
@@ -660,7 +620,7 @@
     "industrial": "www.sourcing-lens.com"
   },
   {
-    "id": 47,
+    "id": 44,
     "title": "Semantic Communication via Region-of-Interest Transmission using YOLO",
     "supervisor": "Zehui Xiong",
     "email": "z.xiong@qub.ac.uk",
@@ -672,7 +632,7 @@
     "industrial": null
   },
   {
-    "id": 48,
+    "id": 45,
     "title": "Communication-Efficient Federated Learning with Sparse Model Updates",
     "supervisor": "Zehui Xiong",
     "email": "z.xiong@qub.ac.uk",
@@ -684,7 +644,7 @@
     "industrial": null
   },
   {
-    "id": 49,
+    "id": 46,
     "title": "Understanding Expert Specialization in Mixture-of-Experts Language Models",
     "supervisor": "Zehui Xiong",
     "email": "z.xiong@qub.ac.uk",
@@ -696,7 +656,7 @@
     "industrial": null
   },
   {
-    "id": 50,
+    "id": 47,
     "title": "Climate Data Mining for Dengue Fever Prediction: A Machine Learning Approach",
     "supervisor": "Son Mai",
     "theme": "AI for Health",
@@ -708,7 +668,7 @@
     "industrial": null
   },
   {
-    "id": 51,
+    "id": 48,
     "title": "Sleep Apnea Prediction",
     "supervisor": "Son Mai",
     "theme": "AI for Health",
@@ -719,7 +679,7 @@
     "industrial": null
   },
   {
-    "id": 52,
+    "id": 49,
     "title": "Stock market forecasting using LLMs",
     "supervisor": "Son Mai",
     "theme": "Machine Learning",
@@ -730,18 +690,7 @@
     "industrial": null
   },
   {
-    "id": 53,
-    "title": "Stock market forecasting using LLMs",
-    "supervisor": "Son Mai",
-    "theme": "Machine Learning",
-    "keywords": [
-      "Time series forecasting"
-    ],
-    "description": "The project aims to build a forecasting model for stock market using LLMs.",
-    "industrial": null
-  },
-  {
-    "id": 54,
+    "id": 50,
     "title": "AI for Breast Cancer Pathology",
     "supervisor": "Barry Devereux",
     "email": "b.devereux@qub.ac.uk",
@@ -756,7 +705,7 @@
     "industrial": "Cirdan"
   },
   {
-    "id": 55,
+    "id": 51,
     "title": "Clinical NLP for SNOMED CT Concept Identification",
     "supervisor": "Barry Devereux",
     "email": "b.devereux@qub.ac.uk",
@@ -771,7 +720,7 @@
     "industrial": "Cirdan"
   },
   {
-    "id": 56,
+    "id": 52,
     "title": "AI-Driven Querying of Clinical Data Using MCP Servers",
     "supervisor": "Barry Devereux",
     "email": "b.devereux@qub.ac.uk",
@@ -788,7 +737,7 @@
     "industrial": "Cirdan"
   },
   {
-    "id": 57,
+    "id": 53,
     "title": "The Edge-Cloud Swarm Research Theme: Evaluating Hierarchical Multi-Agent Systems (HMAS) using Cloud LLM",
     "supervisor": "Barry Devereux",
     "email": "b.devereux@qub.ac.uk",
@@ -804,7 +753,7 @@
     "industrial": "Pytilia"
   },
   {
-    "id": 58,
+    "id": 54,
     "title": "Temporal Exploit Prediction: \"When Will This CVE Be Exploited?\"",
     "supervisor": "Barry Devereux",
     "email": "b.devereux@qub.ac.uk",
@@ -817,7 +766,7 @@
     "industrial": "Pytilia"
   },
   {
-    "id": 59,
+    "id": 55,
     "title": "Local-first user-facing AI",
     "supervisor": "Barry Devereux",
     "email": "b.devereux@qub.ac.uk",
@@ -831,7 +780,7 @@
     "industrial": "Pytilia"
   },
   {
-    "id": 60,
+    "id": 56,
     "title": "Investigating how LLMs represent knowledge of grammars",
     "supervisor": "Barry Devereux",
     "email": "b.devereux@qub.ac.uk",
@@ -845,7 +794,7 @@
     "industrial": null
   },
   {
-    "id": 61,
+    "id": 57,
     "title": "Student-proposed project on LLMs",
     "supervisor": "Barry Devereux",
     "email": "b.devereux@qub.ac.uk",
@@ -859,7 +808,7 @@
     "industrial": null
   },
   {
-    "id": 62,
+    "id": 58,
     "title": "Preserving Privacy in the Era of Large Language Models",
     "supervisor": "Awais Rauf",
     "email": "a.rauf@qub.ac.uk",
@@ -873,7 +822,7 @@
     "industrial": null
   },
   {
-    "id": 63,
+    "id": 59,
     "title": "Leveraging Codec Signals for Adaptive Frame Sampling in Video Foundation Models",
     "supervisor": "Awais Rauf",
     "email": "a.rauf@qub.ac.uk",
@@ -888,7 +837,7 @@
     "industrial": null
   },
   {
-    "id": 64,
+    "id": 60,
     "title": "Leveraging Large Language Models for Structured Data Extraction from Conversations",
     "supervisor": "Awais Rauf",
     "email": "a.rauf@qub.ac.uk",
@@ -902,7 +851,7 @@
     "industrial": null
   },
   {
-    "id": 65,
+    "id": 61,
     "title": "Fine-Grained Vision Foundation Models for Automated Wind Turbine Inspection",
     "supervisor": "Awais Rauf",
     "email": "a.rauf@qub.ac.uk",

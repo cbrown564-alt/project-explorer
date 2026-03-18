@@ -95,14 +95,13 @@
   {
     "name": "Muhammad Fahim",
     "email": "m.fahim@qub.ac.uk",
-    "projectCount": 3,
+    "projectCount": 2,
     "themes": [
       "AI for Health"
     ],
     "projects": [
       25,
-      26,
-      27
+      26
     ],
     "pureUrl": "https://pure.qub.ac.uk/en/persons/muhammad-fahim"
   },
@@ -114,24 +113,22 @@
       "Machine Learning"
     ],
     "projects": [
-      28,
-      29
+      27,
+      28
     ],
     "pureUrl": "https://pure.qub.ac.uk/en/persons/deepak-padmanabhan"
   },
   {
     "name": "Reza Rafiee",
     "email": "g.rafiee@qub.ac.uk",
-    "projectCount": 5,
+    "projectCount": 3,
     "themes": [
       "AI for Health"
     ],
     "projects": [
+      29,
       30,
-      31,
-      32,
-      33,
-      34
+      31
     ],
     "pureUrl": "https://pure.qub.ac.uk/en/persons/reza-rafiee"
   },
@@ -145,10 +142,10 @@
       "Machine Learning"
     ],
     "projects": [
-      35,
-      36,
-      37,
-      38
+      32,
+      33,
+      34,
+      35
     ],
     "pureUrl": "https://pure.qub.ac.uk/en/persons/iain-styles"
   },
@@ -160,10 +157,10 @@
       "Computer Vision"
     ],
     "projects": [
-      39,
-      40,
-      41,
-      42
+      36,
+      37,
+      38,
+      39
     ],
     "pureUrl": "https://pure.qub.ac.uk/en/persons/yang-hua"
   },
@@ -175,8 +172,8 @@
       "Machine Learning"
     ],
     "projects": [
-      43,
-      44
+      40,
+      41
     ],
     "pureUrl": "https://pure.qub.ac.uk/en/persons/vishal-sharma-paul-miller-and-thales-team"
   },
@@ -189,8 +186,8 @@
       "Knowledge Engineering"
     ],
     "projects": [
-      45,
-      46
+      42,
+      43
     ],
     "pureUrl": "https://pure.qub.ac.uk/en/persons/vishal-sharma"
   },
@@ -204,24 +201,23 @@
       "NLP"
     ],
     "projects": [
-      47,
-      48,
-      49
+      44,
+      45,
+      46
     ],
     "pureUrl": "https://pure.qub.ac.uk/en/persons/zehui-xiong"
   },
   {
     "name": "Son Mai",
-    "projectCount": 4,
+    "projectCount": 3,
     "themes": [
       "AI for Health",
       "Machine Learning"
     ],
     "projects": [
-      50,
-      51,
-      52,
-      53
+      47,
+      48,
+      49
     ],
     "pureUrl": "https://pure.qub.ac.uk/en/persons/son-mai"
   },
@@ -234,14 +230,14 @@
       "NLP"
     ],
     "projects": [
+      50,
+      51,
+      52,
+      53,
       54,
       55,
       56,
-      57,
-      58,
-      59,
-      60,
-      61
+      57
     ],
     "pureUrl": "https://pure.qub.ac.uk/en/persons/barry-devereux"
   },
@@ -254,10 +250,10 @@
       "Computer Vision"
     ],
     "projects": [
-      62,
-      63,
-      64,
-      65
+      58,
+      59,
+      60,
+      61
     ],
     "pureUrl": "https://pure.qub.ac.uk/en/persons/awais-rauf"
   }

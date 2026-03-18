@@ -74,56 +74,47 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-background font-sans pb-20">
       <main className="max-w-7xl mx-auto px-4 sm:px-6 py-8 space-y-8">
-        {/* Vibrant EdTech Hero Section */}
-        <section className="relative overflow-hidden rounded-[2rem] bg-primary p-8 md:p-12 text-primary-foreground shadow-2xl animate-in fade-in slide-in-from-bottom-4 duration-500">
-           {/* Abstract blurring for the soft gradient glow */}
-           <div className="absolute top-0 right-0 -mr-20 -mt-20 h-64 w-64 rounded-full bg-white/10 blur-3xl pointer-events-none"></div>
-           <div className="absolute bottom-0 left-0 -ml-20 -mb-20 h-64 w-64 rounded-full bg-white/10 blur-3xl pointer-events-none"></div>
-           
-           <div className="relative z-10">
-             <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-bold tracking-wide uppercase backdrop-blur-md">
-                <Sparkles className="h-4 w-4 text-amber-300" />
-                <span>Student Portal</span>
-             </div>
-             <h1 className="mb-4 text-4xl font-extrabold leading-tight tracking-tight md:text-5xl lg:text-5xl">
-                Welcome back, <br/>
-                <span className="text-white/80">Alex</span>
-             </h1>
-             <p className="max-w-xl text-lg text-primary-foreground/90 mt-6 leading-relaxed">
-                Take your academic journey to the next level. Explore the {projects.length} Artificial Intelligence themed research projects available for the 2026 MSc cohort.
-             </p>
-           </div>
+        {/* Subtle Page Header */}
+        <section className="animate-in fade-in slide-in-from-bottom-4 duration-500 mb-2">
+          <div className="flex flex-col gap-2">
+            <div className="inline-flex items-center gap-2 text-primary font-semibold tracking-wide text-sm mb-1">
+              <GraduationCap className="h-4 w-4" />
+              <span>2026 MSc Cohort</span>
+            </div>
+            <h1 className="text-3xl font-extrabold tracking-tight md:text-4xl lg:text-5xl text-foreground">
+              ECS8056 Project Explorer
+            </h1>
+          </div>
         </section>
 
         {/* Sticky Filters & Controls Bar */}
         <section className="sticky top-4 z-40">
-          <div className="flex flex-col gap-4 md:flex-row md:items-center justify-between bg-card/90 backdrop-blur-xl p-4 md:px-6 rounded-2xl shadow-sm border border-border/40 animate-in fade-in zoom-in-95 duration-500 delay-100">
-            <div className="flex-1">
-              <ProjectFilters
-                search={search}
-                onSearchChange={setSearch}
-                selectedThemes={selectedThemes}
-                onThemeToggle={handleThemeToggle}
-                selectedSupervisor={selectedSupervisor}
-                onSupervisorChange={setSelectedSupervisor}
-                industrialOnly={industrialOnly}
-                onIndustrialToggle={() => setIndustrialOnly((p) => !p)}
-                supervisors={supervisorNames}
-                resultCount={filteredProjects.length}
-                totalCount={projects.length}
-              />
-            </div>
-            <div className="flex items-center gap-3 shrink-0 pt-4 md:pt-0 md:pl-6 md:border-l border-border/50">
-              <InfoPanel />
-              <ShortlistPanel
-                projects={projects}
-                shortlist={shortlist}
-                onToggle={toggle}
-                onClear={clear}
-                isShortlisted={isShortlisted}
-                onSupervisorClick={setSupervisorModal}
-              />
-            </div>
+          <div className="bg-card/90 backdrop-blur-xl p-4 md:px-6 rounded-2xl shadow-sm border border-border/40 animate-in fade-in zoom-in-95 duration-500 delay-100">
+            <ProjectFilters
+              search={search}
+              onSearchChange={setSearch}
+              selectedThemes={selectedThemes}
+              onThemeToggle={handleThemeToggle}
+              selectedSupervisor={selectedSupervisor}
+              onSupervisorChange={setSelectedSupervisor}
+              industrialOnly={industrialOnly}
+              onIndustrialToggle={() => setIndustrialOnly((p) => !p)}
+              supervisors={supervisorNames}
+              resultCount={filteredProjects.length}
+              totalCount={projects.length}
+            >
+              <div className="flex items-center gap-3 shrink-0 border-l border-border/50 pl-3 sm:pl-4">
+                <InfoPanel />
+                <ShortlistPanel
+                  projects={projects}
+                  shortlist={shortlist}
+                  onToggle={toggle}
+                  onClear={clear}
+                  isShortlisted={isShortlisted}
+                  onSupervisorClick={setSupervisorModal}
+                />
+              </div>
+            </ProjectFilters>
           </div>
         </section>
 

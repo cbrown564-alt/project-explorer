@@ -36,10 +36,10 @@ export function ProjectCard({
   return (
     <motion.div layout className="h-full">
       <Card
-        className={`h-full transition-all duration-300 rounded-[1.5rem] border-transparent shadow-sm hover:shadow-lg ${
+        className={`flex flex-col h-full transition-all duration-300 rounded-[1.5rem] border shadow-sm hover:shadow-lg ${
           isShortlisted
-            ? "ring-4 ring-primary/20 bg-primary/[0.02]"
-            : "bg-white dark:bg-card"
+            ? "ring-4 ring-primary/20 bg-primary/5 border-primary/20"
+            : "bg-white dark:bg-card border-border/40"
         }`}
       >
         <CardHeader className="pb-3 pt-6 px-6">
@@ -85,19 +85,19 @@ export function ProjectCard({
           </div>
         </CardHeader>
         {!compact && (
-          <CardContent className="px-6 pb-6 pt-0">
-            <div className="flex flex-wrap gap-1.5 mb-4 mt-2">
+          <CardContent className="px-6 pb-6 pt-0 flex-1 flex flex-col">
+            <div className="flex flex-wrap gap-2 mb-4 mt-2">
               {project.keywords.slice(0, expanded ? undefined : 4).map((kw) => (
                 <Badge
                   key={kw}
                   variant="secondary"
-                  className="text-xs font-semibold bg-secondary/60 text-secondary-foreground rounded-lg px-2 py-0.5 border-transparent"
+                  className="text-[11px] font-semibold bg-secondary/60 text-secondary-foreground rounded-full px-2.5 py-1 border-transparent"
                 >
                   {kw}
                 </Badge>
               ))}
               {!expanded && project.keywords.length > 4 && (
-                <Badge variant="secondary" className="text-xs font-semibold bg-secondary/60 text-secondary-foreground rounded-lg px-2 py-0.5 border-transparent">
+                <Badge variant="secondary" className="text-[11px] font-semibold bg-secondary/60 text-secondary-foreground rounded-full px-2.5 py-1 border-transparent">
                   +{project.keywords.length - 4}
                 </Badge>
               )}
@@ -133,7 +133,7 @@ export function ProjectCard({
             <Button
               variant="ghost"
               size="sm"
-              className="w-full mt-2 text-xs font-semibold text-muted-foreground hover:bg-secondary/50 rounded-xl py-5"
+              className="w-full mt-auto text-xs font-semibold text-muted-foreground hover:bg-secondary/50 rounded-xl py-5"
               onClick={() => setExpanded(!expanded)}
             >
               {expanded ? (

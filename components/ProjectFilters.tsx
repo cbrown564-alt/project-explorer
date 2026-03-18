@@ -19,6 +19,7 @@ interface FiltersProps {
   supervisors: string[];
   resultCount: number;
   totalCount: number;
+  children?: React.ReactNode;
 }
 
 export function ProjectFilters({
@@ -33,6 +34,7 @@ export function ProjectFilters({
   supervisors,
   resultCount,
   totalCount,
+  children,
 }: FiltersProps) {
   const hasFilters =
     search || selectedThemes.length > 0 || selectedSupervisor || industrialOnly;
@@ -59,13 +61,13 @@ export function ProjectFilters({
         </div>
       </div>
 
-      <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-4">
+      <div className="flex flex-wrap items-center gap-3 xl:gap-4 w-full">
         {/* Themes row */}
         <div className="flex flex-wrap items-center gap-2.5 bg-secondary/20 p-1.5 rounded-2xl border border-border/40 shrink-0">
-          <div className="px-3 flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-muted-foreground">
+          <div className="px-3 flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-muted-foreground hidden sm:flex">
             <SlidersHorizontal className="h-3.5 w-3.5" /> Filter
           </div>
-          <div className="h-6 w-px bg-border/50 mx-1" />
+          <div className="h-6 w-px bg-border/50 mx-1 hidden sm:block" />
           {THEMES.map((theme) => {
             const isSelected = selectedThemes.includes(theme);
             const isDimmed = selectedThemes.length > 0 && !isSelected;
@@ -94,29 +96,30 @@ export function ProjectFilters({
           </Button>
         </div>
 
-        {/* Supervisor Select & Meta */}
-        <div className="flex flex-wrap items-center gap-3 w-full xl:w-auto">
-          <div className="relative flex-1 min-w-[200px]">
-            <select
-              value={selectedSupervisor || ""}
-              onChange={(e) =>
-                onSupervisorChange(e.target.value || null)
-              }
-              className="appearance-none w-full h-10 text-sm font-semibold border-none rounded-2xl px-4 py-2 bg-secondary/60 text-foreground hover:bg-secondary/80 focus:ring-4 focus:ring-primary/20 transition-all cursor-pointer"
-            >
-              <option value="">All Academic Supervisors</option>
-              {supervisors.map((s) => (
-                <option key={s} value={s}>
-                  {s}
-                </option>
-              ))}
-            </select>
-            <ArrowDownWideNarrow className="absolute right-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
-          </div>
+        {/* Supervisor Select */}
+        <div className="relative min-w-[200px] flex-grow xl:flex-grow-0 xl:max-w-xs shrink-0">
+          <select
+            value={selectedSupervisor || ""}
+            onChange={(e) =>
+              onSupervisorChange(e.target.value || null)
+            }
+            className="appearance-none w-full h-10 text-sm font-semibold border-none rounded-2xl px-4 py-2 bg-secondary/60 text-foreground hover:bg-secondary/80 focus:ring-4 focus:ring-primary/20 transition-all cursor-pointer"
+          >
+            <option value="">All Academic Supervisors</option>
+            {supervisors.map((s) => (
+              <option key={s} value={s}>
+                {s}
+              </option>
+            ))}
+          </select>
+          <ArrowDownWideNarrow className="absolute right-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
+        </div>
 
+        {/* Meta & Actions */}
+        <div className="flex flex-wrap items-center gap-3 ml-auto shrink-0">
           <div className="flex items-center gap-4 bg-primary/5 px-4 h-10 rounded-2xl border border-primary/10 shrink-0">
             <span className="text-xs font-bold text-primary">
-              {resultCount} <span className="text-primary/60 font-medium">of {totalCount} projects</span>
+              {resultCount} <span className="text-primary/60 font-medium hidden sm:inline">of {totalCount} projects</span>
             </span>
           </div>
 
@@ -135,6 +138,8 @@ export function ProjectFilters({
               <X className="h-4 w-4 mr-1.5" /> Clear
             </Button>
           )}
+
+          {children}
         </div>
       </div>
     </div>

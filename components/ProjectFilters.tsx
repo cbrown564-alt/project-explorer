@@ -19,7 +19,6 @@ interface FiltersProps {
   supervisors: string[];
   resultCount: number;
   totalCount: number;
-  children?: React.ReactNode;
 }
 
 export function ProjectFilters({
@@ -34,7 +33,6 @@ export function ProjectFilters({
   supervisors,
   resultCount,
   totalCount,
-  children,
 }: FiltersProps) {
   const hasFilters =
     search || selectedThemes.length > 0 || selectedSupervisor || industrialOnly;
@@ -79,10 +77,10 @@ export function ProjectFilters({
 
         <Button
           variant={industrialOnly ? "default" : "outline"}
-          className={`w-full sm:w-auto h-12 px-5 rounded-2xl text-sm font-bold tracking-wide uppercase transition-all shrink-0 border-2 ${
+          className={`w-full sm:w-auto h-12 px-5 rounded-2xl text-sm font-semibold transition-all shrink-0 border-2 ${
             industrialOnly
               ? "bg-amber-500 hover:bg-amber-600 text-white shadow-md shadow-amber-500/20 border-transparent"
-              : "bg-transparent border-dashed border-border/50 text-muted-foreground hover:bg-secondary"
+              : "bg-transparent border-solid border-border/80 text-muted-foreground hover:bg-secondary/50"
           }`}
           onClick={onIndustrialToggle}
         >
@@ -145,8 +143,6 @@ export function ProjectFilters({
               <X className="h-4 w-4 mr-1.5" /> Clear
             </Button>
           )}
-
-          {children}
         </div>
       </div>
     </div>

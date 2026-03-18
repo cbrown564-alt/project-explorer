@@ -76,14 +76,27 @@ export default function Home() {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 py-8 space-y-8">
         {/* Subtle Page Header */}
         <section className="animate-in fade-in slide-in-from-bottom-4 duration-500 mb-2">
-          <div className="flex flex-col gap-2">
-            <div className="inline-flex items-center gap-2 text-primary font-semibold tracking-wide text-sm mb-1">
-              <GraduationCap className="h-4 w-4" />
-              <span>2026 MSc Cohort</span>
+          <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
+            <div className="flex flex-col gap-2">
+              <div className="inline-flex items-center gap-2 text-primary font-semibold tracking-wide text-sm mb-1">
+                <GraduationCap className="h-4 w-4" />
+                <span>2026 MSc Cohort</span>
+              </div>
+              <h1 className="font-heading text-3xl font-extrabold tracking-tight md:text-4xl lg:text-5xl text-foreground">
+                ECS8056 Project Explorer
+              </h1>
             </div>
-            <h1 className="text-3xl font-extrabold tracking-tight md:text-4xl lg:text-5xl text-foreground">
-              ECS8056 Project Explorer
-            </h1>
+            <div className="flex items-center gap-3 shrink-0">
+              <InfoPanel />
+              <ShortlistPanel
+                projects={projects}
+                shortlist={shortlist}
+                onToggle={toggle}
+                onClear={clear}
+                isShortlisted={isShortlisted}
+                onSupervisorClick={setSupervisorModal}
+              />
+            </div>
           </div>
         </section>
 
@@ -102,19 +115,7 @@ export default function Home() {
               supervisors={supervisorNames}
               resultCount={filteredProjects.length}
               totalCount={projects.length}
-            >
-              <div className="flex items-center gap-3 shrink-0 border-l border-border/50 pl-3 sm:pl-4">
-                <InfoPanel />
-                <ShortlistPanel
-                  projects={projects}
-                  shortlist={shortlist}
-                  onToggle={toggle}
-                  onClear={clear}
-                  isShortlisted={isShortlisted}
-                  onSupervisorClick={setSupervisorModal}
-                />
-              </div>
-            </ProjectFilters>
+            />
           </div>
         </section>
 
@@ -125,7 +126,7 @@ export default function Home() {
               <div className="h-16 w-16 mb-4 rounded-full bg-muted flex items-center justify-center">
                 <GraduationCap className="h-8 w-8 text-muted-foreground" />
               </div>
-              <p className="text-lg font-bold text-foreground mb-1">
+              <p className="font-heading text-lg font-bold text-foreground mb-1">
                 No projects found
               </p>
               <p className="text-sm text-muted-foreground max-w-sm">
@@ -140,7 +141,7 @@ export default function Home() {
                   ref={(el) => {
                     if (el) cardRefs.current.set(project.id, el);
                   }}
-                  className="transition-all duration-300 animate-in fade-in slide-in-from-bottom-8"
+                  className="h-full transition-all duration-300 animate-in fade-in slide-in-from-bottom-8"
                   style={{ animationDelay: `${Math.min(idx * 50, 400)}ms`, animationFillMode: 'both' }}
                 >
                   <ProjectCard

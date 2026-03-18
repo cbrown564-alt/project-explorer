@@ -45,7 +45,10 @@ export function ProjectCard({
         <CardHeader className="pb-3 pt-6 px-6">
           <div className="flex items-start justify-between gap-3">
             <div className="flex-1 min-w-0">
-              <h3 className="font-bold text-lg leading-snug mb-3 text-foreground tracking-tight">
+              <h3
+                className="font-heading font-bold text-lg leading-snug mb-3 text-foreground tracking-tight line-clamp-3"
+                title={project.title}
+              >
                 {project.title}
               </h3>
               <div className="flex flex-wrap items-center gap-2">

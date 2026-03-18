@@ -22,12 +22,12 @@ export function InfoPanel() {
       </DialogTrigger>
       <DialogContent className="max-w-lg max-h-[80vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle>ECS8056 — Themed Research Project</DialogTitle>
+          <DialogTitle className="font-heading">ECS8056 — Themed Research Project</DialogTitle>
         </DialogHeader>
 
         <div className="space-y-4 text-sm">
           <div>
-            <h4 className="font-medium flex items-center gap-1 mb-1">
+            <h4 className="font-heading font-medium flex items-center gap-1 mb-1">
               <FileText className="h-4 w-4" /> Assessment
             </h4>
             <ul className="space-y-1 text-muted-foreground ml-5 list-disc">
@@ -44,7 +44,7 @@ export function InfoPanel() {
           <Separator />
 
           <div>
-            <h4 className="font-medium flex items-center gap-1 mb-1">
+            <h4 className="font-heading font-medium flex items-center gap-1 mb-1">
               <Users className="h-4 w-4" /> Selection Process
             </h4>
             <ul className="space-y-1 text-muted-foreground ml-5 list-disc">
@@ -62,7 +62,7 @@ export function InfoPanel() {
           <Separator />
 
           <div>
-            <h4 className="font-medium flex items-center gap-1 mb-1">
+            <h4 className="font-heading font-medium flex items-center gap-1 mb-1">
               <Calendar className="h-4 w-4" /> Key Information
             </h4>
             <ul className="space-y-1 text-muted-foreground ml-5 list-disc">

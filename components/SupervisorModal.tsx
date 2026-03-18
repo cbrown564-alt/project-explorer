@@ -37,7 +37,7 @@ export function SupervisorModal({
     <Dialog open={open} onOpenChange={onClose}>
       <DialogContent className="max-w-lg max-h-[80vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle className="text-lg">{supervisor.name}</DialogTitle>
+          <DialogTitle className="font-heading text-lg">{supervisor.name}</DialogTitle>
         </DialogHeader>
 
         <div className="space-y-4">
@@ -67,7 +67,7 @@ export function SupervisorModal({
           </div>
 
           <div>
-            <h4 className="font-medium text-sm mb-2 flex items-center gap-1">
+            <h4 className="font-heading font-medium text-sm mb-2 flex items-center gap-1">
               <BookOpen className="h-4 w-4" />
               Projects ({supervisorProjects.length})
             </h4>

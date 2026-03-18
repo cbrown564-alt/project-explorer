@@ -63,7 +63,7 @@ export function ShortlistPanel({
       </SheetTrigger>
       <SheetContent className="w-full sm:!max-w-xl p-4">
         <SheetHeader>
-          <SheetTitle className="flex items-center gap-2">
+          <SheetTitle className="font-heading flex items-center gap-2">
             <Star className="h-5 w-5 text-amber-500" fill="currentColor" />
             Shortlist ({shortlist.length})
           </SheetTitle>

@@ -82,9 +82,9 @@ export default function Home() {
 
   return (
     <div className="min-h-screen pb-20">
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 py-8 space-y-8">
-        {/* Subtle Page Header */}
-        <section className="animate-in fade-in slide-in-from-bottom-4 duration-500 mb-2">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 py-8 space-y-6">
+        {/* Page Header */}
+        <section className="animate-in fade-in slide-in-from-bottom-4 duration-500">
           <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
             <div className="flex flex-col gap-2">
               <div className="inline-flex items-center gap-2 text-primary font-semibold tracking-wide text-sm mb-1">
@@ -109,9 +109,9 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Sticky Filters & Controls Bar */}
-        <section className="sticky top-4 z-40">
-          <div className="bg-card/90 backdrop-blur-xl p-4 md:px-6 rounded-xl shadow-sm border border-border/40 animate-in fade-in zoom-in-95 duration-500 delay-100">
+        {/* Sticky Filters — blends with page, no card chrome */}
+        <section className="sticky top-0 z-40">
+          <div className="bg-background/80 backdrop-blur-xl py-3 -mx-4 px-4 sm:-mx-6 sm:px-6 animate-in fade-in zoom-in-95 duration-500 delay-100">
             <ProjectFilters
               search={search}
               onSearchChange={setSearch}

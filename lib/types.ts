@@ -28,3 +28,12 @@ export const THEME_COLORS: Record<string, { bg: string; text: string; border: st
 };
 
 export const THEMES = ["Machine Learning", "Computer Vision", "NLP", "Knowledge Engineering", "AI for Health", "Other"] as const;
+
+export const THEME_HEX: Record<string, string> = {
+  "Machine Learning": "#3b82f6",
+  "Computer Vision": "#a855f7",
+  "NLP": "#22c55e",
+  "Knowledge Engineering": "#f97316",
+  "AI for Health": "#f43f5e",
+  "Other": "#64748b",
+};

@@ -13,7 +13,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { ProjectCard } from "@/components/ProjectCard";
 import type { Project } from "@/lib/types";
-import { Star, Trash2, Copy, ArrowLeftRight } from "lucide-react";
+import { Star, Trash2, Copy, ArrowLeftRight, Maximize2 } from "lucide-react";
 import { useState } from "react";
 
 interface ShortlistPanelProps {
@@ -23,6 +23,7 @@ interface ShortlistPanelProps {
   onClear: () => void;
   isShortlisted: (id: number) => boolean;
   onSupervisorClick: (name: string) => void;
+  onCompare?: () => void;
 }
 
 export function ShortlistPanel({
@@ -32,6 +33,7 @@ export function ShortlistPanel({
   onClear,
   isShortlisted,
   onSupervisorClick,
+  onCompare,
 }: ShortlistPanelProps) {
   const [comparing, setComparing] = useState(false);
   const shortlistedProjects = projects.filter((p) => shortlist.includes(p.id));
@@ -99,6 +101,16 @@ export function ShortlistPanel({
               >
                 <Copy className="h-3 w-3 mr-1" /> Copy to clipboard
               </Button>
+              {onCompare && (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="text-xs"
+                  onClick={onCompare}
+                >
+                  <Maximize2 className="h-3 w-3 mr-1" /> Full Compare
+                </Button>
+              )}
               <Button
                 variant="ghost"
                 size="sm"

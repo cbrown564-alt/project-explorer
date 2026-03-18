@@ -51,7 +51,7 @@ export function ShortlistPanel({
   return (
     <Sheet>
       <SheetTrigger
-        render={<Button variant="outline" className="relative" />}
+        render={<Button variant="outline" className="relative h-10 rounded-2xl border-border/50 px-4 text-xs font-bold shadow-sm" />}
       >
         <Star className="h-4 w-4 mr-2" />
         Shortlist

@@ -15,7 +15,7 @@ export function InfoPanel() {
   return (
     <Dialog>
       <DialogTrigger
-        render={<Button variant="outline" size="sm" />}
+        render={<Button variant="outline" className="h-10 rounded-2xl border-border/50 px-4 text-xs font-bold shadow-sm" />}
       >
         <Info className="h-4 w-4 mr-2" />
         Programme Info

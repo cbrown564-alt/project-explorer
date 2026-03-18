@@ -414,18 +414,16 @@ export function GraphView() {
         }}
       >
         <defs>
-          {/* Clip paths for supervisor photos */}
+          {/* Clip paths for supervisor avatars — positioned at node locations */}
           {graphData.nodes
-            .filter(
-              (n) =>
-                n.type === "supervisor" && (n.data as Supervisor).photoUrl
-            )
+            .filter((n) => n.type === "supervisor")
             .map((n) => {
               const radius = getNodeRadius(n);
               const photoR = radius * 0.8;
+              const pos = positions.get(n.id);
               return (
                 <clipPath key={`clip-${n.id}`} id={`clip-${n.id}`}>
-                  <circle cx={0} cy={0} r={photoR} />
+                  <circle cx={pos?.x ?? 0} cy={pos?.y ?? 0} r={photoR} />
                 </clipPath>
               );
             })}
@@ -590,7 +588,6 @@ export function GraphView() {
 
             if (node.type === "supervisor") {
               const supervisor = node.data as Supervisor;
-              const size = radius * 1.6;
               const photoR = radius * 0.8;
 
               return (
@@ -601,67 +598,73 @@ export function GraphView() {
                 >
                   {/* Focus ring */}
                   {isFocused && (
-                    <rect
-                      x={pos.x - size / 2 - 3}
-                      y={pos.y - size / 2 - 3}
-                      width={size + 6}
-                      height={size + 6}
-                      rx={6}
+                    <circle
+                      cx={pos.x}
+                      cy={pos.y}
+                      r={photoR + 5}
                       fill="none"
                       stroke="var(--color-primary)"
                       strokeWidth={2}
                       strokeDasharray="4 2"
                     />
                   )}
+                  {/* Colored border ring */}
+                  <circle
+                    cx={pos.x}
+                    cy={pos.y}
+                    r={photoR + 2}
+                    fill={color}
+                    className="cursor-pointer"
+                    onPointerDown={(e) => handlePointerDown(e, node.id)}
+                    onClick={() => handleNodeClick(node)}
+                    onMouseEnter={() => showTooltip(node)}
+                    onMouseLeave={hideTooltip}
+                  />
                   {supervisor.photoUrl ? (
-                    <>
-                      {/* Colored border ring */}
-                      <circle
-                        cx={pos.x}
-                        cy={pos.y}
-                        r={photoR + 2}
-                        fill={color}
-                        className="cursor-pointer"
-                        onPointerDown={(e) => handlePointerDown(e, node.id)}
-                        onClick={() => handleNodeClick(node)}
-                        onMouseEnter={() => showTooltip(node)}
-                        onMouseLeave={hideTooltip}
-                      />
-                      {/* Photo */}
-                      <image
-                        href={supervisor.photoUrl}
-                        x={pos.x - photoR}
-                        y={pos.y - photoR}
-                        width={photoR * 2}
-                        height={photoR * 2}
-                        clipPath={`url(#clip-${node.id})`}
-                        className="cursor-pointer"
-                        preserveAspectRatio="xMidYMid slice"
-                        onPointerDown={(e) => handlePointerDown(e, node.id)}
-                        onClick={() => handleNodeClick(node)}
-                        onMouseEnter={() => showTooltip(node)}
-                        onMouseLeave={hideTooltip}
-                      />
-                    </>
-                  ) : (
-                    <rect
-                      x={pos.x - size / 2}
-                      y={pos.y - size / 2}
-                      width={size}
-                      height={size}
-                      rx={4}
-                      fill={color}
+                    <image
+                      href={supervisor.photoUrl}
+                      x={pos.x - photoR}
+                      y={pos.y - photoR}
+                      width={photoR * 2}
+                      height={photoR * 2}
+                      clipPath={`url(#clip-${node.id})`}
                       className="cursor-pointer"
+                      preserveAspectRatio="xMidYMid slice"
                       onPointerDown={(e) => handlePointerDown(e, node.id)}
                       onClick={() => handleNodeClick(node)}
                       onMouseEnter={() => showTooltip(node)}
                       onMouseLeave={hideTooltip}
                     />
+                  ) : (
+                    <>
+                      {/* Fallback: grey circle with user silhouette */}
+                      <circle
+                        cx={pos.x}
+                        cy={pos.y}
+                        r={photoR}
+                        fill="#e2e8f0"
+                        className="cursor-pointer"
+                        onPointerDown={(e) => handlePointerDown(e, node.id)}
+                        onClick={() => handleNodeClick(node)}
+                        onMouseEnter={() => showTooltip(node)}
+                        onMouseLeave={hideTooltip}
+                      />
+                      {/* User silhouette: head + shoulders, clipped to circle */}
+                      {(() => {
+                        const s = photoR / 12;
+                        return (
+                          <g clipPath={`url(#clip-${node.id})`} className="pointer-events-none">
+                            <circle cx={pos.x} cy={pos.y - 2 * s} r={3 * s} fill="#94a3b8" />
+                            <ellipse cx={pos.x} cy={pos.y + 6 * s} rx={6 * s} ry={4 * s} fill="#94a3b8" />
+                          </g>
+                        );
+                      })()}
+                    </>
                   )}
                   {!isFiltered && !isDimmed && (
                     <text
                       x={pos.x}
-                      y={pos.y + (supervisor.photoUrl ? photoR + 2 : size / 2) + 12}
+                      y={pos.y + photoR + 14}
                       textAnchor="middle"
                       className="fill-foreground text-[9px] font-medium pointer-events-none select-none"
                     >
@@ -756,8 +759,13 @@ export function GraphView() {
           Project
         </div>
         <div className="flex items-center gap-2 text-muted-foreground">
-          <svg width="12" height="12">
-            <rect x="1" y="1" width="10" height="10" rx="2" fill="#94a3b8" />
+          <svg width="12" height="12" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="11" fill="#e2e8f0" stroke="#94a3b8" strokeWidth="1" />
+            <clipPath id="legend-sup-clip"><circle cx="12" cy="12" r="11" /></clipPath>
+            <g clipPath="url(#legend-sup-clip)">
+              <circle cx="12" cy="9" r="4" fill="#94a3b8" />
+              <ellipse cx="12" cy="22" rx="8" ry="6" fill="#94a3b8" />
+            </g>
           </svg>
           Supervisor
         </div>
@@ -817,6 +825,7 @@ export function GraphView() {
                 toggleShortlist((hoveredNode.data as Project).id);
               }
             }}
+            projects={projects}
           />
         </div>
       )}

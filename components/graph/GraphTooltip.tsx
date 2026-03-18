@@ -15,6 +15,7 @@ interface GraphTooltipProps {
   y: number;
   isShortlisted: boolean;
   onToggleShortlist: () => void;
+  projects?: Project[];
 }
 
 export function GraphTooltip({
@@ -23,10 +24,16 @@ export function GraphTooltip({
   y,
   isShortlisted,
   onToggleShortlist,
+  projects,
 }: GraphTooltipProps) {
   const isProject = node.type === "project";
   const project = isProject ? (node.data as Project) : null;
   const supervisor = !isProject ? (node.data as Supervisor) : null;
+
+  // Get supervisor's projects
+  const supervisorProjects = supervisor && projects
+    ? projects.filter((p) => p.supervisor === supervisor.name)
+    : [];
 
   return (
     <div
@@ -76,9 +83,22 @@ export function GraphTooltip({
               <ThemeBadge key={t} theme={t} />
             ))}
           </div>
-          <p className="text-xs text-muted-foreground">
-            {supervisor.projectCount} projects
-          </p>
+          {supervisorProjects.length > 0 && (
+            <div className="pt-1 border-t border-border/40 space-y-1">
+              <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">
+                Projects
+              </p>
+              {supervisorProjects.map((p) => (
+                <p
+                  key={p.id}
+                  className="text-xs text-muted-foreground leading-snug line-clamp-1"
+                  title={p.title}
+                >
+                  {p.title}
+                </p>
+              ))}
+            </div>
+          )}
         </div>
       )}
     </div>

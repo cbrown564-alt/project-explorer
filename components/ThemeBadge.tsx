@@ -5,8 +5,7 @@ export function ThemeBadge({ theme }: { theme: string }) {
   const colors = THEME_COLORS[theme] || THEME_COLORS["Other"];
   return (
     <Badge
-      variant="outline"
-      className={`${colors.bg} ${colors.text} ${colors.border} text-xs font-medium`}
+      className={`${colors.bg} ${colors.text} border-transparent text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full shadow-sm hover:${colors.bg} hover:brightness-95 transition-all`}
     >
       {theme}
     </Badge>

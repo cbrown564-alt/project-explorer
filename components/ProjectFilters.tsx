@@ -110,7 +110,7 @@ export function ProjectFilters({
                     isDimmed
                       ? "opacity-30 grayscale hover:opacity-70 hover:grayscale-0"
                       : "opacity-100"
-                  } ${isSelected ? "ring-2 ring-primary/30 ring-offset-1 scale-105" : ""}`}
+                  } ${isSelected ? "ring-2 ring-inset ring-primary/40 scale-105" : ""}`}
                 >
                   <ThemeBadge theme={theme} />
                 </button>

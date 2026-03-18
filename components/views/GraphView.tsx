@@ -744,6 +744,48 @@ export function GraphView() {
               </g>
             );
           })}
+
+          {/* Project title labels when hovering a supervisor */}
+          {hoveredNode?.type === "supervisor" &&
+            hoveredNeighbors &&
+            graphData.nodes
+              .filter(
+                (n) =>
+                  n.type === "project" &&
+                  n.id !== hoveredNode.id &&
+                  hoveredNeighbors.has(n.id)
+              )
+              .map((n) => {
+                const pos = positions.get(n.id);
+                if (!pos) return null;
+                const r = getNodeRadius(n);
+                const title = (n.data as Project).title;
+                // Truncate long titles
+                const label =
+                  title.length > 40 ? title.slice(0, 38) + "…" : title;
+                return (
+                  <g key={`label-${n.id}`} className="pointer-events-none">
+                    <rect
+                      x={pos.x - 4}
+                      y={pos.y - r - 22}
+                      width={label.length * 4.5 + 12}
+                      height={18}
+                      rx={6}
+                      fill="var(--color-card)"
+                      stroke="var(--color-border)"
+                      strokeWidth={0.5}
+                      opacity={0.95}
+                    />
+                    <text
+                      x={pos.x + 2}
+                      y={pos.y - r - 10}
+                      className="fill-foreground text-[9px] font-medium select-none"
+                    >
+                      {label}
+                    </text>
+                  </g>
+                );
+              })}
         </g>
       </svg>
 
@@ -825,7 +867,6 @@ export function GraphView() {
                 toggleShortlist((hoveredNode.data as Project).id);
               }
             }}
-            projects={projects}
           />
         </div>
       )}

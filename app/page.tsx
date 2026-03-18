@@ -11,7 +11,7 @@ import { useShortlist } from "@/lib/hooks";
 import type { Project, Supervisor } from "@/lib/types";
 import projectsData from "@/data/projects.json";
 import supervisorsData from "@/data/supervisors.json";
-import { GraduationCap, Sparkles } from "lucide-react";
+import { GraduationCap } from "lucide-react";
 
 const projects = projectsData as Project[];
 const supervisors = supervisorsData as Supervisor[];
@@ -26,6 +26,7 @@ export default function Home() {
   const [industrialOnly, setIndustrialOnly] = useState(false);
   const [supervisorModal, setSupervisorModal] = useState<string | null>(null);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [sortBy, setSortBy] = useState<"default" | "title" | "supervisor" | "theme">("default");
   const { shortlist, toggle, clear, isShortlisted } = useShortlist();
   const cardRefs = useRef<Map<number, HTMLDivElement>>(new Map());
 
@@ -37,7 +38,7 @@ export default function Home() {
 
   const filteredProjects = useMemo(() => {
     const searchLower = search.toLowerCase();
-    return projects.filter((p) => {
+    const filtered = projects.filter((p) => {
       if (
         search &&
         !p.title.toLowerCase().includes(searchLower) &&
@@ -53,7 +54,13 @@ export default function Home() {
       if (industrialOnly && !p.industrial) return false;
       return true;
     });
-  }, [search, selectedThemes, selectedSupervisor, industrialOnly]);
+
+    if (sortBy === "title") filtered.sort((a, b) => a.title.localeCompare(b.title));
+    else if (sortBy === "supervisor") filtered.sort((a, b) => a.supervisor.localeCompare(b.supervisor));
+    else if (sortBy === "theme") filtered.sort((a, b) => a.theme.localeCompare(b.theme));
+
+    return filtered;
+  }, [search, selectedThemes, selectedSupervisor, industrialOnly, sortBy]);
 
   const handleProjectClick = useCallback((id: number) => {
     setTimeout(() => {
@@ -74,7 +81,7 @@ export default function Home() {
   );
 
   return (
-    <div className="min-h-screen bg-background font-sans pb-20">
+    <div className="min-h-screen pb-20">
       <main className="max-w-7xl mx-auto px-4 sm:px-6 py-8 space-y-8">
         {/* Subtle Page Header */}
         <section className="animate-in fade-in slide-in-from-bottom-4 duration-500 mb-2">
@@ -104,7 +111,7 @@ export default function Home() {
 
         {/* Sticky Filters & Controls Bar */}
         <section className="sticky top-4 z-40">
-          <div className="bg-card/90 backdrop-blur-xl p-4 md:px-6 rounded-2xl shadow-sm border border-border/40 animate-in fade-in zoom-in-95 duration-500 delay-100">
+          <div className="bg-card/90 backdrop-blur-xl p-4 md:px-6 rounded-xl shadow-sm border border-border/40 animate-in fade-in zoom-in-95 duration-500 delay-100">
             <ProjectFilters
               search={search}
               onSearchChange={setSearch}
@@ -117,6 +124,8 @@ export default function Home() {
               supervisors={supervisorNames}
               resultCount={filteredProjects.length}
               totalCount={projects.length}
+              sortBy={sortBy}
+              onSortChange={setSortBy}
             />
           </div>
         </section>

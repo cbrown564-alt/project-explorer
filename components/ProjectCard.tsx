@@ -10,7 +10,6 @@ import {
   Star,
   Building2,
   User,
-  ArrowRight
 } from "lucide-react";
 
 interface ProjectCardProps {
@@ -31,19 +30,23 @@ export function ProjectCard({
   compact = false,
 }: ProjectCardProps) {
   return (
-    <motion.div layout className="h-full">
+    <motion.div layout className={compact ? "" : "h-full"}>
       <Card
         onClick={() => onSelect?.(project)}
-        className={`flex flex-col h-full transition-all duration-300 rounded-[1.5rem] border-transparent shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgb(255,255,255,0.02)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] dark:hover:shadow-[0_8px_30px_rgb(255,255,255,0.05)] hover:-translate-y-1 cursor-pointer group ${
+        className={`flex flex-col transition-all duration-300 rounded-xl border-transparent shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgb(255,255,255,0.02)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] dark:hover:shadow-[0_8px_30px_rgb(255,255,255,0.05)] hover:-translate-y-1 cursor-pointer group ${
+          compact ? "" : "h-full"
+        } ${
           isShortlisted
             ? "ring-2 ring-primary/20 bg-primary/5"
             : "bg-white dark:bg-card"
         }`}
       >
-        <CardHeader className="pb-0 pt-6 px-6 relative flex-none">
-          <div className="flex items-start justify-between gap-4">
+        <CardHeader className={`${compact ? "p-4 pb-0" : "pb-0 pt-5 px-5"} relative flex-none`}>
+          <div className="flex items-start justify-between gap-3">
             <h3
-              className="font-heading font-bold text-lg leading-snug text-foreground tracking-tight line-clamp-3 min-h-[4rem]"
+              className={`font-heading font-bold leading-snug text-foreground tracking-tight ${
+                compact ? "text-base line-clamp-2" : "text-[1.05rem] line-clamp-3"
+              }`}
               title={project.title}
             >
               {project.title}
@@ -51,7 +54,9 @@ export function ProjectCard({
             <Button
               variant="ghost"
               size="icon"
-              className={`shrink-0 h-10 w-10 -mr-2 -mt-2 rounded-full transition-colors z-10 ${
+              className={`shrink-0 -mr-2 -mt-2 rounded-full transition-colors z-10 ${
+                compact ? "h-8 w-8" : "h-9 w-9"
+              } ${
                 isShortlisted
                   ? "text-amber-500 bg-amber-500/10 hover:bg-amber-500/20 hover:text-amber-600 dark:text-amber-400 dark:bg-amber-400/10"
                   : "text-muted-foreground hover:text-amber-500 hover:bg-amber-500/10"
@@ -62,15 +67,15 @@ export function ProjectCard({
               }}
             >
               <Star
-                className="h-5 w-5 transition-transform active:scale-75"
+                className={`${compact ? "h-4 w-4" : "h-4.5 w-4.5"} transition-transform active:scale-75`}
                 fill={isShortlisted ? "currentColor" : "none"}
               />
             </Button>
           </div>
         </CardHeader>
-        
-        <CardContent className="px-6 pb-6 pt-4 flex-1 flex flex-col justify-between">
-          <div className="space-y-5">
+
+        <CardContent className={`${compact ? "p-4 pt-3" : "px-5 pb-5 pt-3"} flex-1 flex flex-col justify-between`}>
+          <div className={`${compact ? "space-y-3" : "space-y-3"}`}>
             <div className="flex flex-wrap items-center gap-2">
               <button
                 onClick={(e) => {
@@ -94,31 +99,29 @@ export function ProjectCard({
             </div>
 
             {!compact && (
-              <div className="flex flex-wrap gap-2">
+              <p className="text-[13px] leading-relaxed text-muted-foreground line-clamp-2">
+                {project.description}
+              </p>
+            )}
+
+            {!compact && (
+              <div className="flex flex-wrap gap-1.5">
                 {project.keywords.slice(0, 4).map((kw) => (
-                  <Badge
+                  <span
                     key={kw}
-                    variant="secondary"
-                    className="text-[11px] font-semibold bg-secondary/60 text-secondary-foreground rounded-full px-2.5 py-1 border-transparent"
+                    className="text-[10px] font-medium text-muted-foreground/70 bg-secondary/40 rounded-md px-2 py-0.5"
                   >
                     {kw}
-                  </Badge>
+                  </span>
                 ))}
                 {project.keywords.length > 4 && (
-                  <Badge variant="outline" className="text-[11px] font-semibold text-muted-foreground rounded-full px-2.5 py-1 border-border/50 bg-transparent">
+                  <span className="text-[10px] font-medium text-muted-foreground/50 px-1 py-0.5">
                     +{project.keywords.length - 4}
-                  </Badge>
+                  </span>
                 )}
               </div>
             )}
           </div>
-          
-          {!compact && (
-            <div className="mt-6 flex items-center text-xs font-bold text-muted-foreground group-hover:text-primary transition-colors">
-              <span>View details</span>
-              <ArrowRight className="h-3.5 w-3.5 ml-1.5 transition-transform group-hover:translate-x-1" />
-            </div>
-          )}
         </CardContent>
       </Card>
     </motion.div>

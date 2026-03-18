@@ -10,7 +10,7 @@ import { Badge } from "@/components/ui/badge";
 import { ThemeBadge } from "@/components/ThemeBadge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import type { Project } from "@/lib/types";
-import { User, Building2, Mail, Network } from "lucide-react";
+import { User, Building2, Mail, Network, Star } from "lucide-react";
 import { useExplorer } from "@/lib/explorer-context";
 
 interface ProjectDetailsPanelProps {
@@ -26,7 +26,7 @@ export function ProjectDetailsPanel({
   onSupervisorClick,
   supervisorPhotoUrl,
 }: ProjectDetailsPanelProps) {
-  const { highlightNodeInGraph } = useExplorer();
+  const { highlightNodeInGraph, isShortlisted, toggleShortlist } = useExplorer();
 
   // Split description into distinct paragraphs to create proper reading spacing
   const descriptionParagraphs = project?.description
@@ -52,14 +52,30 @@ export function ProjectDetailsPanel({
               {/* Background accent */}
               <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-primary/5 to-transparent pointer-events-none rounded-tl-3xl z-0"></div>
 
-              <div className="flex flex-wrap gap-2 mb-6 relative z-10">
-                <ThemeBadge theme={project.theme} />
-                {project.industrial && (
-                  <Badge className="bg-orange-100 text-orange-700 hover:bg-orange-200 dark:bg-orange-950 dark:text-orange-400 border-none px-2.5 py-1 rounded-full text-[10px] items-center font-bold uppercase tracking-wider shadow-sm">
-                    <Building2 className="h-3 w-3 mr-1" />
-                    {project.industrial}
-                  </Badge>
-                )}
+              <div className="flex items-center gap-2 mb-6 relative z-10">
+                <div className="flex flex-wrap gap-2 flex-1">
+                  <ThemeBadge theme={project.theme} />
+                  {project.industrial && (
+                    <Badge className="bg-orange-100 text-orange-700 hover:bg-orange-200 dark:bg-orange-950 dark:text-orange-400 border-none px-2.5 py-1 rounded-full text-[10px] items-center font-bold uppercase tracking-wider shadow-sm">
+                      <Building2 className="h-3 w-3 mr-1" />
+                      {project.industrial}
+                    </Badge>
+                  )}
+                </div>
+                <button
+                  onClick={() => toggleShortlist(project.id)}
+                  className={`shrink-0 h-9 w-9 rounded-full flex items-center justify-center transition-colors ${
+                    isShortlisted(project.id)
+                      ? "text-amber-500 bg-amber-500/10 hover:bg-amber-500/20"
+                      : "text-muted-foreground hover:text-amber-500 hover:bg-amber-500/10"
+                  }`}
+                  title={isShortlisted(project.id) ? "Remove from shortlist" : "Add to shortlist"}
+                >
+                  <Star
+                    className="h-5 w-5 transition-transform active:scale-75"
+                    fill={isShortlisted(project.id) ? "currentColor" : "none"}
+                  />
+                </button>
               </div>
 
               {/* Title size optimized so it limits awkward wrapping */}

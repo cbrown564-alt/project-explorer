@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, useMemo, useCallback } from "react";
-import { zoom, zoomIdentity, type ZoomBehavior } from "d3-zoom";
+import { zoom, type ZoomBehavior, type ZoomTransform } from "d3-zoom";
 import { select } from "d3-selection";
 import { useExplorer } from "@/lib/explorer-context";
 import { buildGraphData, type GraphNode } from "@/lib/graph-data";
@@ -29,6 +29,8 @@ export function GraphView() {
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
   const [hoveredNode, setHoveredNode] = useState<GraphNode | null>(null);
   const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 });
+  const hideTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const transformRef = useRef<ZoomTransform | null>(null);
 
   // Build graph data
   const graphData = useMemo(
@@ -87,6 +89,7 @@ export function GraphView() {
     >()
       .scaleExtent([0.3, 4])
       .on("zoom", (event) => {
+        transformRef.current = event.transform;
         gEl.setAttribute("transform", event.transform.toString());
       });
 
@@ -115,19 +118,40 @@ export function GraphView() {
     [setSelectedProject, setSupervisorModal]
   );
 
-  const handleNodeHover = useCallback(
-    (node: GraphNode | null, event?: React.MouseEvent) => {
-      setHoveredNode(node);
-      if (node && event && containerRef.current) {
-        const rect = containerRef.current.getBoundingClientRect();
-        setTooltipPos({
-          x: event.clientX - rect.left,
-          y: event.clientY - rect.top,
-        });
+  // Tooltip hover: position based on node's simulation position (stable),
+  // transformed through the current zoom transform. Debounce hide to prevent flicker.
+  const showTooltip = useCallback(
+    (node: GraphNode) => {
+      if (hideTimeoutRef.current) {
+        clearTimeout(hideTimeoutRef.current);
+        hideTimeoutRef.current = null;
       }
+      const pos = positions.get(node.id);
+      if (!pos) return;
+
+      // Apply zoom transform to get screen-space coordinates
+      const t = transformRef.current;
+      const screenX = t ? t.applyX(pos.x) : pos.x;
+      const screenY = t ? t.applyY(pos.y) : pos.y;
+
+      setHoveredNode(node);
+      setTooltipPos({ x: screenX, y: screenY });
     },
-    []
+    [positions]
   );
+
+  const hideTooltip = useCallback(() => {
+    hideTimeoutRef.current = setTimeout(() => {
+      setHoveredNode(null);
+    }, 150);
+  }, []);
+
+  // Cleanup timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (hideTimeoutRef.current) clearTimeout(hideTimeoutRef.current);
+    };
+  }, []);
 
   // Mobile fallback
   const isMobile = dimensions.width > 0 && dimensions.width < 768;
@@ -182,13 +206,13 @@ export function GraphView() {
                 y1={sourcePos.y}
                 x2={targetPos.x}
                 y2={targetPos.y}
-                stroke={
-                  link.type === "supervisor"
-                    ? "var(--color-border)"
-                    : "var(--color-border)"
+                stroke="var(--color-border)"
+                strokeWidth={
+                  link.type === "keyword" ? Math.min(link.weight, 3) : 0.5
                 }
-                strokeWidth={link.type === "keyword" ? 1 : 0.5}
-                opacity={isFiltered ? 0.05 : link.type === "keyword" ? 0.3 : 0.15}
+                opacity={
+                  isFiltered ? 0.05 : link.type === "keyword" ? 0.4 : 0.15
+                }
               />
             );
           })}
@@ -222,10 +246,10 @@ export function GraphView() {
                     rx={4}
                     fill={color}
                     opacity={isFiltered ? 0.15 : 0.9}
-                    className="cursor-pointer transition-opacity"
+                    className="cursor-pointer"
                     onClick={() => handleNodeClick(node)}
-                    onMouseEnter={(e) => handleNodeHover(node, e)}
-                    onMouseLeave={() => handleNodeHover(null)}
+                    onMouseEnter={() => showTooltip(node)}
+                    onMouseLeave={hideTooltip}
                   />
                   {!isFiltered && (
                     <text
@@ -234,7 +258,10 @@ export function GraphView() {
                       textAnchor="middle"
                       className="fill-foreground text-[9px] font-medium pointer-events-none select-none"
                     >
-                      {(node.data as Supervisor).name.split(" ").slice(0, 2).join(" ")}
+                      {(node.data as Supervisor).name
+                        .split(" ")
+                        .slice(0, 2)
+                        .join(" ")}
                     </text>
                   )}
                 </g>
@@ -260,10 +287,10 @@ export function GraphView() {
                   r={radius}
                   fill={color}
                   opacity={isFiltered ? 0.15 : 0.85}
-                  className="cursor-pointer transition-opacity"
+                  className="cursor-pointer"
                   onClick={() => handleNodeClick(node)}
-                  onMouseEnter={(e) => handleNodeHover(node, e)}
-                  onMouseLeave={() => handleNodeHover(null)}
+                  onMouseEnter={() => showTooltip(node)}
+                  onMouseLeave={hideTooltip}
                 />
               </g>
             );
@@ -273,7 +300,9 @@ export function GraphView() {
 
       {/* Legend */}
       <div className="absolute bottom-4 left-4 bg-white/90 dark:bg-card/90 backdrop-blur-sm border border-border/40 rounded-xl p-3 text-xs space-y-2">
-        <div className="font-heading font-bold text-foreground mb-1">Legend</div>
+        <div className="font-heading font-bold text-foreground mb-1">
+          Legend
+        </div>
         <div className="flex items-center gap-2 text-muted-foreground">
           <svg width="12" height="12">
             <circle cx="6" cy="6" r="5" fill="#94a3b8" />
@@ -305,22 +334,32 @@ export function GraphView() {
         </div>
       )}
 
-      {/* Tooltip */}
+      {/* Tooltip — positioned at node location, not mouse cursor */}
       {hoveredNode && (
-        <GraphTooltip
-          node={hoveredNode}
-          x={tooltipPos.x}
-          y={tooltipPos.y}
-          isShortlisted={
-            hoveredNode.type === "project" &&
-            isShortlisted((hoveredNode.data as Project).id)
-          }
-          onToggleShortlist={() => {
-            if (hoveredNode.type === "project") {
-              toggleShortlist((hoveredNode.data as Project).id);
+        <div
+          onMouseEnter={() => {
+            if (hideTimeoutRef.current) {
+              clearTimeout(hideTimeoutRef.current);
+              hideTimeoutRef.current = null;
             }
           }}
-        />
+          onMouseLeave={hideTooltip}
+        >
+          <GraphTooltip
+            node={hoveredNode}
+            x={tooltipPos.x}
+            y={tooltipPos.y}
+            isShortlisted={
+              hoveredNode.type === "project" &&
+              isShortlisted((hoveredNode.data as Project).id)
+            }
+            onToggleShortlist={() => {
+              if (hoveredNode.type === "project") {
+                toggleShortlist((hoveredNode.data as Project).id);
+              }
+            }}
+          />
+        </div>
       )}
     </div>
   );

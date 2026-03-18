@@ -36,13 +36,23 @@ export function buildGraphData(
     });
   }
 
-  // Create supervisor nodes
+  // Create supervisor nodes — theme derived from majority of their projects
   for (const supervisor of supervisors) {
+    const supProjects = projects.filter((p) => p.supervisor === supervisor.name);
+    const themeCounts: Record<string, number> = {};
+    for (const p of supProjects) {
+      themeCounts[p.theme] = (themeCounts[p.theme] || 0) + 1;
+    }
+    const majorityTheme =
+      Object.entries(themeCounts).sort((a, b) => b[1] - a[1])[0]?.[0] ||
+      supervisor.themes[0] ||
+      "Other";
+
     nodes.push({
       id: `s-${supervisor.name}`,
       type: "supervisor",
       data: supervisor,
-      theme: supervisor.themes[0] || "Other",
+      theme: majorityTheme,
     });
   }
 
@@ -59,14 +69,14 @@ export function buildGraphData(
     }
   }
 
-  // Keyword-based project-project links (threshold: 2+ shared keywords)
+  // Keyword-based project-project links (threshold: 1+ shared keywords)
   for (let i = 0; i < projects.length; i++) {
     const kwA = new Set(projects[i].keywords.map((k) => k.toLowerCase()));
     for (let j = i + 1; j < projects.length; j++) {
       const shared = projects[j].keywords.filter((k) =>
         kwA.has(k.toLowerCase())
       ).length;
-      if (shared >= 2) {
+      if (shared >= 1) {
         links.push({
           source: `p-${projects[i].id}`,
           target: `p-${projects[j].id}`,

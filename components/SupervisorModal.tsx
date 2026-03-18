@@ -77,7 +77,7 @@ export function SupervisorModal({
           <div className="p-4 rounded-2xl bg-white/60 dark:bg-background/40 border border-border/40 shadow-sm relative z-10 mb-6 space-y-3">
             {supervisor.email && (
               <a
-                href={`mailto:${supervisor.email}`}
+                href={`mailto:${supervisor.email}?subject=Inquiry regarding ECS8056 Projects&body=Dear ${encodeURIComponent(supervisor.name)},\n\nI am a student in the 2026 MSc Cohort and I am very interested in your research projects for ECS8056.\n\nI would love to set up a brief meeting to discuss potential supervision.\n\nBest regards,\n[Your Name]`}
                 className="flex items-center gap-3 text-sm text-foreground hover:text-primary transition-colors group"
               >
                 <div className="h-8 w-8 rounded-full bg-secondary flex items-center justify-center shrink-0 border border-border/50 group-hover:bg-primary/10 transition-colors">
@@ -104,7 +104,7 @@ export function SupervisorModal({
           {/* Contact CTA */}
           <div className="mt-auto pt-4 relative z-10">
             <a
-              href={`mailto:${supervisor.email}`}
+              href={`mailto:${supervisor.email}?subject=Inquiry regarding ECS8056 Projects&body=Dear ${encodeURIComponent(supervisor.name)},\n\nI am a student in the 2026 MSc Cohort and I am very interested in your research projects for ECS8056.\n\nI would love to set up a brief meeting to discuss potential supervision.\n\nBest regards,\n[Your Name]`}
               className="flex items-center justify-center gap-2 font-bold w-full bg-primary text-primary-foreground hover:bg-primary/90 transition-all py-3.5 rounded-xl shadow-[0_8px_20px_rgb(var(--primary)_/_0.2)] md:text-sm group"
             >
               <Mail className="h-4 w-4 transition-transform group-hover:-translate-y-0.5" />

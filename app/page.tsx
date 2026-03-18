@@ -40,6 +40,9 @@ function ExplorerContent() {
     clearShortlist,
     isShortlisted,
     shortlistCount,
+    updateNote,
+    reorderShortlist,
+    getNote,
     selectedProject,
     setSelectedProject,
     supervisorModal,
@@ -84,6 +87,9 @@ function ExplorerContent() {
                 isShortlisted={isShortlisted}
                 onSupervisorClick={setSupervisorModal}
                 onCompare={() => navigateToView("compare")}
+                updateNote={updateNote}
+                reorderShortlist={reorderShortlist}
+                getNote={getNote}
               />
             </div>
           </div>

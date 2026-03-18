@@ -86,7 +86,7 @@ export function SupervisorsView() {
                 <div className="flex items-center gap-3 mt-1">
                   {supervisor.email && (
                     <a
-                      href={`mailto:${supervisor.email}`}
+                      href={`mailto:${supervisor.email}?subject=Inquiry regarding ECS8056 Projects&body=Dear ${encodeURIComponent(supervisor.name)},\n\nI am a student in the 2026 MSc Cohort and I am very interested in your research projects for ECS8056.\n\nI would love to set up a brief meeting to discuss potential supervision.\n\nBest regards,\n[Your Name]`}
                       className="flex items-center gap-1 text-xs text-primary hover:underline"
                     >
                       <Mail className="h-3 w-3" />

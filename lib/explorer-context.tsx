@@ -11,7 +11,7 @@ import {
   type ReactNode,
 } from "react";
 import { useShortlist } from "./hooks";
-import type { Project, Supervisor } from "./types";
+import type { Project, Supervisor, ShortlistItem } from "./types";
 import projectsData from "@/data/projects.json";
 import supervisorsData from "@/data/supervisors.json";
 
@@ -44,10 +44,13 @@ interface ExplorerContextValue {
   hasFilters: boolean;
 
   // Shortlist
-  shortlist: number[];
+  shortlist: ShortlistItem[];
   toggleShortlist: (id: number) => void;
+  updateNote: (id: number, note: string) => void;
+  reorderShortlist: (startIndex: number, endIndex: number) => void;
   clearShortlist: () => void;
   isShortlisted: (id: number) => boolean;
+  getNote: (id: number) => string;
   shortlistCount: number;
 
   // Modals
@@ -70,11 +73,6 @@ interface ExplorerContextValue {
 const ExplorerContext = createContext<ExplorerContextValue | null>(null);
 
 function getInitialView(): ViewId {
-  if (typeof window === "undefined") return "projects";
-  const hash = window.location.hash.replace("#", "");
-  if (["explore", "projects", "supervisors", "compare"].includes(hash)) {
-    return hash as ViewId;
-  }
   return "projects";
 }
 
@@ -87,7 +85,7 @@ export function ExplorerProvider({ children }: { children: ReactNode }) {
   const [supervisorModal, setSupervisorModal] = useState<string | null>(null);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [activeView, setActiveViewState] = useState<ViewId>(getInitialView);
-  const { shortlist, toggle, clear, isShortlisted, count } = useShortlist();
+  const { shortlist, toggle, updateNote, reorder, clear, isShortlisted, getNote, count } = useShortlist();
   const cardRefs = useRef<Map<number, HTMLDivElement>>(new Map());
 
   const handleThemeToggle = useCallback((theme: string) => {
@@ -144,6 +142,7 @@ export function ExplorerProvider({ children }: { children: ReactNode }) {
         setActiveViewState(hash as ViewId);
       }
     };
+    onHash();
     window.addEventListener("hashchange", onHash);
     return () => window.removeEventListener("hashchange", onHash);
   }, []);
@@ -194,8 +193,11 @@ export function ExplorerProvider({ children }: { children: ReactNode }) {
     hasFilters,
     shortlist,
     toggleShortlist: toggle,
+    updateNote,
+    reorderShortlist: reorder,
     clearShortlist: clear,
     isShortlisted,
+    getNote,
     shortlistCount: count,
     selectedProject,
     setSelectedProject,

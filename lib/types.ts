@@ -19,6 +19,11 @@ export interface Supervisor {
   photoUrl: string | null;
 }
 
+export interface ShortlistItem {
+  id: number;
+  note: string;
+}
+
 export const THEME_COLORS: Record<string, { bg: string; text: string; border: string }> = {
   "Machine Learning": { bg: "bg-blue-50 dark:bg-blue-950", text: "text-blue-800 dark:text-blue-300", border: "border-blue-200 dark:border-blue-800" },
   "Computer Vision": { bg: "bg-purple-50 dark:bg-purple-950", text: "text-purple-800 dark:text-purple-300", border: "border-purple-200 dark:border-purple-800" },

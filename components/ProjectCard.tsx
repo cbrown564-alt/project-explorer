@@ -41,7 +41,7 @@ export function ProjectCard({
             : "bg-white dark:bg-card"
         }`}
       >
-        <CardHeader className={`${compact ? "p-4 pb-0" : "pb-0 pt-5 px-5"} relative flex-none`}>
+        <CardHeader className={`${compact ? "p-3 pb-0" : "pb-0 pt-5 px-5"} relative flex-none`}>
           <div className="flex items-start justify-between gap-3">
             <h3
               className={`font-heading font-bold leading-snug text-foreground tracking-tight ${
@@ -74,8 +74,8 @@ export function ProjectCard({
           </div>
         </CardHeader>
 
-        <CardContent className={`${compact ? "p-4 pt-3" : "px-5 pb-5 pt-3"} flex-1 flex flex-col justify-between`}>
-          <div className={`${compact ? "space-y-3" : "space-y-3"}`}>
+        <CardContent className={`${compact ? "p-3 pt-2" : "px-5 pb-5 pt-3"} flex-1 flex flex-col justify-between`}>
+          <div className={`${compact ? "space-y-2" : "space-y-3"}`}>
             <div className="flex flex-wrap items-center gap-2">
               <button
                 onClick={(e) => {

@@ -6,6 +6,7 @@ import { ThemeBadge } from "@/components/ThemeBadge";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ProjectCard } from "@/components/ProjectCard";
+import type { Project } from "@/lib/types";
 import { getRelatedProjects } from "@/lib/graph-data";
 import {
   Star,
@@ -27,7 +28,7 @@ export function CompareView() {
   } = useExplorer();
 
   const shortlistedProjects = useMemo(
-    () => projects.filter((p) => shortlist.includes(p.id)),
+    () => shortlist.map(item => projects.find(p => p.id === item.id)).filter(Boolean) as Project[],
     [projects, shortlist]
   );
 
@@ -39,7 +40,7 @@ export function CompareView() {
     for (const sp of shortlistedProjects) {
       const related = getRelatedProjects(sp.id, projects);
       related.forEach((p, idx) => {
-        if (!shortlist.includes(p.id)) {
+        if (!isShortlisted(p.id)) {
           scoreMap.set(p.id, (scoreMap.get(p.id) || 0) + (related.length - idx));
         }
       });

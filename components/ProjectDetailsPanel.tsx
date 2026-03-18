@@ -16,12 +16,14 @@ interface ProjectDetailsPanelProps {
   project: Project | null;
   onClose: () => void;
   onSupervisorClick: (name: string) => void;
+  supervisorPhotoUrl?: string | null;
 }
 
 export function ProjectDetailsPanel({
   project,
   onClose,
   onSupervisorClick,
+  supervisorPhotoUrl,
 }: ProjectDetailsPanelProps) {
   // Split description into distinct paragraphs to create proper reading spacing
   const descriptionParagraphs = project?.description
@@ -64,9 +66,17 @@ export function ProjectDetailsPanel({
 
               {/* Refined Supervisor Layout */}
               <div className="flex items-start gap-4 mb-8 p-4 rounded-2xl bg-white/60 dark:bg-background/40 border border-border/40 shadow-sm relative z-10 transition-colors hover:bg-white dark:hover:bg-background/60">
-                <div className="h-10 w-10 mt-0.5 rounded-full bg-secondary flex items-center justify-center shrink-0 text-muted-foreground border border-border/50 shadow-inner">
-                   <User className="h-5 w-5" />
-                </div>
+                {supervisorPhotoUrl ? (
+                  <img
+                    src={supervisorPhotoUrl}
+                    alt={project.supervisor}
+                    className="h-10 w-10 mt-0.5 rounded-full object-cover shrink-0 border border-border/50 shadow-sm"
+                  />
+                ) : (
+                  <div className="h-10 w-10 mt-0.5 rounded-full bg-secondary flex items-center justify-center shrink-0 text-muted-foreground border border-border/50 shadow-inner">
+                    <User className="h-5 w-5" />
+                  </div>
+                )}
                 <div className="flex-1">
                   <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1.5 opacity-80">
                     Supervisor

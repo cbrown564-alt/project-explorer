@@ -48,9 +48,17 @@ export function SupervisorModal({
 
           {/* Avatar + Name */}
           <div className="flex items-start gap-4 mb-6 relative z-10">
-            <div className="h-14 w-14 rounded-full bg-secondary flex items-center justify-center shrink-0 text-muted-foreground border border-border/50 shadow-inner">
-              <User className="h-7 w-7" />
-            </div>
+            {supervisor.photoUrl ? (
+              <img
+                src={supervisor.photoUrl}
+                alt={supervisor.name}
+                className="h-14 w-14 rounded-full object-cover shrink-0 border border-border/50 shadow-sm"
+              />
+            ) : (
+              <div className="h-14 w-14 rounded-full bg-secondary flex items-center justify-center shrink-0 text-muted-foreground border border-border/50 shadow-inner">
+                <User className="h-7 w-7" />
+              </div>
+            )}
             <div className="flex-1 min-w-0">
               <h2 className="font-heading text-xl lg:text-2xl font-extrabold leading-tight text-foreground tracking-tight">
                 {supervisor.name}

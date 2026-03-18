@@ -16,6 +16,7 @@ export interface Supervisor {
   themes: string[];
   projects: number[];
   pureUrl: string;
+  photoUrl: string | null;
 }
 
 export const THEME_COLORS: Record<string, { bg: string; text: string; border: string }> = {

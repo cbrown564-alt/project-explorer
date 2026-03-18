@@ -68,9 +68,17 @@ export function SupervisorsView() {
             }`}
           >
             <div className="flex items-start gap-3 mb-3">
-              <div className="h-10 w-10 rounded-full bg-secondary flex items-center justify-center shrink-0 border border-border/50">
-                <User className="h-5 w-5 text-muted-foreground" />
-              </div>
+              {supervisor.photoUrl ? (
+                <img
+                  src={supervisor.photoUrl}
+                  alt={supervisor.name}
+                  className="h-10 w-10 rounded-full object-cover shrink-0 border border-border/50 shadow-sm"
+                />
+              ) : (
+                <div className="h-10 w-10 rounded-full bg-secondary flex items-center justify-center shrink-0 border border-border/50">
+                  <User className="h-5 w-5 text-muted-foreground" />
+                </div>
+              )}
               <div className="flex-1 min-w-0">
                 <h3 className="font-heading text-base font-bold text-foreground truncate">
                   {supervisor.name}

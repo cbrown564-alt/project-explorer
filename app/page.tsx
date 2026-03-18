@@ -175,6 +175,12 @@ function ExplorerContent() {
         project={selectedProject}
         onClose={() => setSelectedProject(null)}
         onSupervisorClick={setSupervisorModal}
+        supervisorPhotoUrl={
+          selectedProject
+            ? supervisors.find((s) => s.name === selectedProject.supervisor)
+                ?.photoUrl ?? null
+            : null
+        }
       />
     </div>
   );

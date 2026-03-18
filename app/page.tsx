@@ -6,6 +6,7 @@ import { ProjectFilters } from "@/components/ProjectFilters";
 import { ShortlistPanel } from "@/components/ShortlistPanel";
 import { SupervisorModal } from "@/components/SupervisorModal";
 import { InfoPanel } from "@/components/InfoPanel";
+import { ProjectDetailsPanel } from "@/components/ProjectDetailsPanel";
 import { useShortlist } from "@/lib/hooks";
 import type { Project, Supervisor } from "@/lib/types";
 import projectsData from "@/data/projects.json";
@@ -24,6 +25,7 @@ export default function Home() {
   );
   const [industrialOnly, setIndustrialOnly] = useState(false);
   const [supervisorModal, setSupervisorModal] = useState<string | null>(null);
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const { shortlist, toggle, clear, isShortlisted } = useShortlist();
   const cardRefs = useRef<Map<number, HTMLDivElement>>(new Map());
 
@@ -149,6 +151,7 @@ export default function Home() {
                     isShortlisted={isShortlisted(project.id)}
                     onToggleShortlist={toggle}
                     onSupervisorClick={setSupervisorModal}
+                    onSelect={setSelectedProject}
                   />
                 </div>
               ))}
@@ -163,6 +166,11 @@ export default function Home() {
         open={!!supervisorModal}
         onClose={() => setSupervisorModal(null)}
         onProjectClick={handleProjectClick}
+      />
+      <ProjectDetailsPanel
+        project={selectedProject}
+        onClose={() => setSelectedProject(null)}
+        onSupervisorClick={setSupervisorModal}
       />
     </div>
   );

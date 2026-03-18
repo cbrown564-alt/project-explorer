@@ -1,19 +1,16 @@
 "use client";
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ThemeBadge } from "@/components/ThemeBadge";
 import type { Project } from "@/lib/types";
 import {
-  ChevronDown,
-  ChevronUp,
   Star,
   Building2,
-  Mail,
   User,
+  ArrowRight
 } from "lucide-react";
 
 interface ProjectCardProps {
@@ -21,6 +18,7 @@ interface ProjectCardProps {
   isShortlisted: boolean;
   onToggleShortlist: (id: number) => void;
   onSupervisorClick: (name: string) => void;
+  onSelect?: (project: Project) => void;
   compact?: boolean;
 }
 
@@ -29,56 +27,39 @@ export function ProjectCard({
   isShortlisted,
   onToggleShortlist,
   onSupervisorClick,
+  onSelect,
   compact = false,
 }: ProjectCardProps) {
-  const [expanded, setExpanded] = useState(false);
-
   return (
     <motion.div layout className="h-full">
       <Card
-        className={`flex flex-col h-full transition-all duration-300 rounded-[1.5rem] border shadow-sm hover:shadow-lg ${
+        onClick={() => onSelect?.(project)}
+        className={`flex flex-col h-full transition-all duration-300 rounded-[1.5rem] border-transparent shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgb(255,255,255,0.02)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] dark:hover:shadow-[0_8px_30px_rgb(255,255,255,0.05)] hover:-translate-y-1 cursor-pointer group ${
           isShortlisted
-            ? "ring-4 ring-primary/20 bg-primary/5 border-primary/20"
-            : "bg-white dark:bg-card border-border/40"
+            ? "ring-2 ring-primary/20 bg-primary/5"
+            : "bg-white dark:bg-card"
         }`}
       >
-        <CardHeader className="pb-3 pt-6 px-6">
-          <div className="flex items-start justify-between gap-3">
-            <div className="flex-1 min-w-0">
-              <h3
-                className="font-heading font-bold text-lg leading-snug mb-3 text-foreground tracking-tight line-clamp-3"
-                title={project.title}
-              >
-                {project.title}
-              </h3>
-              <div className="flex flex-wrap items-center gap-2">
-                <button
-                  onClick={() => onSupervisorClick(project.supervisor)}
-                  className="flex items-center gap-1.5 text-xs font-semibold text-muted-foreground hover:text-primary transition-colors bg-secondary/50 px-2.5 py-1 rounded-full"
-                >
-                  <User className="h-3 w-3" />
-                  {project.supervisor}
-                </button>
-                <ThemeBadge theme={project.theme} />
-                {project.industrial && (
-                  <Badge
-                    className="bg-orange-100 text-orange-700 hover:bg-orange-200 dark:bg-orange-950 dark:text-orange-400 border-none px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider"
-                  >
-                    <Building2 className="h-3 w-3 mr-1" />
-                    {project.industrial}
-                  </Badge>
-                )}
-              </div>
-            </div>
+        <CardHeader className="pb-0 pt-6 px-6 relative flex-none">
+          <div className="flex items-start justify-between gap-4">
+            <h3
+              className="font-heading font-bold text-lg leading-snug text-foreground tracking-tight line-clamp-3 min-h-[4rem]"
+              title={project.title}
+            >
+              {project.title}
+            </h3>
             <Button
               variant="ghost"
               size="icon"
-              className={`shrink-0 h-10 w-10 rounded-full transition-colors ${
+              className={`shrink-0 h-10 w-10 -mr-2 -mt-2 rounded-full transition-colors z-10 ${
                 isShortlisted
-                  ? "text-primary bg-primary/10 hover:bg-primary/20 hover:text-primary"
-                  : "text-muted-foreground hover:text-primary hover:bg-primary/5"
+                  ? "text-amber-500 bg-amber-500/10 hover:bg-amber-500/20 hover:text-amber-600 dark:text-amber-400 dark:bg-amber-400/10"
+                  : "text-muted-foreground hover:text-amber-500 hover:bg-amber-500/10"
               }`}
-              onClick={() => onToggleShortlist(project.id)}
+              onClick={(e) => {
+                e.stopPropagation();
+                onToggleShortlist(project.id);
+              }}
             >
               <Star
                 className="h-5 w-5 transition-transform active:scale-75"
@@ -87,70 +68,58 @@ export function ProjectCard({
             </Button>
           </div>
         </CardHeader>
-        {!compact && (
-          <CardContent className="px-6 pb-6 pt-0 flex-1 flex flex-col">
-            <div className="flex flex-wrap gap-2 mb-4 mt-2">
-              {project.keywords.slice(0, expanded ? undefined : 4).map((kw) => (
+        
+        <CardContent className="px-6 pb-6 pt-4 flex-1 flex flex-col justify-between">
+          <div className="space-y-5">
+            <div className="flex flex-wrap items-center gap-2">
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onSupervisorClick(project.supervisor);
+                }}
+                className="flex items-center gap-1.5 text-xs font-semibold text-muted-foreground hover:text-primary transition-colors bg-secondary/50 px-2.5 py-1 rounded-full z-10"
+              >
+                <User className="h-3 w-3" />
+                {project.supervisor}
+              </button>
+              <ThemeBadge theme={project.theme} />
+              {project.industrial && (
                 <Badge
-                  key={kw}
-                  variant="secondary"
-                  className="text-[11px] font-semibold bg-secondary/60 text-secondary-foreground rounded-full px-2.5 py-1 border-transparent"
+                  className="bg-orange-100 text-orange-700 hover:bg-orange-200 dark:bg-orange-950 dark:text-orange-400 border-none px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider"
                 >
-                  {kw}
-                </Badge>
-              ))}
-              {!expanded && project.keywords.length > 4 && (
-                <Badge variant="secondary" className="text-[11px] font-semibold bg-secondary/60 text-secondary-foreground rounded-full px-2.5 py-1 border-transparent">
-                  +{project.keywords.length - 4}
+                  <Building2 className="h-3 w-3 mr-1" />
+                  {project.industrial}
                 </Badge>
               )}
             </div>
 
-            <AnimatePresence>
-              {expanded && (
-                <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: "auto" }}
-                  exit={{ opacity: 0, height: 0 }}
-                  transition={{ duration: 0.3, ease: "easeInOut" }}
-                  className="overflow-hidden"
-                >
-                  <div className="pt-2 pb-4 space-y-4">
-                    <p className="text-sm text-muted-foreground leading-relaxed whitespace-pre-line">
-                      {project.description}
-                    </p>
-                    <div className="flex items-center gap-2 pt-4 border-t border-border/50">
-                      <a
-                        href={`mailto:${project.email}`}
-                        className="flex items-center justify-center gap-1.5 text-xs font-semibold w-full bg-primary/5 text-primary hover:bg-primary/10 transition-colors py-2.5 rounded-xl border border-primary/10"
-                      >
-                        <Mail className="h-3.5 w-3.5" />
-                        Contact {project.email}
-                      </a>
-                    </div>
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-
-            <Button
-              variant="ghost"
-              size="sm"
-              className="w-full mt-auto text-xs font-semibold text-muted-foreground hover:bg-secondary/50 rounded-xl py-5"
-              onClick={() => setExpanded(!expanded)}
-            >
-              {expanded ? (
-                <>
-                  <ChevronUp className="h-4 w-4 mr-1.5" /> Show less
-                </>
-              ) : (
-                <>
-                  <ChevronDown className="h-4 w-4 mr-1.5" /> Read abstract
-                </>
-              )}
-            </Button>
-          </CardContent>
-        )}
+            {!compact && (
+              <div className="flex flex-wrap gap-2">
+                {project.keywords.slice(0, 4).map((kw) => (
+                  <Badge
+                    key={kw}
+                    variant="secondary"
+                    className="text-[11px] font-semibold bg-secondary/60 text-secondary-foreground rounded-full px-2.5 py-1 border-transparent"
+                  >
+                    {kw}
+                  </Badge>
+                ))}
+                {project.keywords.length > 4 && (
+                  <Badge variant="outline" className="text-[11px] font-semibold text-muted-foreground rounded-full px-2.5 py-1 border-border/50 bg-transparent">
+                    +{project.keywords.length - 4}
+                  </Badge>
+                )}
+              </div>
+            )}
+          </div>
+          
+          {!compact && (
+            <div className="mt-6 flex items-center text-xs font-bold text-muted-foreground group-hover:text-primary transition-colors">
+              <span>View details</span>
+              <ArrowRight className="h-3.5 w-3.5 ml-1.5 transition-transform group-hover:translate-x-1" />
+            </div>
+          )}
+        </CardContent>
       </Card>
     </motion.div>
   );

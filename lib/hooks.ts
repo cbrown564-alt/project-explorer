@@ -4,47 +4,48 @@ import { useState, useEffect, useCallback } from "react";
 import type { ShortlistItem } from "./types";
 
 export function useShortlist() {
-  const [shortlist, setShortlist] = useState<ShortlistItem[]>([]);
-
-  useEffect(() => {
-    const stored = localStorage.getItem("project-shortlist");
-    if (stored) {
-      try {
-        const parsed = JSON.parse(stored);
-        if (Array.isArray(parsed) && typeof parsed[0] === 'number') {
-          setShortlist(parsed.map(id => ({ id, note: "" })));
-        } else {
-          setShortlist(parsed);
-        }
-      } catch {}
+  const [shortlist, setShortlist] = useState<ShortlistItem[]>(() => {
+    if (typeof window === "undefined") return [];
+    try {
+      const stored = localStorage.getItem("project-shortlist");
+      if (!stored) return [];
+      const parsed = JSON.parse(stored);
+      if (Array.isArray(parsed) && typeof parsed[0] === "number") {
+        return parsed.map((id) => ({ id, note: "" }));
+      }
+      return Array.isArray(parsed) ? parsed : [];
+    } catch {
+      return [];
     }
-  }, []);
+  });
+
+  // Effect to persist to localStorage whenever shortlist changes
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      localStorage.setItem("project-shortlist", JSON.stringify(shortlist));
+    }
+  }, [shortlist]);
 
   const toggle = useCallback((id: number) => {
     setShortlist((prev) => {
       const exists = prev.some(item => item.id === id);
-      const next = exists
+      return exists
         ? prev.filter((item) => item.id !== id)
         : [...prev, { id, note: "" }];
-      localStorage.setItem("project-shortlist", JSON.stringify(next));
-      return next;
     });
   }, []);
 
   const updateNote = useCallback((id: number, note: string) => {
-    setShortlist((prev) => {
-      const next = prev.map(item => item.id === id ? { ...item, note } : item);
-      localStorage.setItem("project-shortlist", JSON.stringify(next));
-      return next;
-    });
+    setShortlist((prev) =>
+      prev.map((item) => (item.id === id ? { ...item, note } : item))
+    );
   }, []);
-  
+
   const reorder = useCallback((startIndex: number, endIndex: number) => {
-    setShortlist(prev => {
+    setShortlist((prev) => {
       const next = Array.from(prev);
       const [removed] = next.splice(startIndex, 1);
       next.splice(endIndex, 0, removed);
-      localStorage.setItem("project-shortlist", JSON.stringify(next));
       return next;
     });
   }, []);

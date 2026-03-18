@@ -51,7 +51,7 @@ export function CompareView() {
       .slice(0, 6)
       .map(([id]) => projects.find((p) => p.id === id)!)
       .filter(Boolean);
-  }, [shortlistedProjects, projects, shortlist]);
+  }, [shortlistedProjects, projects, isShortlisted]);
 
   if (shortlistedProjects.length === 0) {
     return (

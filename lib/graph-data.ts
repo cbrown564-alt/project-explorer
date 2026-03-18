@@ -12,6 +12,20 @@ export interface GraphLink {
   target: string;
   type: "keyword" | "supervisor";
   weight: number;
+  sharedKeywords?: string[];
+}
+
+export type AdjacencyMap = Map<string, Set<string>>;
+
+export function buildAdjacencyMap(links: GraphLink[]): AdjacencyMap {
+  const map: AdjacencyMap = new Map();
+  for (const link of links) {
+    if (!map.has(link.source)) map.set(link.source, new Set());
+    if (!map.has(link.target)) map.set(link.target, new Set());
+    map.get(link.source)!.add(link.target);
+    map.get(link.target)!.add(link.source);
+  }
+  return map;
 }
 
 export interface GraphData {
@@ -73,15 +87,16 @@ export function buildGraphData(
   for (let i = 0; i < projects.length; i++) {
     const kwA = new Set(projects[i].keywords.map((k) => k.toLowerCase()));
     for (let j = i + 1; j < projects.length; j++) {
-      const shared = projects[j].keywords.filter((k) =>
+      const sharedKeywords = projects[j].keywords.filter((k) =>
         kwA.has(k.toLowerCase())
-      ).length;
-      if (shared >= 1) {
+      );
+      if (sharedKeywords.length >= 1) {
         links.push({
           source: `p-${projects[i].id}`,
           target: `p-${projects[j].id}`,
           type: "keyword",
-          weight: shared,
+          weight: sharedKeywords.length,
+          sharedKeywords,
         });
       }
     }

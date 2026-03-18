@@ -68,6 +68,11 @@ interface ExplorerContextValue {
   // Card refs for scroll-to-highlight
   cardRefs: React.MutableRefObject<Map<number, HTMLDivElement>>;
   handleProjectClick: (id: number) => void;
+
+  // Graph highlight
+  graphHighlightNodeId: string | null;
+  highlightNodeInGraph: (projectId: number) => void;
+  clearGraphHighlight: () => void;
 }
 
 const ExplorerContext = createContext<ExplorerContextValue | null>(null);
@@ -87,6 +92,7 @@ export function ExplorerProvider({ children }: { children: ReactNode }) {
   const [activeView, setActiveViewState] = useState<ViewId>(getInitialView);
   const { shortlist, toggle, updateNote, reorder, clear, isShortlisted, getNote, count } = useShortlist();
   const cardRefs = useRef<Map<number, HTMLDivElement>>(new Map());
+  const [graphHighlightNodeId, setGraphHighlightNodeId] = useState<string | null>(null);
 
   const handleThemeToggle = useCallback((theme: string) => {
     setSelectedThemes((prev) =>
@@ -160,6 +166,17 @@ export function ExplorerProvider({ children }: { children: ReactNode }) {
     [setActiveView]
   );
 
+  const highlightNodeInGraph = useCallback((projectId: number) => {
+    setGraphHighlightNodeId(`p-${projectId}`);
+    setActiveView("explore");
+    // Auto-clear after animation
+    setTimeout(() => setGraphHighlightNodeId(null), 3000);
+  }, [setActiveView]);
+
+  const clearGraphHighlight = useCallback(() => {
+    setGraphHighlightNodeId(null);
+  }, []);
+
   const handleProjectClick = useCallback((id: number) => {
     setTimeout(() => {
       const el = cardRefs.current.get(id);
@@ -209,6 +226,9 @@ export function ExplorerProvider({ children }: { children: ReactNode }) {
     navigateToProjectsForSupervisor,
     cardRefs,
     handleProjectClick,
+    graphHighlightNodeId,
+    highlightNodeInGraph,
+    clearGraphHighlight,
   };
 
   return (

@@ -10,7 +10,8 @@ import { Badge } from "@/components/ui/badge";
 import { ThemeBadge } from "@/components/ThemeBadge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import type { Project } from "@/lib/types";
-import { User, Building2, Mail } from "lucide-react";
+import { User, Building2, Mail, Network } from "lucide-react";
+import { useExplorer } from "@/lib/explorer-context";
 
 interface ProjectDetailsPanelProps {
   project: Project | null;
@@ -25,6 +26,8 @@ export function ProjectDetailsPanel({
   onSupervisorClick,
   supervisorPhotoUrl,
 }: ProjectDetailsPanelProps) {
+  const { highlightNodeInGraph } = useExplorer();
+
   // Split description into distinct paragraphs to create proper reading spacing
   const descriptionParagraphs = project?.description
     ? project.description.split(/\n+/).filter((p) => p.trim() !== "")
@@ -110,7 +113,7 @@ export function ProjectDetailsPanel({
                 </div>
               </div>
 
-              <div className="mt-auto pt-4 relative z-10">
+              <div className="mt-auto pt-4 space-y-2 relative z-10">
                 <a
                   href={`mailto:${project.email}?subject=${encodeURIComponent(`Inquiry regarding ECS8056 Project: ${project.title}`)}&body=${encodeURIComponent(`Dear ${project.supervisor},\n\nI am a student in the 2026 MSc Cohort and I am very interested in your project "${project.title}".\n\nI would love to set up a quick meeting to discuss it further.\n\nBest regards,\n[Your Name]`)}`}
                   className="flex items-center justify-center gap-2 font-bold w-full bg-primary text-primary-foreground hover:bg-primary/90 transition-all py-3.5 rounded-xl shadow-[0_8px_20px_rgb(var(--primary)_/_0.2)] md:text-sm group"
@@ -118,6 +121,16 @@ export function ProjectDetailsPanel({
                   <Mail className="h-4 w-4 transition-transform group-hover:-translate-y-0.5" />
                   Contact Supervisor
                 </a>
+                <button
+                  onClick={() => {
+                    onClose();
+                    highlightNodeInGraph(project.id);
+                  }}
+                  className="flex items-center justify-center gap-2 font-bold w-full bg-secondary text-secondary-foreground hover:bg-secondary/80 transition-all py-3 rounded-xl md:text-sm group"
+                >
+                  <Network className="h-4 w-4 transition-transform group-hover:scale-110" />
+                  Show in Graph
+                </button>
               </div>
             </div>
 

@@ -10,7 +10,9 @@ import {
   Star,
   Building2,
   User,
+  Network,
 } from "lucide-react";
+import { useExplorer } from "@/lib/explorer-context";
 
 interface ProjectCardProps {
   project: Project;
@@ -29,6 +31,8 @@ export function ProjectCard({
   onSelect,
   compact = false,
 }: ProjectCardProps) {
+  const { highlightNodeInGraph } = useExplorer();
+
   return (
     <motion.div layout className={compact ? "" : "h-full"}>
       <Card
@@ -51,26 +55,42 @@ export function ProjectCard({
             >
               {project.title}
             </h3>
-            <Button
-              variant="ghost"
-              size="icon"
-              className={`shrink-0 -mr-2 -mt-2 rounded-full transition-colors z-10 ${
-                compact ? "h-8 w-8" : "h-9 w-9"
-              } ${
-                isShortlisted
-                  ? "text-amber-500 bg-amber-500/10 hover:bg-amber-500/20 hover:text-amber-600 dark:text-amber-400 dark:bg-amber-400/10"
-                  : "text-muted-foreground hover:text-amber-500 hover:bg-amber-500/10"
-              }`}
-              onClick={(e) => {
-                e.stopPropagation();
-                onToggleShortlist(project.id);
-              }}
-            >
-              <Star
-                className={`${compact ? "h-4 w-4" : "h-4.5 w-4.5"} transition-transform active:scale-75`}
-                fill={isShortlisted ? "currentColor" : "none"}
-              />
-            </Button>
+            <div className="flex items-center shrink-0 -mr-2 -mt-2 gap-0.5">
+              <Button
+                variant="ghost"
+                size="icon"
+                className={`rounded-full transition-colors z-10 ${
+                  compact ? "h-7 w-7" : "h-8 w-8"
+                } text-muted-foreground hover:text-primary hover:bg-primary/10`}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  highlightNodeInGraph(project.id);
+                }}
+                title="Show in Graph"
+              >
+                <Network className={`${compact ? "h-3.5 w-3.5" : "h-4 w-4"}`} />
+              </Button>
+              <Button
+                variant="ghost"
+                size="icon"
+                className={`rounded-full transition-colors z-10 ${
+                  compact ? "h-8 w-8" : "h-9 w-9"
+                } ${
+                  isShortlisted
+                    ? "text-amber-500 bg-amber-500/10 hover:bg-amber-500/20 hover:text-amber-600 dark:text-amber-400 dark:bg-amber-400/10"
+                    : "text-muted-foreground hover:text-amber-500 hover:bg-amber-500/10"
+                }`}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onToggleShortlist(project.id);
+                }}
+              >
+                <Star
+                  className={`${compact ? "h-4 w-4" : "h-4.5 w-4.5"} transition-transform active:scale-75`}
+                  fill={isShortlisted ? "currentColor" : "none"}
+                />
+              </Button>
+            </div>
           </div>
         </CardHeader>
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, useMemo } from "react";
+import { useEffect, useRef, useState, useMemo, useCallback } from "react";
 import {
   forceSimulation,
   forceLink,
@@ -48,7 +48,9 @@ export function useForceSimulation(
     Map<string, { x: number; y: number }>
   >(new Map());
   const [isSimulating, setIsSimulating] = useState(true);
+  const [alpha, setAlpha] = useState(1);
   const simRef = useRef<ReturnType<typeof forceSimulation<SimNode>> | null>(null);
+  const nodeMapRef = useRef<Map<string, SimNode>>(new Map());
 
   // Compute degree for sizing
   const degreeMap = useMemo(() => {
@@ -75,6 +77,7 @@ export function useForceSimulation(
     });
 
     const nodeMap = new Map(nodes.map((n) => [n.id, n]));
+    nodeMapRef.current = nodeMap;
 
     const links: SimLink[] = graphLinks
       .filter((l) => nodeMap.has(l.source) && nodeMap.has(l.target))
@@ -119,6 +122,7 @@ export function useForceSimulation(
         map.set(node.id, { x: node.x ?? 0, y: node.y ?? 0 });
       }
       setPositions(map);
+      setAlpha(sim.alpha());
     });
 
     sim.on("end", () => {
@@ -133,5 +137,28 @@ export function useForceSimulation(
     };
   }, [graphNodes, graphLinks, width, height, degreeMap]);
 
-  return { positions, isSimulating };
+  const reheat = useCallback(() => {
+    if (simRef.current) {
+      simRef.current.alpha(0.3).restart();
+      setIsSimulating(true);
+    }
+  }, []);
+
+  const fixNode = useCallback((id: string, x: number, y: number) => {
+    const node = nodeMapRef.current.get(id);
+    if (node) {
+      node.fx = x;
+      node.fy = y;
+    }
+  }, []);
+
+  const unfixNode = useCallback((id: string) => {
+    const node = nodeMapRef.current.get(id);
+    if (node) {
+      node.fx = null;
+      node.fy = null;
+    }
+  }, []);
+
+  return { positions, isSimulating, alpha, reheat, fixNode, unfixNode };
 }

@@ -15,7 +15,14 @@ import type { Project, Supervisor, ShortlistItem } from "./types";
 import projectsData from "@/data/projects.json";
 import supervisorsData from "@/data/supervisors.json";
 
-const projects = projectsData as Project[];
+const rawProjects = projectsData as Project[];
+const projects: Project[] = rawProjects.map((p) => ({
+  ...p,
+  keywords: p.keywords.flatMap((k) =>
+    k.includes(";") ? k.split(";").map((s) => s.trim()).filter(Boolean) : [k]
+  ),
+}));
+
 const supervisors = supervisorsData as Supervisor[];
 const supervisorNames = [...new Set(projects.map((p) => p.supervisor))].sort();
 

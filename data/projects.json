@@ -1,0 +1,920 @@
+[
+  {
+    "id": 1,
+    "title": "What Is the Detector Thinking? Learning Compact and Explainable Feature Encodings for 3D Object Detection Monitoring in Autonomous Driving",
+    "supervisor": "Hakan Yekta Yatbaz",
+    "email": "h.yatbaz@qub.ac.uk",
+    "theme": "Other",
+    "keywords": [
+      "autonomous driving",
+      "3D object detection",
+      "perception monitoring",
+      "run-time safety",
+      "dimensionality reduction"
+    ],
+    "description": "Autonomous driving systems rely on 3D object detectors to identify road users from LiDAR data, but even strong detectors fail in challenging conditions, and their built-in confidence scores are not always a reliable warning when something is about to go wrong. A better approach is to monitor the detector's own internal features and catch failures before they happen. The problem is that these internal features are extremely high-dimensional, making them difficult to analyse directly. This project investigates how to compress them into compact representations that retain the information most relevant to detecting failures, comparing approaches from classical methods like PCA to learned ones such as autoencoders.\nBeyond compression, a central question is whether these encodings can be made explainable — can the structure of the compressed space reveal why a failure occurred, for example distinguishing occlusion from sparse point coverage or unusual object distance? The student will also investigate whether the encoding works best applied to single frames or across short sequences, making this a foundational study with direct relevance to real-time perception safety in autonomous driving.\nDevelop a run-time monitoring method that provides an early warning of likely 3D detection failures by analysing how the detector’s internal features change over short time sequences. This builds on recent research on activation-/representation-based introspection for object detection, and extends it from single frames to temporal sequences.",
+    "industrial": null
+  },
+  {
+    "id": 2,
+    "title": "Can AI \"See\" a Writer's Style? Few-Shot Writer Identification Using Vision-Language Models",
+    "supervisor": "Hakan Yekta Yatbaz",
+    "email": "h.yatbaz@qub.ac.uk",
+    "theme": "Other",
+    "keywords": [
+      "Few-shot learning",
+      "CLIP",
+      "vision-language models",
+      "handwriting analysis",
+      "writer identification",
+      "visual prompt tuning",
+      "metric learning",
+      "biometrics"
+    ],
+    "description": "Every person has a unique handwriting style, shaped by years of practice into something almost like a fingerprint. The question this project asks is: can an AI learn to recognise who wrote something, rather than what was written? This turns out to be surprisingly difficult. Modern AI vision models such as CLIP are very good at understanding image content, but they were not designed with writer identity in mind. When the same person writes two different sentences, the model often treats the samples as unrelated because the text looks different, even though the underlying handwriting style is the same. Making things harder, we only have around five handwriting samples per person to work with, which rules out standard training approaches that require large amounts of data.\nThe project will explore how to adapt CLIP for this task without overfitting on such limited data. One promising direction is Visual Prompt Tuning (VPT), a technique where instead of changing the model itself you add a small set of learnable inputs that guide the model's attention toward style-related features like stroke angle, letter spacing, and pen weight. Another direction is data augmentation, where you artificially create more training samples through controlled transformations of the original handwriting images. The dataset includes both scanned handwriting images and dynamic tablet recordings that capture the pen's position, pressure, and timing stroke by stroke, opening up further directions for students interested in time-series analysis.",
+    "industrial": null
+  },
+  {
+    "id": 3,
+    "title": "Bridging Signatures and Handwriting: Cross-Modal Writer Identity with AI",
+    "supervisor": "Hakan Yekta Yatbaz",
+    "email": "h.yatbaz@qub.ac.uk",
+    "theme": "Other",
+    "keywords": [
+      "Cross-modal learning",
+      "contrastive learning",
+      "signature verification",
+      "writer identification",
+      "embedding alignment",
+      "biometrics",
+      "dynamic handwriting",
+      "metric learning"
+    ],
+    "description": "Think about the last time you signed your name and then wrote a sentence. Both came from your hand, but they look completely different. A signature is a personalised, automatic motion you have practised thousands of times, while everyday handwriting is more deliberate and content-driven. Despite sharing the same physical author, these two types of writing end up in very different places when an AI model tries to represent them, making it hard to link them back to the same person.$.\nThis project investigates whether an AI system can learn to connect a person's signature and their handwriting as belonging to the same identity, even though they look so different. The core idea is to train lightweight networks that sit on top of existing AI encoders like CLIP or DINOv2 and learn to pull same-person signature and handwriting representations closer together while pushing different people's apart, a technique known as contrastive learning. An interesting question the project will explore is whether this kind of alignment helps more when the system has no labels to work with (relying purely on similarity search) versus when it can train a classifier. The dataset contains both image-based handwriting and signature samples, and also dynamic recordings of the writing process capturing the pen moving across the tablet in real time, which offers a rich additional source of identity information for students who want to explore it.$ug +++",
+    "industrial": null
+  },
+  {
+    "id": 4,
+    "title": "What If the Signal Drops? Investigating Prediction Models for Safe Remote Robot Control over Wireless Networks",
+    "supervisor": "Hakan Yekta Yatbaz",
+    "email": "h.yatbaz@qub.ac.uk",
+    "theme": "Other",
+    "keywords": [
+      "Teleoperation",
+      "safe AI",
+      "trajectory prediction",
+      "robot arm control",
+      "5G networks",
+      "URLLC",
+      "sequence modelling",
+      "synthetic data generation",
+      "just noticeable difference",
+      "perception-aware safety",
+      "reliable AI systems"
+    ],
+    "description": "Teleoperation allows a human operator to control a remote robot arm over a wireless network, with applications in surgery, hazardous environments, and advanced manufacturing. But wireless networks are imperfect: packets get delayed or lost, and when they do, the robot either stalls or acts on outdated instructions. In safety-critical settings this is not just an inconvenience — it can cause physical harm to people or equipment. One way to handle this is prediction: if the system can forecast what the operator's next movement will be before the signal arrives, the robot can keep acting safely even when the network fails. Crucially, a reliable predictor also reduces how much bandwidth the system needs, because the communication system no longer has to guarantee perfect delivery at all times to maintain safe operation.\nThe prediction component of such systems has received surprisingly little attention in existing research. Prior work treats it as a secondary concern, typically testing a single model on simplified signals and moving on. This project investigates the prediction problem properly, with safety as the primary motivation. A real robot arm has multiple joints each producing simultaneous streams of position and velocity data, and the student will explore whether predicting all joints together, and incorporating richer input features such as force feedback, leads to more reliable forecasts. The project will also examine how prediction confidence degrades as the forecast horizon grows, and whether synthetic data generation can compensate for the scarcity of real teleoperation recordings, both of which are directly relevant to understanding when a predictor can and cannot be trusted in a safety-critical deployment.\n\nThis project aims to go beyond binary error detection by training a lightweight model that produces short natural language descriptions of detection failures (e.g., \"Pedestrian missed due to heavy occlusion at close range\"). The student will extract detection errors and activation patterns from existing 3D detectors on public datasets, create a small annotated dataset of error descriptions categorised by cause (occlusion, distance, sparse points, weather), and train a task-specific model to predict error explanations from the detector's internal features. This builds on recent research combining activation-based introspection with vision-language models for autonomous driving safety.",
+    "industrial": null
+  },
+  {
+    "id": 5,
+    "title": "Sensitivity Analysis of Multi-Objective Performance Trade-offs in LLMs and MLLMs",
+    "supervisor": "Chen Feng",
+    "email": "c.feng@qub.ac.uk",
+    "theme": "Machine Learning",
+    "keywords": [
+      "Large Language Models (LLMs)",
+      "Multi-objective Evaluation",
+      "Safety Alignment",
+      "Prompt Sensitivity",
+      "Robustness"
+    ],
+    "description": "Current Large Language Models (LLMs) and Multimodal LLMs (MLLMs) are often evaluated using \"radar charts\" that display performance across multiple metrics such as reasoning, coding, safety, and helpfulness. However, these models exhibit high uncertainty; minor changes in hyperparameters (e.g., temperature) or prompt formatting can lead to drastic fluctuations in outputs.\n\nThis project aims to investigate the sensitivity and trade-offs of these multi-objective metrics. Specifically, the student will:\n1. Investigate Prompt Sensitivity: Analyze how specific prompt constraints (e.g., adding \"ensure the answer is safe\") affect the model's performance distribution. Does increasing safety via prompting inadvertently degrade reasoning or helpfulness capabilities?\n2. Analyze Hyperparameter Volatility: Systematically vary the temperature and sampling strategies to observe the stability of the \"radar chart\" performance.\n3. Compare Model Robustness: Benchmark different families of models (e.g., Llama-3 vs. GPT-4o vs. Qwen) to determine which architectures are more sensitive to these perturbations.\n\nThe goal is to move beyond static performance scores and provide a statistical view of how \"robust\" a model’s multi-objective capabilities really are. This aligns with the supervisor's research on robust statistical evaluation of LLMs.",
+    "industrial": null
+  },
+  {
+    "id": 6,
+    "title": "Benchmarking Foundation Models Against Traditional Robust Learning Algorithms",
+    "supervisor": "Chen Feng",
+    "email": "c.feng@qub.ac.uk",
+    "theme": "Machine Learning",
+    "keywords": [
+      "Noisy Labels",
+      "Foundation Models",
+      "CLIP",
+      "Zero-shot Learning"
+    ],
+    "description": "Traditional research in Learning with Noisy Labels (LNL) focuses on designing complex loss functions or selection mechanisms to train models from scratch on corrupted data. However, the emergence of strong Foundation Models (e.g., CLIP, ViT-L/14) (may) have shifted this paradigm. These models possess powerful zero-shot classification capabilities and can be adapted via lightweight prompt tuning, potentially bypassing the need for training on noisy raw data entirely.\n\nThis project explores whether traditional noise-robust algorithms are still necessary in the age of Foundation Models. The student will:\n1. Evaluate Zero-Shot Robustness: Test how well pre-trained models (like CLIP, Llama) perform on standard noisy benchmark datasets (e.g., CIFAR-N, WebVision) without any fine-tuning.\n2. Investigate Prompt Tuning vs. Noise Correction: Compare the performance of simple prompt tuning on foundation models against state-of-the-art LNL algorithms (such as NoiseBox or SSR).\n3. Analyze \"Perfect\" Classification: Determine if a powerful LLM or VLM can act as a \"perfect annotator\" to clean datasets, effectively solving the noise problem through a data-centric approach rather than an algorithmic one.\n\nThis project builds upon the supervisor’s works on LNL.",
+    "industrial": null
+  },
+  {
+    "id": 7,
+    "title": "Fast Language Identification with Adaptive Modelling",
+    "supervisor": "Pinzhen Chen",
+    "email": "p.chen@qub.ac.uk",
+    "theme": "NLP",
+    "keywords": [
+      "language identification",
+      "ML efficiency",
+      "LLM training data",
+      "multilingualism"
+    ],
+    "description": "Practitioners often take the web-crawled LLM training data for granted, but a fundamental, often-overlooked building block is the accurate classification of the language and writing script of web-crawled data. The classification process runs on all billions or trillions of tokens, so it must be both accurate and computationally efficient. While current language identification performance is strong for high-resource languages, they frequently fail on \"confusable\" languages (e.g., similar languages or writing scripts) or low-resource languages where statistical patterns are sparse. This project proposes an adaptive modelling approach to bridge this gap by spending more computational budget on less accurate languages. This ensures a more fair performance for hundreds of languages we care about.\n\nWe will survey related literature and reproduce baseline models on existing tests. We then explore adaptive strategies to model different languages, including but not limited to modifying model architectures, using heuristics, etc, to balance the inference latency and accuracy and tackle similar language confusion. Finally, the student will report and analyse their experimental results. \n\nThis project is suitable for students with experience in PyTorch, GPUs, and ML efficiency. The work can be undertaken by more than one student, provided that each student works on a different, clearly defined direction. Suggested seed readings: 1) https://aclanthology.org/2023.acl-short.75v2.pdf; 2) https://aclanthology.org/2023.findings-emnlp.410.pdf; 3) https://www.arxiv.org/pdf/2602.13139; 4) https://www.arxiv.org/pdf/2601.18026.",
+    "industrial": null
+  },
+  {
+    "id": 8,
+    "title": "Agentic Booker",
+    "supervisor": "Pinzhen Chen",
+    "email": "p.chen@qub.ac.uk",
+    "theme": "Other",
+    "keywords": [
+      "LLM agents",
+      "multi-turn interactions",
+      "LLM tool use",
+      "coversational AI",
+      "LLM applications"
+    ],
+    "description": "LLM chatbots are very good at recommending service options (e.g. travel, restaurant, movie, etc) to a user, but it remains unknown if and how we can deploy LLMs to execute transactions on behalf of a user. Using LLM agents to book services in real life is a much harder task, because it requires the LLM agent to clarify constraints, e.g. cost, capacity, time, and location, with the user; turn the query into formal language to query third-party API calls; gather bookable options and confirm with the user, These actions often takes place for multiple turns. On one hand, user queries can be under-specified or ambiguous, leading to too many returned results; on the other hand, a fully specified query requires excessive communications with the user and yet may result in an empty result.\n\nWe will survey related literature, build an environment for LLM bookers for a specific use case, and brainstorm methods, criteria, and metrics in turning an LLM into an agentic booker. In the experimentation phase, we will benchmark a range of previous works to compare with our methods. \n\nThis project is suitable for students with experience in deploying LLMs, software service APIs, and NLP; the project is going to be challenging. The work can be undertaken by more than one student, provided that each student works on a different, clearly defined direction. Suggested seed readings: 1) https://aclanthology.org/2024.findings-emnlp.636.pdf; 2) https://arxiv.org/pdf/2512.21120; 3) https://openreview.net/forum?id=U1SpjHP8gh; 4) https://arxiv.org/pdf/2601.02643; 5) https://developers.booking.com/demand/docs/getting-started/sandbox.",
+    "industrial": null
+  },
+  {
+    "id": 9,
+    "title": "Contamination-Invariant Evaluation of LLMs",
+    "supervisor": "Pinzhen Chen",
+    "email": "p.chen@qub.ac.uk",
+    "theme": "NLP",
+    "keywords": [
+      "LLM evaluation",
+      "meta-evaluation",
+      "data contamination"
+    ],
+    "description": "LLMs are trained on a massive amount of data, most of which is harvested from the Internet. To measure their performance, researchers and engineers have created all kinds of benchmarks to reflect particular use cases. However, once a test suite enters the public domain, there is a risk of it being crawled and ingested into LLM pre-training, not to mention malicious efforts of benchmark overfitting. As a result, \"static\" benchmarks, no matter how carefully designed, can lose their values over time due to data leakage and contamination.\n\nWe propose to design benchmarks that are memorization-robust, i.e. an LLM should not gain any advantage even if it has been trained on the exact instances of an evaluation suite. Students will review existing literature and brainstorm any kind of tasks or domains they are interested in. We will then design and engineer a benchmark or evaluation protocal that has the aforementioned property. Finally, we will benchmark a selection of LLMs on the benchmark, perform an anlysis on the results, and conclude the effectiveness of the new benchmark. \n\nThis project is suitable for students with experience in NLP and LLMs. The work can be undertaken by more than one student, provided that each student works on a different, clearly defined direction. Suggested seed readings: 1) https://aclanthology.org/2023.findings-emnlp.722.pdf; 2) https://aclanthology.org/2024.eacl-long.5.pdf; 3) https://aclanthology.org/2025.findings-acl.1357.pdf; 4) https://arxiv.org/pdf/2510.05962.",
+    "industrial": null
+  },
+  {
+    "id": 10,
+    "title": "Is Translation a Scalable Proxy for Multilingual Evaluation of LLMs?",
+    "supervisor": "Pinzhen Chen",
+    "email": "p.chen@qub.ac.uk",
+    "theme": "NLP",
+    "keywords": [
+      "LLM evaluation",
+      "multicultural multilingual NLP",
+      "machine translation",
+      "meta-evaluation"
+    ],
+    "description": "LLM is being used by people all over the world and speakers of different languages, yet most well-developed evaluation resources are only available for a handful of high-resource languages. In contrast, translation data is more widely available, leading to the question of whether we can use translation benchmark performance to as a scalable proxy for LLM's multilingual capability. There is some preliminary work in this direction, but they do not consider the difference between translated or native multilingual benchmarks.\n\nWe will survey existing work and understand the availability of multilingual benchmarks and translation benchmarks. We will then design carefully controlled experiments to isolate different factors in the comparison between translation results and mulitlingual test results using different metrics. Statistical tests will be rigourously conducted. Finally, we will analyse the results and answer our research question.\n\nThe project is suitable for students with experience in NLP and (meta)-evaluation and interest in multilingualism. It is also very important to know statistical testing. Suggested seed readings: 1) https://aclanthology.org/2024.emnlp-main.542.pdf; 2) https://arxiv.org/pdf/2411.19799; 3) https://arxiv.org/pdf/2601.11778; 4) https://github.com/facebookresearch/flores/blob/main/flores200; 5) https://aclanthology.org/2025.wmt-1.23.pdf.",
+    "industrial": null
+  },
+  {
+    "id": 11,
+    "title": "Synthetic Epilepsy Clinical Letters for Information Extraction with LLMs",
+    "supervisor": "Yujian Gan",
+    "email": "y.gan@qub.ac.uk",
+    "theme": "AI for Health",
+    "keywords": [
+      "synthetic data",
+      "clinical NLP",
+      "epilepsy",
+      "information extraction",
+      "instruction tuning",
+      "structured prediction"
+    ],
+    "description": "Clinical letters are rich but unstructured, and real data access is often limited by governance. This project designs a synthetic epilepsy letter generator (template + LLM assisted) that produces realistic referral/follow-up letters with controllable ground-truth labels (e.g., epilepsy type, seizure type, frequency, anti-seizure medications (ASM), investigations such as EEG/MRI, comorbidities). The student will define a target extraction schema (JSON fields), generate a dataset with coverage/variety controls (style, abbreviations, negations, temporal phrases), and then train/compare extraction approaches: (1) prompt-based structured extraction, (2) lightweight fine-tuning (e.g., LoRA) of an open LLM or transformer tagger. Evaluation will use precision/recall/F1 per field plus error analysis (hallucination vs omission). Deliverables: synthetic dataset + generation pipeline, trained extraction baseline(s), and a methodological analysis of when synthetic data helps and where it fails.",
+    "industrial": null
+  },
+  {
+    "id": 12,
+    "title": "Improving Coreference Resolution via Better Mention Detection",
+    "supervisor": "Yujian Gan",
+    "email": "y.gan@qub.ac.uk",
+    "theme": "NLP",
+    "keywords": [
+      "coreference resolution",
+      "mention detection",
+      "entity spans",
+      "NLP",
+      "LLM prompting"
+    ],
+    "description": "Coreference resolution performance depends heavily on mention detection (i.e., identifying text spans that can participate in coreference relations). This project investigates whether improving mention detection—particularly for ambiguous or complex noun phrases—can enhance downstream coreference resolution performance. The student will build a reproducible pipeline on a standard benchmark dataset (e.g., OntoNotes-style coreference) and compare several LLM-based mention detection strategies. These may include: prompt-based span proposal using large language models, supervised fine-tuning of an LLM for span detection, and hybrid approaches that combine LLM-generated candidate mentions with lightweight neural or rule-based filtering models. The candidate mentions produced by the LLM-based detector will then be fed into an existing neural coreference resolution model. \n\nThe central research questions include: How can we train or adapt an LLM to perform high-quality mention detection? What prompting or fine-tuning strategies lead to higher mention recall without severely reducing precision? Can we design a lightweight filtering model to retain only high-quality LLM-proposed spans? How sensitive is overall coreference performance to improvements in mention detection? Evaluation will use standard coreference metrics (MUC, B³, CEAF, and CoNLL average score), along with ablation studies (e.g., with and without filtering strategies, different LLM configurations, or fine-tuning regimes).Deliverables include a reproducible baseline system, an improved LLM-based mention detection framework integrated into a coreference pipeline, and a systematic analysis of trade-offs, error patterns, and failure cases.",
+    "industrial": null
+  },
+  {
+    "id": 13,
+    "title": "Training-Free Multi-Agent LLM System for Epilepsy Letter Extraction",
+    "supervisor": "Yujian Gan",
+    "email": "y.gan@qub.ac.uk",
+    "theme": "AI for Health",
+    "keywords": [
+      "multi-agent system",
+      "agentic workflows",
+      "clinical IE",
+      "epilepsy"
+    ],
+    "description": "Instead of training models, this project builds a training-free (or minimal-training) multi-agent extraction system that reads epilepsy letters and outputs structured fields (e.g., ASM, seizure type/frequency, investigations, epilepsy syndrome/type). The student will design roles such as: (a) Section/Timeline Agent (segments text, builds timeline), (b) Field Extractor Agents (one per field group), (c) Verification Agent (checks evidence spans, contradictions, missingness), and (d) Aggregator Agent (produces final JSON + confidence + citations to text spans). The key research goal is reliability: compare single-prompt extraction vs multi-agent extraction under the same budget constraints, and test improvements from self-consistency, evidence requirements (“answer only if supported by quote”), and structured output validation. Evaluation uses field-level accuracy/F1,  and robustness tests. Data can be synthetic or de-identified samples if available. Deliverables: an end-to-end agentic pipeline, evaluation harness, and a dissertation focused on engineering + empirical study of reliability.",
+    "industrial": null
+  },
+  {
+    "id": 14,
+    "title": "Coordination and Task Allocation in LLM Multi-Agent Systems in a Text-Based Game Environment",
+    "supervisor": "Yujian Gan",
+    "email": "y.gan@qub.ac.uk",
+    "theme": "NLP",
+    "keywords": [
+      "multi-agent systems",
+      "LLM planning",
+      "coordination",
+      "communication protocols",
+      "task allocation",
+      "text-based games"
+    ],
+    "description": "This project studies how multiple LLM-based agents can coordinate in a pure text game environment to complete tasks requiring dependency and collaboration (e.g., Agent 1 must fetch item A and transfer it to Agent 2, who then completes a quest). The student will implement and compare coordination architectures: centralised planner (one “manager” assigns roles), decentralised negotiation (agents propose/accept tasks), and hybrid approaches with shared memory or a blackboard. They will design message protocols (what to communicate, how often), and evaluate outcomes such as task success rate, steps taken, communication cost, and error modes (deadlocks, redundant actions, deception-by-mistake). The dissertation should include controlled experiments (same tasks, varying coordination method), and ablations (with/without memory, with/without explicit role assignment). Deliverables: multiple coordination baselines, and a rigorous evaluation of what designs actually improve cooperation.",
+    "industrial": null
+  },
+  {
+    "id": 15,
+    "title": "Tokenization-Aware Robustness: Building a Benchmark of Text Failures and Mitigations for LLMs",
+    "supervisor": "Yujian Gan",
+    "email": "y.gan@qub.ac.uk",
+    "theme": "NLP",
+    "keywords": [
+      "BPE tokenization",
+      "robustness",
+      "evaluation benchmark",
+      "LLMs",
+      "NLP"
+    ],
+    "description": "Many LLM failures stem from tokenization effects and surface-form sensitivity (the classic “how many letters are in…” type of question is one well-known example). Rather than attempting to “encrypt text so that LLMs cannot understand it,” this project is reframed as a tokenization-aware robustness benchmark and mitigation study.\n\nThe student will collect and curate a dataset, where the semantic meaning remains unchanged for humans but models may fail. The goal is to systematically identify surface-form transformations that disproportionately affect LLM performance. The student will evaluate several LLMs (or open-source models available locally), analyze correlations between model errors and tokenization characteristics, and use the discovered failure patterns to construct a small, targeted benchmark for evaluating LLM robustness.\n\nDeliverables include: A curated tokenization-aware robustness benchmark; Reproducible evaluation scripts and experimental results; A systematic analysis of persistent failure types and potential mitigation strategies. The dissertation should provide empirical evidence of which surface-form variations consistently degrade performance and discuss practical implications for model evaluation and deployment.",
+    "industrial": null
+  },
+  {
+    "id": 16,
+    "title": "Evaluating Perception Algorithms for Autonomous Vehicles Using a Digital Twin and Realistic Mobility Traces from a Real-World Motorway Junction",
+    "supervisor": "Kostas Koufos",
+    "email": "k.koufos@qub.ac.uk",
+    "theme": "Computer Vision",
+    "keywords": [
+      "Digital Twins",
+      "Real-world Trajectory Datasets",
+      "3D Object Detectors",
+      "Motorway Merging Manoeuvres"
+    ],
+    "description": "This project will leverage a unique real-world trajectory dataset collected above a major UK motorway junction using four drones equipped with high-resolution cameras. To our knowledge, this is the first drone-based trajectory dataset capturing on-ramp merging in a right-hand drive setting. \n\nA digital twin (DT) of the same junction has been already generated in MATLAB. Building on this, sensors (e.g., 3D LiDARs) will be attached to merging vehicles. They will be used to generate realistic synthetic perception data (e.g., LiDAR point clouds), representative of real-world motorway traffic and merging behaviours. The collected dataset will be used to evaluate the performance of modern machine learning and deep learning object detection algorithms with a focus on challenging motorway interactions during merging.  \n\nSkills required:  (i) Experience in MATLAB for data processing, simulation, and visualisation. (ii) Experience with Python and deep learning algorithms for 3D object detection. (iii) Interest in Autonomous Systems. If you'd like a view of the junction where the data was collected, see: https://www.youtube.com/watch?v=u_Nla0e3yq4&t=377s",
+    "industrial": null
+  },
+  {
+    "id": 17,
+    "title": "Evaluating 3D Object Detection and Tracking for Early Hazard Awareness in Safety-Critical Driving Scenarios Using a Real-World Perception Dataset",
+    "supervisor": "Kostas Koufos",
+    "email": "k.koufos@qub.ac.uk",
+    "theme": "Computer Vision",
+    "keywords": [
+      "Automotive Perception Sensors",
+      "3D Object Detection and Tracking",
+      "Safety-critical driving situations"
+    ],
+    "description": "This project will use a real-world autonomous driving perception dataset (e.g., NuScenes https://www.nuscenes.org/) to evaluate the performance of 3D object detection and multi-object tracking mechanisms using well-established metrics (e.g., mean average precision and object tracking accuracy). Existing 3D object detectors and trackers will be used, while emphasis will be given on the identification of a safety-critical subset of the data (e.g., short time headways, low time-to-collision events). Novel metrics for evaluating the perception performance in safety-critical situations will be investigated.\n \nSkills required: (i) Experience with Python and deep learning algorithms for 3D object detection detection (e.g., PyTorch/MMDetection3D or similar). (ii) Experience with signal processing (e.g., Kalman filters) and tracking mechanisms is desirable. (iii) Interest in Autonomous systems and safety-critical situations and performance evaluations.",
+    "industrial": null
+  },
+  {
+    "id": 18,
+    "title": "AI Agents Supporting Engineering of Autonomous Driving Software",
+    "supervisor": "Kostas Koufos",
+    "email": "k.koufos@qub.ac.uk",
+    "theme": "NLP",
+    "keywords": [
+      "AI-powered Software Engineering",
+      "Autonomous Driving"
+    ],
+    "description": "Autonomous driving demands high-assurance software where safety, precision, and compliance are critical. A recent large EU R&D project named HIVEMIND (https://hivemind-project.eu/) has started in this area. QUB contributes to developing a multi-agent AI framework to assist the design, verification, and validation of autonomous driving software. The student will select one of the proposed AI agent topics of the project (e.g., CodeGenAgent for automated code generation, QualityAgent for test and verification, ComplianceAgent for safety standard checks, etc) and:\n        1. Conduct a literature and tool review of AI approaches relevant to the agent’s role.\n        2. Design and prototype a proof-of-concept AI agent, demonstrating how AI can improve the reliability, maintainability, or compliance of AutoWare-based autonomous driving software.\n        3. Conduct an empirical study to assess the effectiveness and efficiency of the developed agent on selected AutoWare modules.\n\nSkills required:  Software Engineering, Programming skills (Python preferred), and familiarity with AI/ML frameworks (e.g., PyTorch, TensorFlow).",
+    "industrial": null
+  },
+  {
+    "id": 19,
+    "title": "Log-Based Anomaly Detection in Distributed Systems",
+    "supervisor": "Javid Taheri",
+    "email": "javid.taheri@qub.ac.uk",
+    "theme": "Machine Learning",
+    "keywords": [
+      "Anomaly Detection"
+    ],
+    "description": "Modern distributed systems and cloud platforms generate massive volumes of logs that describe system events and states. Because these logs contain signals of failures and abnormal behaviour, ML methods can be used to provide scalable mechanisms for automatically detecting anomalous log sequences. This project aims to design and evaluate ML cting anomalies in distributed-system logs. The project includes log preprocessing, parsing techniques, template extraction, and comparison of models such as Isolation Forest, Random Forest, LSTM, or lightweight Transformers. Key challenges include parsing semi-structured logs, handling class imbalances, and modelling temporal dependencies. The expected output is an anomaly detection pipeline with an evaluation using precision, recall, F1-score, and ROC-AUC. The available datasets include Loghub (https://github.com/logpai/loghub), Blue Gene/L logs (included in Loghub), and HDFS log datasets (https://github.com/logpai/loghub/tree/master/HDFS).",
+    "industrial": null
+  },
+  {
+    "id": 20,
+    "title": "Failure Prediction in Cloud Clusters Using System Logs",
+    "supervisor": "Javid Taheri",
+    "email": "javid.taheri@qub.ac.uk",
+    "theme": "Machine Learning",
+    "keywords": [
+      "Failure Detection"
+    ],
+    "description": "Cloud clusters face machine crashes and task failures, which reduce reliability and increase costs. Cluster traces provide workload and machine event data for failure prediction. This project aims to develop ML models that estimate the probability of machine or task failure within a specific time window. The project includes engineering temporal features from workload traces and evaluating classification models such as XGBoost, Random Forest, and LSTM. Key challenges include large-scale datasets, imbalanced failure labels, and the definition of prediction horizons. Feature selection and temporal aggregation affect the performance. The expected result is a validated failure prediction model with early warning capability, evaluated using precision-recall curves and F1-score. The available datasets include Google Cluster Trace (https://github.com/google/cluster-data) and Alibaba Cluster Trace (https://github.com/alibaba/clusterdata).",
+    "industrial": null
+  },
+  {
+    "id": 21,
+    "title": "ML-Based Auto-Scaling Decision Prediction",
+    "supervisor": "Javid Taheri",
+    "email": "javid.taheri@qub.ac.uk",
+    "theme": "Machine Learning",
+    "keywords": [
+      "Auto-Scaling"
+    ],
+    "description": "Cloud applications use auto-scaling mechanisms to dynamically adjust resources. Rule-based scaling policies often fail under complex workload patterns, requiring learning-based approaches to improve the decisions. This project aims to model auto-scaling as a supervised classification task and predict scaling actions from workload features. The project includes procedures for evaluating classification models using cluster workload traces. Key challenges include defining scaling labels, preventing oscillatory behaviour, and balancing cost-performance trade-offs. The expected output is a predictive model for scaling actions compared with threshold-based baselines. The available datasets include the Alibaba Cluster Trace (https://github.com/alibaba/clusterdata) and Google Cluster Trace (https://github.com/google/cluster-data).",
+    "industrial": null
+  },
+  {
+    "id": 22,
+    "title": "Simple Reinforcement Learning for Task Scheduling",
+    "supervisor": "Javid Taheri",
+    "email": "javid.taheri@qub.ac.uk",
+    "theme": "Machine Learning",
+    "keywords": [
+      "Task Scheduling"
+    ],
+    "description": "Task scheduling influences the performance of distributed clusters. Traditional heuristics may not optimise system-wide objectives under dynamic workloads; therefore, reinforcement learning can be used to learn adaptive scheduling strategies from historical data. This project aims to build a scheduling simulator using cluster traces and train a reinforcement learning agent to allocate tasks efficiently. The performance will be compared with of heuristic schedulers. Key challenges include defining a reward function, simplifying state representation, and stabilising RL training within a limited time. The simulator abstraction must remain computationally feasible. The expected result is a functional scheduling simulator and an RL policy evaluated using metrics such as the average job completion time. The available datasets include Google Cluster Trace (https://github.com/google/cluster-data) and Alibaba Cluster Trace (https://github.com/alibaba/clusterdata).",
+    "industrial": null
+  },
+  {
+    "id": 23,
+    "title": "Network Traffic Classification Using Machine Learning",
+    "supervisor": "Javid Taheri",
+    "email": "javid.taheri@qub.ac.uk",
+    "theme": "Machine Learning",
+    "keywords": [
+      "Traffic Classification"
+    ],
+    "description": "Modern networks carry heterogeneous traffic loads. Because the automatic identification of traffic categories to guarantee QoS and security is crucial, flow-level statistical features can be used to train supervised models. This project aims to build traffic classification models using Random Forest, SVM, and neural networks. Feature engineering will be performed on packet flow statistics. Key challenges include high-dimensional feature spaces, encrypted traffic, and class imbalance. Dataset partitioning and cross-validation are also required. The expected output is a traffic classification system evaluated using accuracy and F1-score. Available datasets include CIC-IDS2017 (https://www.unb.ca/cic/datasets/ids-2017.html) and MAWI Traffic Archive (http://mawi.wide.ad.jp/mawi/).",
+    "industrial": null
+  },
+  {
+    "id": 24,
+    "title": "DDoS Attack Detection Using Supervised Learning",
+    "supervisor": "Javid Taheri",
+    "email": "javid.taheri@qub.ac.uk",
+    "theme": "Machine Learning",
+    "keywords": [
+      "Distributed Denial of Service Attacks"
+    ],
+    "description": "Distributed denial of service (DDoS) attacks disrupt services by overwhelming network resources. Because early detection is essential for mitigating attacks, ML approaches can be used to predict them during or before they occur. This project aims to develop classification models for detecting DDoS traffic using flow statistics. The project compares traditional ML algorithms and evaluates their detection performance. Key challenges include evolving attack patterns, an imbalance between normal and attack traffic, and ensuring robustness across datasets. The expected output is a DDoS detection model evaluated using precision, recall, and ROC-AUC.. The available datasets include CIC-DDoS2019 (https://www.unb.ca/cic/datasets/ddos-2019.html) and Kaggle mirror (https://www.kaggle.com/datasets/dhoogla/cicddos2019).",
+    "industrial": null
+  },
+  {
+    "id": 25,
+    "title": "Knowledge Distillation for Chest X-Ray Disease Classification",
+    "supervisor": "Muhammad Fahim",
+    "email": "m.fahim@qub.ac.uk",
+    "theme": "AI for Health",
+    "keywords": [
+      "Deep learning",
+      "CNN",
+      "Classifciation task"
+    ],
+    "description": "Automated chest radiograph (x-ray images) interpretation has great potential to support clinical workflows, but high-performing deep learning models are often large and computationally expensive that limits deployment in low-resource settings. This project will explore knowledge distillation as a way of transferring expertise from a powerful teacher model to a compact student model optimized for real-time chest disease classification. The overall aim is to demonstrate that knowledge distillation can significantly reduce model complexity while maintaining competitive clinical prediction performance, thereby improving the feasibility of deploying AI systems in resource-constrained healthcare environments.",
+    "industrial": null
+  },
+  {
+    "id": 26,
+    "title": "Your own propose project",
+    "supervisor": "Muhammad Fahim",
+    "email": "m.fahim@qub.ac.uk",
+    "theme": "AI for Health",
+    "keywords": [
+      "AI"
+    ],
+    "description": "The project should be related to apply AI in healthcare.",
+    "industrial": null
+  },
+  {
+    "id": 27,
+    "title": "Your own propose project",
+    "supervisor": "Muhammad Fahim",
+    "email": "m.fahim@qub.ac.uk",
+    "theme": "AI for Health",
+    "keywords": [
+      "AI"
+    ],
+    "description": "The project should be related to apply AI in healthcare.",
+    "industrial": null
+  },
+  {
+    "id": 28,
+    "title": "Fairness in Clustering",
+    "supervisor": "Deepak Padmanabhan",
+    "email": "d.padmanabhan@qub.ac.uk",
+    "theme": "Machine Learning",
+    "keywords": [
+      "AI"
+    ],
+    "description": "Machine learning is the task of identifying meaningful patterns from data. Clustering, among the most popular tasks in machine learning, considers grouping data objects into clusters of similar objects. When profiled against sensitive attributes such as gender and ethnicity on a clustering applied on census data, groups produced by clustering algorithms could have skewed distributions (e.g., high majority of males or vice versa), which may impact the task for which such clustering results are used. In this project, we will develop an interface to enable easy analysis of the fairness achieved through some state-of-the-art fair clustering algorithms. The system will incorporate implementations of fair and fairness-agnostic clustering methods, and will enable the user to quickly benchmark the component algorithms for fairness and other criteria over chosen datasets. Besides the analytical work in developing an interface, a research on the kind of fairness advancements would also be expected to be performed along with conclusions which could inform further research on fair clustering.  Keywords: Clustering, Machine Learning, Fairness [This project has variants and could be offered to 2 or more students]",
+    "industrial": null
+  },
+  {
+    "id": 29,
+    "title": "Fairness in Retrieval",
+    "supervisor": "Deepak Padmanabhan",
+    "email": "d.padmanabhan@qub.ac.uk",
+    "theme": "Machine Learning",
+    "keywords": [
+      "AI"
+    ],
+    "description": "Retrieval is the task of finding objects that are similar to a query object. This is typically used in a number of scenarios where one would like to contextualize a data observation at hand against similar ones available in a historical database. For example, when a staff is leaving the organization, we may want to identify other potential staff who are best equipped to undertake the person's activities. When sensitive attributes (e.g., gender, race) are considered, for example, in retrieval over a person database, skewed distributions on attributes such as gender among the top retrieved results could lead to value judgements and reinforcement of stereotypes. For example, when contextualizing a crime record, a high number of cases with black convicts showing up in a retrieval setting could reflect stereotypes held in society and could reinforce it by way of using such contextualization in decision making. In this project, we will consider analyzing and empirically benchmarking fairness-agnostic and fairness-oriented retrieval algorithms with respect to their applicability for chosen scenarios. This project would be research-oriented, and would involve reading some papers, and implementing retrieval algorithms. Keywords: Retrieval, Machine Learning, Fairness [This project has variants and could be offered to 2 or more students]",
+    "industrial": null
+  },
+  {
+    "id": 30,
+    "title": "AI Diagnostic Tool for Childhood Brain Tumour (Medulloblastoma)",
+    "supervisor": "Reza Rafiee",
+    "email": "g.rafiee@qub.ac.uk",
+    "theme": "AI for Health",
+    "keywords": [
+      "AI",
+      "Brain Tumour",
+      "Classification",
+      "Cross Platform"
+    ],
+    "description": "Cross-Platform DNA Methylation Classifier and Online Software for the Eight Molecular Subtypes of Group 3 & 4 Medulloblastoma",
+    "industrial": null
+  },
+  {
+    "id": 31,
+    "title": "Machine Learning Analysis of DNA Methylation Signatures for Predicting Diabetic Kidney Disease in Type 1 Diabetes",
+    "supervisor": "Reza Rafiee",
+    "email": "g.rafiee@qub.ac.uk",
+    "theme": "AI for Health",
+    "keywords": [
+      "DNA methylation",
+      "epigenetics",
+      "diabetic kidney disease",
+      "type 1 diabetes",
+      "machine learning",
+      "epigenomic biomarkers",
+      "Illumina EPIC methylation array",
+      "CpG sites",
+      "high-dimensional omics data",
+      "differential methylation analysis",
+      "predictive modelling",
+      "feature selection",
+      "bioinformatics",
+      "AI for healthcare",
+      "precision medicine"
+    ],
+    "description": "Diabetic Kidney Disease (DKD) is one of the most serious complications of Type 1 Diabetes (T1D) and is a leading cause of end-stage renal failure worldwide. However, not all individuals with T1D develop kidney disease, suggesting that genetic and epigenetic mechanisms contribute to disease susceptibility.\nRecent studies using Illumina EPIC DNA methylation arrays (~850k CpG sites) have demonstrated that epigenetic modifications may play an important role in DKD pathogenesis. DNA methylation profiles provide a high-dimensional representation of gene regulation that can potentially reveal biomarkers associated with disease progression. The UK-ROI cohort contains epigenetic data from individuals with long-standing T1D, including:\n252 DKD cases (T1D individuals with kidney disease)\n252 matched controls (T1D individuals without kidney disease)\nParticipants are matched for: sex, ethnicity, diabetes duration, age\nThis dataset provides a unique opportunity to explore whether machine learning approaches can identify predictive methylation signatures associated with DKD risk. The work will build upon findings from the following study:\nNature Communications (2022)\nhttps://www.nature.com/articles/s41467-022-34963-6",
+    "industrial": null
+  },
+  {
+    "id": 32,
+    "title": "DNA Language Model",
+    "supervisor": "Reza Rafiee",
+    "email": "g.rafiee@qub.ac.uk",
+    "theme": "AI for Health",
+    "keywords": [
+      "AI",
+      "DNA Language Model"
+    ],
+    "description": "Fine-Tuning a Genomic Language Model for Colorectal Gene Enhancer Classification",
+    "industrial": null
+  },
+  {
+    "id": 33,
+    "title": "DNA Language Model",
+    "supervisor": "Reza Rafiee",
+    "email": "g.rafiee@qub.ac.uk",
+    "theme": "AI for Health",
+    "keywords": [
+      "AI",
+      "DNA Language Model"
+    ],
+    "description": "Fine-Tuning a Genomic Language Model for Colorectal Gene Enhancer Classification",
+    "industrial": null
+  },
+  {
+    "id": 34,
+    "title": "AI Diagnostic Tool for Childhood Brain Tumour (Medulloblastoma)",
+    "supervisor": "Reza Rafiee",
+    "email": "g.rafiee@qub.ac.uk",
+    "theme": "AI for Health",
+    "keywords": [
+      "AI",
+      "Brain Tumour",
+      "Classification",
+      "Cross Platform"
+    ],
+    "description": "Cross-Platform DNA Methylation Classifier for the Seven Molecular Subtypes of Medulloblastoma",
+    "industrial": null
+  },
+  {
+    "id": 35,
+    "title": "AI-enabled Retinal Screening",
+    "supervisor": "Iain Styles",
+    "email": "i.styles@qub.ac.uk",
+    "theme": "AI for Health",
+    "keywords": [
+      "computer vision",
+      "health"
+    ],
+    "description": "Imaging of the retina, performed at scale in optometry clinics and at medical appoints is used to diagnose a wide variety of diseases ranging from sight-limiting conditions such as macular degeneration, through metabolic diseases such as diabetes which manifest as disruptions to the eye’s blood supply, to a range of neurological diseases which can be seen in the nerve fibre layer at the back of the eye. The eye is literally a window on our health. Analysis of these huge number of images that are obtained every day is done both in clinics and also so-called reading centres, which grade images and develop analysis protocols for future trials which informs future diagnostic approaches. This is a labourious and time-consuming process which requires expert human graders. There is obvious potential for AI to contribute to the grading process. In this project you will develop novel AI methods to support graders. This could include identifying subtle features that even experienced grader find it difficult to find, or automating common existing tasks. Whilst some aspects of the project can be done using well-established AI methods such as CNNs and vision transformers, there is significant scope for the development of novel methodology here, for example, for estimating the uncertainty of AI outputs. Students on this project will gain experience of a range of 2d and 3d computer vision technologies, and in their application to real-world healthcare challenges. This project has potential to admit two students.",
+    "industrial": null
+  },
+  {
+    "id": 36,
+    "title": "Disentangling Hyperspectral Images",
+    "supervisor": "Iain Styles",
+    "email": "i.styles@qub.ac.uk",
+    "theme": "Computer Vision",
+    "keywords": [
+      "vision",
+      "hyperspectral"
+    ],
+    "description": "In scientific and environmental imaging, hyperspectral cameras provide us with rich information by providing with a much richer colour representation. Whereas standard colour cameras have red, green, and blue colour channels, hyperspectral cameras can have tens, hundreds, or even thousands of colour channels. Understanding what information these images contain requires us to distill these channels into a set of fundamental components that tell us about the nature of the things that are in the image. Traditionally this has been done using techniques like Principal Component Analysis, but self-supervised deep learning approach hold much promise if we can extract an interpretable representation from them. In this project we will explore the role of recent innovations in learning of disentangled representations to explore how well they can unravel the mixture of components and map them across an image. The project will involve extensive use of reconstruction-based models such as Beta-VAE, and has significant potential for original contributions.",
+    "industrial": null
+  },
+  {
+    "id": 37,
+    "title": "Reconstruction of single molecule microscopy images with Physics-informed networks",
+    "supervisor": "Iain Styles",
+    "email": "i.styles@qub.ac.uk",
+    "theme": "Machine Learning",
+    "keywords": [
+      "physic-informed",
+      "vision",
+      "microscopy"
+    ],
+    "description": "Single molecule microscopy enables us to image single molecules in their biological context to a resolution of just a few nanometres. This is well below the optical resolution limit, and is achieved by causing the molecules to “blink”  which allows them to be separated in time over a video sequence. The image is then constructed by localising the molecules across all frames of the video through a fitting process and combining them in to a single image. Deep learning approaches such as DeepSTORM have been successfully used to replace the labourious fitting process, but these typically rely on learning supervised by simulation which is very expensive and not adaptive to variable experimental conditions. In this project we will explore the potential of embedding the physics of the image formation process into the learning model to enable self-supervised learning by comparing model predictions to the actual measurements. This project will involve exploring ways to incorporate physics-based constraints into neural network and will involve a significant element of developing novel methodology with strong potential for original contributions.",
+    "industrial": null
+  },
+  {
+    "id": 38,
+    "title": "Scalable virtual staining for whole slide imaging",
+    "supervisor": "Iain Styles",
+    "email": "i.styles@qub.ac.uk",
+    "theme": "AI for Health",
+    "keywords": [
+      "model distillation",
+      "vision"
+    ],
+    "description": "Whole-slide imaging of biological tissue slices is widely used in histopathology to identify and classify diseases based on their appearance in images. The imaging process requires the application of a dye, or stain, to the tissue which preferentially highlights key structures and enable them to be imaged. Unfortunately, there is no one universal stain and so different stains are needed depending on what disease is suspected. This can lead to diagnostic errors. There is now strong evidence that images can be re-stained computationally by generative AI models – virtual staining - which potentially allows for large numbers of potential diseases to be screened from one tissues sample. A major challenge with this is that whole-slide image are huge – often 100MPixels or more, and this means that virtual staining has to be done on smaller tiles which then have to be stitched back together. In this project we will explore way to make generative models more efficient and scalable, with the ultimate goal of being able to restain a whole whole-slide image in one go. We will do this by drawing inspiration from the field of model distillation, where unimportant parameters are remove to allow a model to be shrunk. Our task is somewhat different, but the basic idea will be to train a model at the patch level and then scale this up in stages to a whole slide. This project will involve significant original work in developing novel contributions.",
+    "industrial": null
+  },
+  {
+    "id": 39,
+    "title": "Improve data augmentation for data-efficient deep generative models via Adaptive Negative Data Augmentation",
+    "supervisor": "Yang Hua",
+    "email": "y.hua@qub.ac.uk",
+    "theme": "Computer Vision",
+    "keywords": [
+      "Deep generative models; Deep learning; Data efficiency; Data augmentation"
+    ],
+    "description": "Recently, with the rapid development of deep learning techniques, there has been an explosion of different deep generative models, which are applied to diverse domains such as image, audio, video synthesis, and natural language processing. As a result, many stunning applications based on deep generative models have emerged, from the most successful text-to-image generation model DALL·E to the most recent video generation model SORA. \r\nDeep generative models, e.g., Generative adversarial networks (GANs) or Diffusion Models (DMs), have achieved great success when working with large amounts of data. However, gathering and cleaning such enormous datasets is expensive, time-consuming, and often impossible. In this project, you will work on one cutting-edge approach to improve data augmentation for data-efficient deep generative models (i.e., training deep generative models with limited data) with the following steps:\r\n- Obtaining essential background knowledge about the latest deep generative models\r\n- Building a baseline method based on the latest publication [1]\r\n- Further improving the data argumentation methods for data-efficient deep generative models, or applying the baseline method to build real-world applications\r\n- Performance evaluation and analysis \r\n\r\nIdeal output\r\n- Improved data argumentation methods for data-efficient deep generative models, which may lead to one academic paper submission\r\n- Real-world applications utilising data-efficient deep generative models\r\n\r\nReference\r\n[1] Zhaoyu Zhang, Yang Hua, Guanxiong Sun, Hui Wang, and Sean McLoone. Improving the Leaking of Augmentations in Data-Efficient GANs via Adaptive Negative Data Augmentation. In Winter Conference on Applications of Computer Vision (WACV), 2024",
+    "industrial": null
+  },
+  {
+    "id": 40,
+    "title": "Improve data augmentation for data-efficient deep generative models via fairness enhancement in GANs training",
+    "supervisor": "Yang Hua",
+    "email": "y.hua@qub.ac.uk",
+    "theme": "Computer Vision",
+    "keywords": [
+      "Deep generative models; Deep learning; Data efficiency; Data augmentation"
+    ],
+    "description": "Recently, with the rapid development of deep learning techniques, there has been an explosion of different deep generative models, which are applied to diverse domains such as image, audio, video synthesis, and natural language processing. As a result, many stunning applications based on deep generative models have emerged, from the most successful text-to-image generation model DALL·E to the most recent video generation model SORA. \nDeep generative models, e.g., Generative adversarial networks (GANs) or Diffusion Models (DMs), have achieved great success when working with large amounts of data. However, gathering and cleaning such enormous datasets is expensive, time-consuming, and often impossible. In this project, you will work on one cutting-edge approach to improve data augmentation for data-efficient deep generative models (i.e., training deep generative models with limited data) with the following steps:\n- Obtaining essential background knowledge about the latest deep generative models\n- Building a baseline method based on the latest publication [1]\n- Further improving the data argumentation methods for data-efficient deep generative models or applying the baseline method to build real-world applications\n- Performance evaluation and analysis \n\nIdeal output\n- Improved data argumentation methods for data-efficient deep generative models, which may lead to one academic paper submission\n- Real-world applications utilising data-efficient deep generative models\n\nReference\n[1] Zhaoyu Zhang, Yang Hua, Hui Wang, and Sean McLoone. Improving the Fairness of the Min-Max Game in GANs Training. In Winter Conference on Applications of Computer Vision (WACV), 2024",
+    "industrial": null
+  },
+  {
+    "id": 41,
+    "title": "Improve the training of data-efficient GANs via discriminator rejection sampling",
+    "supervisor": "Yang Hua",
+    "email": "y.hua@qub.ac.uk",
+    "theme": "Computer Vision",
+    "keywords": [
+      "Deep generative models; GANs; Deep learning; Data efficiency; Discriminator Rejection Sampling"
+    ],
+    "description": "Recently, with the rapid development of deep learning techniques, there has been an explosion of different deep generative models, which are applied to diverse domains such as image, audio, video synthesis, and natural language processing. As a result, many stunning applications based on deep generative models have emerged, from the most successful text-to-image generation model DALL·E to the most recent video generation model SORA. \nGenerative adversarial networks (GANs)have achieved great success when working with large amounts of data. However, gathering and cleaning such enormous datasets is expensive, time-consuming, and often impossible. In this project, you will work on one cutting-edge approach to improve the training of data-efficient GANs via discriminator rejection sampling with the following steps:\n- Obtaining essential background knowledge about the latest deep generative models\n- Building a baseline method based on the latest publication [1]\n- Further improving discriminator rejection sampling for data-efficient GANs or applying the baseline method to build real-world applications\n- Performance evaluation and analysis \n\nIdeal output\n- Improved discriminator rejection sampling for data-efficient GANs, which may lead to one academic paper submission\n- Real-world applications utilising data-efficient GANs models\n\nReference\n[1] Zhaoyu Zhang, Yang Hua, Guanxiong Sun, Hui Wang, and Sean McLoone. Improving the Training of Data Efficient GANs via Quality Aware Dynamic Discriminator Rejection Sampling. In IEEE Conference on Computer Vision and Pattern Recognition (CVPR), 2025",
+    "industrial": null
+  },
+  {
+    "id": 42,
+    "title": "Improve data augmentation for data-efficient deep generative models via adaptive discriminator augmentation",
+    "supervisor": "Yang Hua",
+    "email": "y.hua@qub.ac.uk",
+    "theme": "Computer Vision",
+    "keywords": [
+      "Deep generative models; Deep learning; Data efficiency; Data augmentation"
+    ],
+    "description": "Recently, with the rapid development of deep learning techniques, there has been an explosion of different deep generative models, which are applied to diverse domains such as image, audio, video synthesis, and natural language processing. As a result, many stunning applications based on deep generative models have emerged, from the most successful text-to-image generation model DALL·E to the most recent video generation model SORA. \nDeep generative models, e.g., Generative adversarial networks (GANs) or Diffusion Models (DMs), have achieved great success when working with large amounts of data. However, gathering and cleaning such enormous datasets is expensive, time-consuming, and often impossible. In this project, you will work on one cutting-edge approach to improve data augmentation for data-efficient deep generative models (i.e., training deep generative models with limited data) with the following steps:\n- Obtaining essential background knowledge about the latest deep generative models\n- Building a baseline method based on the latest publication [1]\n- Further improving the data argumentation methods for data-efficient deep generative models or applying the baseline method to build real-world applications\n- Performance evaluation and analysis \n\nIdeal output\n- Improved data argumentation methods for data-efficient deep generative models, which may lead to one academic paper submission\n- Real-world applications utilising data-efficient deep generative models\n\nReference\n[1] Tero Karras, Miika Aittala, Janne Hellsten, Samuli Laine, Jaakko Lehtinen, Timo Aila. Training Generative Adversarial Networks with Limited Data. NeurIPS 2020",
+    "industrial": null
+  },
+  {
+    "id": 43,
+    "title": "Dataset Dissimilarity Measures for Run-time Formal Verification of Image-based Classifier",
+    "supervisor": "Vishal Sharma, Paul Miller and Thales Team",
+    "email": "v.sharma@qub.ac.uk",
+    "theme": "Machine Learning",
+    "keywords": [
+      "Machine Learning Models"
+    ],
+    "description": "Project Definition: This project seeks to formulate dataset dissimilarity measures which are able to predict the performance of an ML-based classifier at run-time with minimal uncertainty [1] [2] [3]. If an ML-based classifier receives data during operation which differs from the data used to train the model, then its performance might fall, and the drop might be correlated with the degree to which the data differs. Therefore a measure which quantifies the difference between a training dataset, and a dataset received by an ML-based classifier during operation could be used to predict classification performance. This prediction could be used for run-time verification: if the performance is predicted to fall below the minimal performance required, then the model would fail verification and some system response would be necessary. In this manner, a data dissimilarity measure is a tool which can contribute to trustworthy AI.\n \n Objective: Run-time Machine Learning Classifier Performance Prediction and Verification to be achieved. The classifier and dataset to be used will be specified later.\n Project Outputs: M.Sc thesis report, the generated code, and Lab demonstration.\n Research Interest/Skills:\n This project is best suited to a student with an interest in ML and skills in coding.\n \n References: \n 1.        Lohdefink, Jonas, Justin Fehrling, Marvin Klingner, Fabian Huger, Peter Schlicht, Nico M. Schmidt, and Tim Fingscheidt. \"Self-supervised domain mismatch estimation for autonomous perception.\" In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition Workshops, pp. 334-335. 2020.\n 2.        Darryl Hond, Hamid Asgari, et al., The 2022 IEEE Conference on Assured Autonomy (ICAA), “Layer-Wise Analysis of Neuron Activation Values for Performance Verification of Artificial Neural Network Classifiers”, Accepted for presentation, USA, March 2022.\n 3.        Darryl Hond, Hamid Asgari, et al., IGI International Journal of AI and ML, “An Integrated process for Verifying Deep Learning Classifiers Using Data Dissimilarity Measures”, Oct. 2021.",
+    "industrial": "Thales"
+  },
+  {
+    "id": 44,
+    "title": "Boundary Computations for Dataset Similarity using CNN Softmax Scores and Activation Values",
+    "supervisor": "Vishal Sharma, Paul Miller and Thales Team",
+    "email": "v.sharma@qub.ac.uk",
+    "theme": "Machine Learning",
+    "keywords": [
+      "AI/ML",
+      "Convolutional Neural Networks"
+    ],
+    "description": "The project aims to investigate the extent to which softmax scores and activation values produced by a Convolutional Neural Network (CNN) classifier can be employed to quantify the statistical similarity between datasets that are fed as input to the CNN classifier. More specifically, computing a similarity value between an operational dataset and the dataset initially used to train the CNN could provide insight into whether samples included in these two datasets are drawn from the same probability distribution [1]. Operational datasets could be generated by applying synthetic perturbations to the training dataset. By increasing the magnitude of an applied perturbation, operational datasets that are progressively more dissimilar from the training dataset could be obtained. By feeding these operational datasets to the CNN, the project aims to investigate how the softmax scores and activation values of the network change in terms of the magnitude of the applied perturbations. A layer-wise study of the CNN activation values can be conducted. The analysis should also consider how the gap between the highest and the second highest softmax scores responds to progressively more perturbed operational data. Eventually, suggestions should be made on how to best combine the information derived from softmax scores and activation values in order to quantify the statistical similarity between operational and training datasets. This can help the developer/user to understand the behaviour and trustworthiness of the CNN in an operational environment.  \n Model and Data: Any CNN-based image classifier and relevant datasets\n Objective: To realise to extent softmax scores and activation values produced by a CNN classifier can be used to quantify the statistical similarity between datasets that are fed as input to the classifier.\n Project Outputs: M.Sc thesis report, the generated code, and Lab demonstration (if applicable).  \n Research Interest/Skills: \n This project is best suited to a student with an interest in CNN and skills in coding.\n \n References: \n 1.\tHendrycks D et al., A Baseline for Detecting Misclassified and Out-of-Distribution Examples in Neural Networks, arXiv, 2018.",
+    "industrial": "Thales"
+  },
+  {
+    "id": 45,
+    "title": "Malicious behaviour indentification in Agent-as-a-Service Systems",
+    "supervisor": "Vishal Sharma",
+    "email": "v.sharma@qub.ac.uk",
+    "theme": "Machine Learning",
+    "keywords": [
+      "AI Security",
+      "AI Verification",
+      "Behaviour Verification"
+    ],
+    "description": "Many modern systems are migrating towards Agent-as-a-Service (AaaS) models. These architectures often involve multiple AI/ML agents, orchestrated either through generic orchestration platforms (LangChain, AutoGen, LangGraph, OpenAI Swarm) or customised orchestrators tailored to specific use cases. However, as agents gain higher levels of autonomy, the risk of them going rogue or acting as moles increases. Such agents may leak information to other agents or system components, either unintentionally or maliciously. This leak of information becomes catastrophic when we are dealing with an astronomically large number of agents. Thus, the project aims to identify existing approaches that can help in such detection, build on their gaps, and propose a solution to bridge them with novel ideas.\r\n\r\nThe goals of this project are to:\r\n\r\nSurvey existing approaches for detecting rogue or compromised agents.\r\nIdentify gaps in current solutions with validation of the problem through code-level verification.\r\nPropose novel mechanisms that address these gaps, ensuring compatibility with existing orchestrators and communication protocols, such as the Model Context Protocol and Agent-to-Agent (A2A) protocols, to facilitate seamless integration of identifying rogue.",
+    "industrial": "TBC (Pytilia)"
+  },
+  {
+    "id": 46,
+    "title": "Assurance agents for net-zero traceability",
+    "supervisor": "Vishal Sharma",
+    "email": "v.sharma@qub.ac.uk",
+    "theme": "Knowledge Engineering",
+    "keywords": [
+      "AI Security",
+      "AI Verification",
+      "Behaviour Verification"
+    ],
+    "description": "Propose your idea on building assurance agents for evaluating activities of large-scale agentic AI systems in net-zero space. The focus of the research must be on internal audit, monitoring, and compliance layers by defining a novel orchestrator and filtering platform for the agents.",
+    "industrial": "www.sourcing-lens.com"
+  },
+  {
+    "id": 47,
+    "title": "Semantic Communication via Region-of-Interest Transmission using YOLO",
+    "supervisor": "Zehui Xiong",
+    "email": "z.xiong@qub.ac.uk",
+    "theme": "Other",
+    "keywords": [
+      "Semantic Communication; Object Detection; YOLO; Edge Computing; Bandwidth Efficiency"
+    ],
+    "description": "Background & Challenge\r\nIn visual communication, transmitting full-resolution images wastes bandwidth since not all regions are equally important. Objects like pedestrians or vehicles matter more than background. Traditional compression treats all pixels the same, which is inefficient. This project explores a semantic-aware transmission framework using YOLO for object detection. Instead of sending the whole image, only the detected regions of interest (RoIs) or their descriptions are transmitted. This reduces bandwidth use while preserving critical information for downstream tasks.\r\n\r\nObjectives\r\nImplement a YOLO-based RoI extraction system.\r\nSimulate semantic transmission: send RoIs at high quality, compress or discard background.\r\nCompare full-image transmission vs. RoI-based transmission under bandwidth constraints.\r\nEvaluate trade-offs using metrics such as bandwidth savings, detection accuracy, and latency.\r\n\r\nUseful Readings\r\nhttps://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=10795730\r\nhttps://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=10734822",
+    "industrial": null
+  },
+  {
+    "id": 48,
+    "title": "Communication-Efficient Federated Learning with Sparse Model Updates",
+    "supervisor": "Zehui Xiong",
+    "email": "z.xiong@qub.ac.uk",
+    "theme": "Machine Learning",
+    "keywords": [
+      "Federated Learning; Communication Efficiency; Sparse Updates"
+    ],
+    "description": "Federated Learning (FL) enables decentralized model training across multiple client devices without sharing raw data. However, the communication cost of repeatedly transmitting full model updates is a major bottleneck, particularly in bandwidth-constrained or energy-limited environments. To address this, various techniques such as top-k sparsification, random masking, and gradient quantization have been proposed to reduce update sizes while preserving model accuracy.\r\n\r\nThis project aims to evaluate sparse communication strategies in FL through simulation. Using frameworks such as Flower or FedML, students will simulate FL across multiple virtual clients using small datasets like MNIST. They will compare baseline FedAvg with sparse variants and evaluate the trade-offs between communication efficiency, model convergence, and final accuracy. The project emphasizes understanding sparsity in federated optimization.\r\n\r\nObjectives: This project will uses toy CNN models and small datasets like MNIST.\r\n- Build a federated learning simulation using Flower or FedML with 10–20 local clients\r\n- Implement sparsification strategies (e.g., top-k selection, random drop, gradient quantization)\r\n- Compare convergence speed and accuracy under varying communication budgets\r\n- Analyze the communication–performance trade-off and robustness to non-IID data\r\n\r\nUseful readings:\r\n1. Expanding the Reach of Federated Learning by Reducing Client Resource Requirements. https://arxiv.org/abs/1812.07210\r\n2. Communication-Efficient Learning of Deep Networks from Decentralized Data. https://arxiv.org/abs/1602.05629\r\n3. Flower Framework Documentation. https://flower.ai/docs/framework/",
+    "industrial": null
+  },
+  {
+    "id": 49,
+    "title": "Understanding Expert Specialization in Mixture-of-Experts Language Models",
+    "supervisor": "Zehui Xiong",
+    "email": "z.xiong@qub.ac.uk",
+    "theme": "NLP",
+    "keywords": [
+      "Mixture-of-Experts; Model Interpretability; Natural Language Processing; Expert Specialization; Neural Network Analysis"
+    ],
+    "description": "Mixture-of-Experts (MoE) architectures have emerged as a breakthrough approach for scaling neural networks while maintaining computational efficiency. Models like Switch Transformer, GLaM, and PaLM-2 demonstrate that activating only a small subset of parameters per input can achieve remarkable performance improvements over dense models. The core principle involves replacing traditional feed-forward networks with multiple \"expert\" networks, where a gating mechanism dynamically routes each input token to the most appropriate experts.\r\n\r\nDespite their success, MoE models remain difficult to interpret. The routing mechanism is learned during training, but the criteria behind expert selection are poorly understood. Do experts specialize in syntactic structures, semantic domains, or input complexity? Furthermore, how do training tasks (e.g., language modeling vs. classification) influence specialization? And how do MoE models compare with dense models on the same tasks in terms of specialization patterns and interpretability?\r\n\r\nThis project aims to investigate these questions through a comparative analysis of MoE and non-MoE models trained on different NLP tasks. Using compact, open-source MoE architectures (e.g., Switch Transformer-Base) and standard toy datasets, students will examine routing behavior, token-to-expert correlations, and specialization metrics. A dense baseline model (e.g., small GPT-2) will be used for contrast, enabling a clearer assessment of the advantages and trade-offs associated with expert sparsity.\r\n\r\nObjectives: This project will use small open-source MoE models (e.g., Switch Transformer-Base or OpenMoE demos with <12 layers) for analysis.\r\n- Compare models trained on different tasks (e.g., language modeling, text classification)\r\n- Analyze expert activation and routing patterns using annotated datasets (e.g., POS tags, topic labels)\r\n- Compare specialization metrics with a dense baseline model (e.g., small GPT2)\r\n- Visualize expert-token associations and clustering patterns\r\n\r\nUseful readings:\r\n1. Outrageously Large Neural Networks: The Sparsely-Gated Mixture-of-Experts Layer. https://arxiv.org/abs/1701.06538\r\n2. Switch Transformers: Scaling to Trillion Parameter Models with Simple and Efficient Sparsity. https://arxiv.org/abs/2101.03961\r\n3. GLaM: Efficient Scaling of Language Models with Mixture-of-Experts. https://arxiv.org/abs/2112.06905\r\n4. Mixture of Experts Explained. https://huggingface.co/blog/moe",
+    "industrial": null
+  },
+  {
+    "id": 50,
+    "title": "Climate Data Mining for Dengue Fever Prediction: A Machine Learning Approach",
+    "supervisor": "Son Mai",
+    "theme": "AI for Health",
+    "keywords": [
+      "Forecasting",
+      "prediction"
+    ],
+    "description": "Project Background: Dengue fever, a climate-sensitive vector-borne disease, exhibits a complex epidemiological relationship with climatic variability. In the context of global warming, spatiotemporal variations in meteorological factors, such as temperature, precipitation, and humidity, directly influence the life cycles of mosquito vectors. This project sits at the intersection of public health and data science, aiming to uncover the intricate non-linear relationships between climatic drivers and dengue outbreaks.\n\nResearch Objectives: This project is designed to equip students with advanced skills in data science, deep learning and time series forecasting. Focusing on Southeast Asia and other endemic regions, students will learn to acquire, clean, and process multi-source climatic datasets. It involves the application of Python for comprehensive data exploration, feature engineering, and the analysis of lagged effects and the model prediction.\n\nMethodology: This project requires the application of machine learning and deep learning algorithms to build predictive models. Students will begin by identifying key climatic predictors using statistical methods and establishing baseline forecasts. Subsequently, they will implement advanced architectures such as Long Short Term Memory (LSTM) and Gated Recurrent Unit (GRU) networks to capture the long-term dependencies and dynamic evolution of disease transmission. The final phase involves model validation through metrics like Mean Squared Error (MSE) and Mean Absolute Error (MAE), and resulting in the visualization of disease prediction.",
+    "industrial": null
+  },
+  {
+    "id": 51,
+    "title": "Sleep Apnea Prediction",
+    "supervisor": "Son Mai",
+    "theme": "AI for Health",
+    "keywords": [
+      "Sleep apnoea"
+    ],
+    "description": "The project aims to build a novel prediction method to predict OSA severity over longitudinal data.",
+    "industrial": null
+  },
+  {
+    "id": 52,
+    "title": "Stock market forecasting using LLMs",
+    "supervisor": "Son Mai",
+    "theme": "Machine Learning",
+    "keywords": [
+      "Time series forecasting"
+    ],
+    "description": "The project aims to build a forecasting model for stock market using LLMs.",
+    "industrial": null
+  },
+  {
+    "id": 53,
+    "title": "Stock market forecasting using LLMs",
+    "supervisor": "Son Mai",
+    "theme": "Machine Learning",
+    "keywords": [
+      "Time series forecasting"
+    ],
+    "description": "The project aims to build a forecasting model for stock market using LLMs.",
+    "industrial": null
+  },
+  {
+    "id": 54,
+    "title": "AI for Breast Cancer Pathology",
+    "supervisor": "Barry Devereux",
+    "email": "b.devereux@qub.ac.uk",
+    "theme": "AI for Health",
+    "keywords": [
+      "foundation models",
+      "image segmentation",
+      "image classification",
+      "knowledge distillation."
+    ],
+    "description": "This MSc research project aims to leverage state-of-the-art pathology foundation models for knowledge distillation and synthetic labelling of regions of ductal carcinoma in situ (DCIS) and related features in breast tissue whole-slide images. DCIS is a non-invasive form of breast cancer in which abnormal cells are confined within ducts. While not immediately life-threatening, DCIS can progress to invasive breast cancer if left untreated, making accurate detection and characterisation clinically important. This a project with an industry partner (Cirdan) and may be subject to a company Non-Disclosure Agreement. Proposed resources:  https://huggingface.co/paige-ai/Virchow  https://huggingface.co/datasets/histai/SPIDER-breast",
+    "industrial": "Cirdan"
+  },
+  {
+    "id": 55,
+    "title": "Clinical NLP for SNOMED CT Concept Identification",
+    "supervisor": "Barry Devereux",
+    "email": "b.devereux@qub.ac.uk",
+    "theme": "NLP",
+    "keywords": [
+      "NLP",
+      "Named Entity Recognition",
+      "Knowledge Extraction",
+      "clinical NLP"
+    ],
+    "description": "This MSc research project focuses on applying natural language processing (NLP) methods, such as NER, BERT, and LLMs, to identify candidate clinical concepts for SNOMED CT. SNOMED CT is a comprehensive clinical terminology but mapping free-text clinical records to structured SNOMED CT concepts remains a major challenge due to variability in clinical language, abbreviations, and context-dependent meanings. Improving automated concept recognition aims to enable more reliable secondary use of healthcare data. This a project with an industry partner (Cirdan) and may be subject to a company Non-Disclosure Agreement. Proposed resources https://huggingface.co/collections/OpenMed/zeroshot-medical-and-clinical-ner https://huggingface.co/OpenMed/OpenMed-ZeroShot-NER-Pathology-Base-220M https://www.drivendata.org/competitions/258/competition-snomed-ct/page/821/",
+    "industrial": "Cirdan"
+  },
+  {
+    "id": 56,
+    "title": "AI-Driven Querying of Clinical Data Using MCP Servers",
+    "supervisor": "Barry Devereux",
+    "email": "b.devereux@qub.ac.uk",
+    "theme": "NLP",
+    "keywords": [
+      "NLP",
+      "agentic AI",
+      "MCP",
+      "clinical NLP",
+      "LLMs",
+      "Agentic Workflows"
+    ],
+    "description": "This MSc research project explores the application of Model Context Protocol (MCP) servers to enable intelligent querying of healthcare data stored in FHIR databases. Fast Healthcare Interoperability Resources (FHIR) provides a standardised framework for representing and exchanging electronic health record data. However, accessing and querying complex FHIR data structures can be technically challenging, often requiring detailed knowledge of schemas, data models, and query languages. MCP-based approaches offer a promising way to enable AI systems to interact with structured clinical data more effectively, supporting natural language queries, automated data retrieval, and improved clinical data accessibility. Adding the ability to provide detailed, workflow related guidance - oriented to a specific laboratory and LIS system - would add significant benefits for LIS users for workflows that are nuanced and complex. A system with agency, automating the workflow based on context and interim results, could introduce significant workflow efficiencies. This a project with an industry partner (Cirdan) and may be subject to a company Non-Disclosure Agreement. Proposed resources: Publicly available LLMs, FHIR data, 50-100 example queries and answers from Cirdan for evaluation.",
+    "industrial": "Cirdan"
+  },
+  {
+    "id": 57,
+    "title": "The Edge-Cloud Swarm Research Theme: Evaluating Hierarchical Multi-Agent Systems (HMAS) using Cloud LLM",
+    "supervisor": "Barry Devereux",
+    "email": "b.devereux@qub.ac.uk",
+    "theme": "NLP",
+    "keywords": [
+      "NLP",
+      "agentic AI",
+      "Agentic Workflows",
+      "Hierarchical Multi-Agent Systems",
+      "AI Engineering"
+    ],
+    "description": "This MSc project aims to develop a hierarchical \"Edge-Cloud Swarm\" that reduces operational costs and enhances data privacy by delegating high-level reasoning to cloud LLMs while offloading 90% of task execution to a localized swarm of specialized small language models. Instead of sending every complex request to a multi-billion parameter cloud model (LLM), this project proposes a Hybrid Hierarchy -- \"The CEO & The Specialists\". The Orchestrator (Cloud LLM): A high-reasoning model (e.g., GPT-5 or Claude 4) acts as the \"CEO.\" It receives the high-level goal, creates a plan, and delegates tasks. The Swarm (Local SLMs): A group of \"Tiny\" models (e.g., Llama 3.2 1B, Qwen-2.5-Coder 1.5B) running on a local machine (MacBook/PC) or a cluster of Raspberry Pis. Each SLM is a tool-specialist (e.g., a File-Surfer, a Security-Sentinel, or a Code-Writer). Target Deployment: The \"MacBook-Cloud\" Hybrid. This project specifically explores a cost-reduction architecture: Client-Side Compute: 90% of the \"grunt work\" (reading logs, scanning files, writing boilerplate code) is handled by the local SLM swarm on the laptop. Cloud-Side Compute: The cloud LLM is only invoked for high-level planning and final synthesis. In this project, the student would benchmark this swarm architecture against two baseline scenarios: Metric Single Cloud LLM (Monolith) and Swarm of Cloud LLMs. The evaluation would include analysis in terms of Operational Cost, data privacy and Reliablity. Potential Research Questions: At what level of task complexity does a 1B-parameter \"worker\" fail to follow a \"CEO\" model's instructions? Does the time saved by local processing offset the communication overhead between the cloud and the edge? Can a local SLM swarm perform \"Reflection\" (checking its own work) to reduce the number of expensive \"clarification calls\" back to the cloud LLM? This a project with an industry partner (Pytilia) and may be subject to a company Non-Disclosure Agreement.",
+    "industrial": "Pytilia"
+  },
+  {
+    "id": 58,
+    "title": "Temporal Exploit Prediction: \"When Will This CVE Be Exploited?\"",
+    "supervisor": "Barry Devereux",
+    "email": "b.devereux@qub.ac.uk",
+    "theme": "NLP",
+    "keywords": [
+      "NLP",
+      "CyberAI"
+    ],
+    "description": "This MSc project aims to improve current vulnerability management limitations by developing a survival model that predicts exactly when a CVE is likely to be weaponized across multiple time horizons. While existing tools like the Exploit Prediction Scoring System (EPSS) provide probability scores within a fixed 30-day window, this research seeks to derive multi-horizon risk scores for 7, 30, 90, and 180 days, offering a richer signal for security teams to prioritize emergency patches over planned remediation. By leveraging a massive dataset of over 300,000 CVEs, the project will investigate how specific patterns, such as ATT&CK techniques and CWE mappings, correlate with rapid exploitation timelines. The project will specifically address whether the time saved by local processing offsets communication overhead and if \"Agentic Reflection\" can reduce expensive cloud calls. By benchmarking against historical models and the temporal evolution of EPSS, this research aims to determine if survival curves can provide a more accurate, context-aware indicator of threat than traditional static metrics. This a project with an industry partner (Pytilia) and may be subject to a company Non-Disclosure Agreement.",
+    "industrial": "Pytilia"
+  },
+  {
+    "id": 59,
+    "title": "Local-first user-facing AI",
+    "supervisor": "Barry Devereux",
+    "email": "b.devereux@qub.ac.uk",
+    "theme": "NLP",
+    "keywords": [
+      "NLP",
+      "LLMs",
+      "AI Engineering"
+    ],
+    "description": "This project addresses the shifting AI landscape by prioritizing privacy-centric, low-latency, and cost-effective Small Language Models (SLMs) over \"overkill\" multi-billion parameter cloud giants. This research focuses on deploying models typically ranging from sub-1B to 7B parameters directly onto local hardware, such as Raspberry Pis or mobile devices, to solve high-value problems in regulated or internet-dark environments. By exploring zero-cloud home assistants, offline professional \"sentinels\" for security or legal audits, and privacy-first clinical copilots, the project investigates whether niche-trained local models can outperform generalist LLMs in accuracy and risk detection for specific tasks. The project will investigate and evaluate the functional trade-offs of 4-bit quantization, utilizing Parameter-Efficient Fine-Tuning (PEFT) to create domain experts, and implementing neuro-symbolic integration to prevent hallucinations in critical tasks. Ultimately, this project aims to evaluate whether a 1.5B parameter model running on a $100 device can provide a more secure and faster solution than a billion-dollar cloud system, for specific high-throughput tasks, positioning \"small\" as the new frontier of applied AI engineering. This a project with an industry partner (Pytilia) and may be subject to a company Non-Disclosure Agreement.",
+    "industrial": "Pytilia"
+  },
+  {
+    "id": 60,
+    "title": "Investigating how LLMs represent knowledge of grammars",
+    "supervisor": "Barry Devereux",
+    "email": "b.devereux@qub.ac.uk",
+    "theme": "NLP",
+    "keywords": [
+      "NLP",
+      "LLMs",
+      "interpretability"
+    ],
+    "description": "In many Natural Language Processing (NLP) applications, including machine translation, sentiment analysis, and text summarization, current state-of-the-art performance is often achieved using large-scale neural network models such as Transformers (Vaswani 2017). Such models are trained on large bodies of human generated text data (e.g. Wikipedia), and learn to represent statistical regularities in the language input which is useful for accurate performance on the downstream NLP task. However, large-scale neural network language models are often “black boxes” – they can be trained to perform very well on a given task, but what kinds of relevant linguistic information they learn to represent is often very unclear. For example, such models much learn to represent knowledge about the grammar of human languages, but how individual rules of grammar are represented in the trained network is difficult to determine.\nIn this project, the student will investigate how grammatical rules are represented in a Transformer language model. We will adopt an Artificial Grammar Learning paradigm, which has previously been used in neuroscience to investigate how humans process language (Petersson et al 2012). The student will create artificial languages (based on context free and context sensitive grammars) and train Transformer-based language models on valid strings generated for those languages. The student will then investigate how the language model processes individual grammatical rules of the language, using visualisation and statistical analysis of the model’s internal activations and attention weights (e.g. Strobelt et al 2016).\nObjectives\n•        Become familiar with the Python framework for building, training and evaluating neural networks\n•        Become familiar with recurrent neural networks / LLMs used for language modelling.\n•        Define different artificial languages based on different grammars and generate training data consisting of strings licenced by the grammar.\n•        Train a Transformer language model on the generated data.\n•        Investigate how individual rules of the grammar are represented in the network, using visualisation and statistical analysis of the model’s internal activation states and attention weights. Do particular attention heads correspond to particular rules of the grammar?",
+    "industrial": null
+  },
+  {
+    "id": 61,
+    "title": "Student-proposed project on LLMs",
+    "supervisor": "Barry Devereux",
+    "email": "b.devereux@qub.ac.uk",
+    "theme": "NLP",
+    "keywords": [
+      "NLP",
+      "LLMs",
+      "interpretability"
+    ],
+    "description": "I welcome project proposals from students in the area of LLM/NLP research, particularly (but not exclusivley) in the areas of LLM evaluation, LLM interpretability and analysis research, LLM factuality, computational linguistics, model distillation, and neurolingustics. I also welcome projects for AI for Health, particularly in the areas of cognitive health and brain measurement. In discussion with the supervisor, student-proposed projects must meet the learning objectives of the module in terms of significance of the techncial work and scope/ambition of the research.",
+    "industrial": null
+  },
+  {
+    "id": 62,
+    "title": "Preserving Privacy in the Era of Large Language Models",
+    "supervisor": "Awais Rauf",
+    "email": "a.rauf@qub.ac.uk",
+    "theme": "Machine Learning",
+    "keywords": [
+      "NLP",
+      "Privacy",
+      "AI Safety"
+    ],
+    "description": "Recent research has demonstrated that large language models (LLMs) and agentic frameworks can deanonymize internet users at scale, revealing personal identities from seemingly innocuous data. This capability poses a significant threat to user privacy, as automated systems can aggregate and analyze vast amounts of online information with unprecedented speed and accuracy. In this project, you will investigate and develop methods to defend against agentic attacks targeting LLMs, with the goal of preserving user privacy and mitigating the risks associated with large-scale deanonymization.\n\nYou will begin with a brief overview of privacy concerns in the era of LLMs, along with a review of classical approaches to privacy preservation. You will then explore the application of existing methods and propose new ideas to better protect user privacy against LLM-based approaches.\n\nYou may read this paper to get better understanding of the subject: https://arxiv.org/pdf/2602.16800",
+    "industrial": null
+  },
+  {
+    "id": 63,
+    "title": "Leveraging Codec Signals for Adaptive Frame Sampling in Video Foundation Models",
+    "supervisor": "Awais Rauf",
+    "email": "a.rauf@qub.ac.uk",
+    "theme": "Computer Vision",
+    "keywords": [
+      "NLP",
+      "LLMs",
+      "Compression",
+      "Information Theory"
+    ],
+    "description": "Video Foundation Models (VFMs) typically rely on uniform temporal sampling of frames combined with vision-language models to extract semantic understanding from videos. However, uniform sampling often ignores the rich structural information already embedded in video codecs, such as I-frames, P-frames, and motion vectors, which implicitly capture scene changes, object motion, and temporal redundancy. In this project, you will explore utilization of codec signals to design more informed and adaptive sampling strategies, leveraging frame types, motion vectors, and bitrate variations to prioritize informative frames and reduce redundancy. By integrating these codec-aware cues, the project aims to improve the efficiency of video representation learning while maintaining or enhancing semantic understanding, potentially enabling faster and more accurate video understanding in vision-language models. \n\nThis project will help you gain hands-on understanding of concepts from deep learning, large language models, information theory, and video compression.\n\nRead following paper for more details: https://arxiv.org/pdf/2402.03161",
+    "industrial": null
+  },
+  {
+    "id": 64,
+    "title": "Leveraging Large Language Models for Structured Data Extraction from Conversations",
+    "supervisor": "Awais Rauf",
+    "email": "a.rauf@qub.ac.uk",
+    "theme": "Machine Learning",
+    "keywords": [
+      "NLP",
+      "LLMs",
+      "Tabular Data"
+    ],
+    "description": "Accurately extracting structured data from conversations is critical for enabling automated decision-making, analytics, and knowledge management in domains ranging from healthcare to customer support. Using large language models (LLMs), systems can transform free-form dialogue into organized formats such as tables, JSON objects, or knowledge graphs by identifying entities, relationships, intents, and key events. This task is challenging due to conversational ambiguity, context-dependent meanings, incomplete information, and variations in language style across domains. In this project, you will explore methods for prompting, fine-tuning, and evaluating LLMs to reliably extract structured information across diverse dialogue types. You will also dive deep into the problem and create specialized benchmark. \n\nThis project provides hands-on experience with deep learning, large language models, information extraction and solving real-world problems with LLMs.\n\nRead following paper for more details: https://aclanthology.org/2023.clinicalnlp-1.36",
+    "industrial": null
+  },
+  {
+    "id": 65,
+    "title": "Fine-Grained Vision Foundation Models for Automated Wind Turbine Inspection",
+    "supervisor": "Awais Rauf",
+    "email": "a.rauf@qub.ac.uk",
+    "theme": "Computer Vision",
+    "keywords": [
+      "Vision",
+      "Foundational Models",
+      "Renewable Energy",
+      "Self and Semi supervisd learning",
+      "Synthetic Data Generation"
+    ],
+    "description": "Wind turbine inspection is challenging due to the massive scale of modern turbines, the wide variety of structural defects, and highly variable environmental conditions. Current approaches rely on small, task-specific models trained on limited single-turbine datasets, and inspections are still largely manual, leading to inefficient coverage and limited fault detection.\n\nIn this project, you will first consolidate and curate multiple existing wind turbine inspection datasets into a unified large-scale dataset suitable for training a foundation model. Then, you will develop a turbine-specific vision foundation model based on DINOv3 for fine-grained analysis of ultra-high-resolution drone videos. Using a hybrid supervised and self-supervised learning strategy, you will adapt and further train the model to effectively leverage limited real-world annotations. To improve robustness and generalization, you will also incorporate dense visual supervision and synthetic data. The result of the project will be strong visual encoder for accurate and scalable automated wind turbine inspection.\n\n\nThis project will give you hands-on experience with deep learning, large vision foundational models, ultra-high resolution image, and video analysis. It will also introduce you to basic ideas about renewable energy and how wind turbines are built and maintained.\n \nRead following papers for more details: 1) https://2022.ivmsp.org/wp-content/uploads/2022/06/2022101059_Drone-Footage-Wind-Turbine-Surface-Damage-Detection-ID30_Copyright.pdf \n2) https://www.sciencedirect.com/science/article/pii/S0952197623015099",
+    "industrial": null
+  }
+]

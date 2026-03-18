@@ -1,0 +1,264 @@
+[
+  {
+    "name": "Hakan Yekta Yatbaz",
+    "email": "h.yatbaz@qub.ac.uk",
+    "projectCount": 4,
+    "themes": [
+      "Other"
+    ],
+    "projects": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "pureUrl": "https://pure.qub.ac.uk/en/persons/hakan-yekta-yatbaz"
+  },
+  {
+    "name": "Chen Feng",
+    "email": "c.feng@qub.ac.uk",
+    "projectCount": 2,
+    "themes": [
+      "Machine Learning"
+    ],
+    "projects": [
+      5,
+      6
+    ],
+    "pureUrl": "https://pure.qub.ac.uk/en/persons/chen-feng"
+  },
+  {
+    "name": "Pinzhen Chen",
+    "email": "p.chen@qub.ac.uk",
+    "projectCount": 4,
+    "themes": [
+      "NLP",
+      "Other"
+    ],
+    "projects": [
+      7,
+      8,
+      9,
+      10
+    ],
+    "pureUrl": "https://pure.qub.ac.uk/en/persons/pinzhen-chen"
+  },
+  {
+    "name": "Yujian Gan",
+    "email": "y.gan@qub.ac.uk",
+    "projectCount": 5,
+    "themes": [
+      "AI for Health",
+      "NLP"
+    ],
+    "projects": [
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "pureUrl": "https://pure.qub.ac.uk/en/persons/yujian-gan"
+  },
+  {
+    "name": "Kostas Koufos",
+    "email": "k.koufos@qub.ac.uk",
+    "projectCount": 3,
+    "themes": [
+      "Computer Vision",
+      "NLP"
+    ],
+    "projects": [
+      16,
+      17,
+      18
+    ],
+    "pureUrl": "https://pure.qub.ac.uk/en/persons/kostas-koufos"
+  },
+  {
+    "name": "Javid Taheri",
+    "email": "javid.taheri@qub.ac.uk",
+    "projectCount": 6,
+    "themes": [
+      "Machine Learning"
+    ],
+    "projects": [
+      19,
+      20,
+      21,
+      22,
+      23,
+      24
+    ],
+    "pureUrl": "https://pure.qub.ac.uk/en/persons/javid-taheri"
+  },
+  {
+    "name": "Muhammad Fahim",
+    "email": "m.fahim@qub.ac.uk",
+    "projectCount": 3,
+    "themes": [
+      "AI for Health"
+    ],
+    "projects": [
+      25,
+      26,
+      27
+    ],
+    "pureUrl": "https://pure.qub.ac.uk/en/persons/muhammad-fahim"
+  },
+  {
+    "name": "Deepak Padmanabhan",
+    "email": "d.padmanabhan@qub.ac.uk",
+    "projectCount": 2,
+    "themes": [
+      "Machine Learning"
+    ],
+    "projects": [
+      28,
+      29
+    ],
+    "pureUrl": "https://pure.qub.ac.uk/en/persons/deepak-padmanabhan"
+  },
+  {
+    "name": "Reza Rafiee",
+    "email": "g.rafiee@qub.ac.uk",
+    "projectCount": 5,
+    "themes": [
+      "AI for Health"
+    ],
+    "projects": [
+      30,
+      31,
+      32,
+      33,
+      34
+    ],
+    "pureUrl": "https://pure.qub.ac.uk/en/persons/reza-rafiee"
+  },
+  {
+    "name": "Iain Styles",
+    "email": "i.styles@qub.ac.uk",
+    "projectCount": 4,
+    "themes": [
+      "AI for Health",
+      "Computer Vision",
+      "Machine Learning"
+    ],
+    "projects": [
+      35,
+      36,
+      37,
+      38
+    ],
+    "pureUrl": "https://pure.qub.ac.uk/en/persons/iain-styles"
+  },
+  {
+    "name": "Yang Hua",
+    "email": "y.hua@qub.ac.uk",
+    "projectCount": 4,
+    "themes": [
+      "Computer Vision"
+    ],
+    "projects": [
+      39,
+      40,
+      41,
+      42
+    ],
+    "pureUrl": "https://pure.qub.ac.uk/en/persons/yang-hua"
+  },
+  {
+    "name": "Vishal Sharma, Paul Miller and Thales Team",
+    "email": "v.sharma@qub.ac.uk",
+    "projectCount": 2,
+    "themes": [
+      "Machine Learning"
+    ],
+    "projects": [
+      43,
+      44
+    ],
+    "pureUrl": "https://pure.qub.ac.uk/en/persons/vishal-sharma-paul-miller-and-thales-team"
+  },
+  {
+    "name": "Vishal Sharma",
+    "email": "v.sharma@qub.ac.uk",
+    "projectCount": 2,
+    "themes": [
+      "Machine Learning",
+      "Knowledge Engineering"
+    ],
+    "projects": [
+      45,
+      46
+    ],
+    "pureUrl": "https://pure.qub.ac.uk/en/persons/vishal-sharma"
+  },
+  {
+    "name": "Zehui Xiong",
+    "email": "z.xiong@qub.ac.uk",
+    "projectCount": 3,
+    "themes": [
+      "Other",
+      "Machine Learning",
+      "NLP"
+    ],
+    "projects": [
+      47,
+      48,
+      49
+    ],
+    "pureUrl": "https://pure.qub.ac.uk/en/persons/zehui-xiong"
+  },
+  {
+    "name": "Son Mai",
+    "projectCount": 4,
+    "themes": [
+      "AI for Health",
+      "Machine Learning"
+    ],
+    "projects": [
+      50,
+      51,
+      52,
+      53
+    ],
+    "pureUrl": "https://pure.qub.ac.uk/en/persons/son-mai"
+  },
+  {
+    "name": "Barry Devereux",
+    "email": "b.devereux@qub.ac.uk",
+    "projectCount": 8,
+    "themes": [
+      "AI for Health",
+      "NLP"
+    ],
+    "projects": [
+      54,
+      55,
+      56,
+      57,
+      58,
+      59,
+      60,
+      61
+    ],
+    "pureUrl": "https://pure.qub.ac.uk/en/persons/barry-devereux"
+  },
+  {
+    "name": "Awais Rauf",
+    "email": "a.rauf@qub.ac.uk",
+    "projectCount": 4,
+    "themes": [
+      "Machine Learning",
+      "Computer Vision"
+    ],
+    "projects": [
+      62,
+      63,
+      64,
+      65
+    ],
+    "pureUrl": "https://pure.qub.ac.uk/en/persons/awais-rauf"
+  }
+]

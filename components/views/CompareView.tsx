@@ -13,6 +13,7 @@ import {
   ArrowLeft,
   Building2,
   X,
+  ChevronLeft,
   ChevronUp,
   ChevronDown,
   Copy,
@@ -97,30 +98,28 @@ function DesktopTable({
             <td className={labelCellBase}>Rank</td>
             {shortlistedProjects.map((p, idx) => (
               <td key={p.id} className={dataCellBase}>
-                <div className="flex items-center gap-2">
-                  <div className="flex flex-col -space-y-0.5">
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      className="h-5 w-5 rounded-full"
-                      onClick={() => reorderShortlist(idx, idx - 1)}
-                      disabled={idx === 0}
-                    >
-                      <ChevronUp className="h-3 w-3" />
-                    </Button>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      className="h-5 w-5 rounded-full"
-                      onClick={() => reorderShortlist(idx, idx + 1)}
-                      disabled={idx === shortlistedProjects.length - 1}
-                    >
-                      <ChevronDown className="h-3 w-3" />
-                    </Button>
-                  </div>
+                <div className="flex items-center gap-1.5">
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="h-5 w-5 rounded-full"
+                    onClick={() => reorderShortlist(idx, idx - 1)}
+                    disabled={idx === 0}
+                  >
+                    <ChevronLeft className="h-3 w-3" />
+                  </Button>
                   <span className="h-7 w-7 rounded-full bg-primary/10 text-primary text-xs font-bold flex items-center justify-center tabular-nums">
                     {idx + 1}
                   </span>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="h-5 w-5 rounded-full"
+                    onClick={() => reorderShortlist(idx, idx + 1)}
+                    disabled={idx === shortlistedProjects.length - 1}
+                  >
+                    <ChevronRight className="h-3 w-3" />
+                  </Button>
                 </div>
               </td>
             ))}

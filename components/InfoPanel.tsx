@@ -35,7 +35,7 @@ export function InfoPanel() {
         Programme Info
       </DialogTrigger>
       
-      <DialogContent className="w-[95vw] sm:w-[90vw] sm:max-w-[90vw] lg:max-w-4xl xl:max-w-5xl p-0 overflow-hidden bg-white dark:bg-card border-none shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1)] rounded-3xl flex flex-col md:flex-row max-h-[90vh] gap-0 text-left font-sans ring-1 ring-border/20">
+      <DialogContent className="w-[95vw] sm:w-[90vw] sm:max-w-[90vw] lg:max-w-4xl xl:max-w-5xl p-0 overflow-y-auto bg-white dark:bg-card border-none shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1)] rounded-3xl flex flex-col md:flex-row max-h-[90vh] gap-0 text-left font-sans ring-1 ring-border/20">
         <DialogTitle className="sr-only">ECS8056 Programme Information</DialogTitle>
         <DialogDescription className="sr-only">
           Details about the ECS8056 Themed Research Project, including assessment and selection process.

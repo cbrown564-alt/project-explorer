@@ -454,7 +454,7 @@ function MobileCompare2({
   shortlistedProjects: Project[];
   shortlist: ReturnType<typeof useExplorer>;
 }) {
-  const { getNote } = shortlist;
+  const { getNote, supervisors } = shortlist;
   const [leftIdx, setLeftIdx] = useState(0);
   const [rightIdx, setRightIdx] = useState(
     shortlistedProjects.length > 1 ? 1 : 0
@@ -465,15 +465,31 @@ function MobileCompare2({
 
   if (!left || !right) return null;
 
-  const attrs: {
+  const supFor = (p: Project) => supervisors.find((s) => s.name === p.supervisor);
+
+  const rows: {
     label: string;
     render: (p: Project) => React.ReactNode;
+    stripe?: boolean;
   }[] = [
     {
       label: "Supervisor",
-      render: (p) => (
-        <span className="text-sm font-medium">{p.supervisor}</span>
-      ),
+      stripe: true,
+      render: (p) => {
+        const sup = supFor(p);
+        return (
+          <div className="flex items-center gap-2">
+            {sup?.photoUrl ? (
+              <img src={sup.photoUrl} alt={p.supervisor} className="h-6 w-6 rounded-full object-cover ring-1 ring-border/30 shrink-0" />
+            ) : (
+              <div className="h-6 w-6 rounded-full bg-muted flex items-center justify-center text-[9px] font-bold text-muted-foreground ring-1 ring-border/30 shrink-0">
+                {p.supervisor.split(" ").map((n) => n[0]).join("").slice(0, 2)}
+              </div>
+            )}
+            <span className="text-xs font-medium">{p.supervisor}</span>
+          </div>
+        );
+      },
     },
     {
       label: "Theme",
@@ -481,13 +497,11 @@ function MobileCompare2({
     },
     {
       label: "Keywords",
+      stripe: true,
       render: (p) => (
         <div className="flex flex-wrap gap-1">
           {p.keywords.map((kw) => (
-            <span
-              key={kw}
-              className="text-[10px] font-medium text-muted-foreground/70 bg-secondary/40 rounded-md px-2 py-0.5"
-            >
+            <span key={kw} className="text-[10px] font-medium text-muted-foreground/70 bg-secondary/50 rounded-md px-1.5 py-0.5">
               {kw}
             </span>
           ))}
@@ -503,11 +517,12 @@ function MobileCompare2({
             {p.industrial}
           </Badge>
         ) : (
-          <span className="text-xs text-muted-foreground">—</span>
+          <span className="text-xs text-muted-foreground/40">—</span>
         ),
     },
     {
       label: "Description",
+      stripe: true,
       render: (p) => (
         <p className="text-xs text-muted-foreground leading-relaxed line-clamp-4">
           {p.description}
@@ -521,58 +536,58 @@ function MobileCompare2({
         return note ? (
           <p className="text-xs text-foreground italic">{note}</p>
         ) : (
-          <span className="text-xs text-muted-foreground/50">No notes</span>
+          <span className="text-xs text-muted-foreground/40">No notes</span>
         );
       },
     },
   ];
 
   return (
-    <div className="space-y-4">
-      {/* Selectors */}
-      <div className="grid grid-cols-2 gap-3">
-        <select
-          className="w-full text-xs p-2 rounded-lg border border-border/50 bg-background"
-          value={leftIdx}
-          onChange={(e) => setLeftIdx(Number(e.target.value))}
-        >
-          {shortlistedProjects.map((p, i) => (
-            <option key={p.id} value={i}>
-              {p.title}
-            </option>
-          ))}
-        </select>
-        <select
-          className="w-full text-xs p-2 rounded-lg border border-border/50 bg-background"
-          value={rightIdx}
-          onChange={(e) => setRightIdx(Number(e.target.value))}
-        >
-          {shortlistedProjects.map((p, i) => (
-            <option key={p.id} value={i}>
-              {p.title}
-            </option>
-          ))}
-        </select>
+    <div className="rounded-2xl border border-border/50 bg-card shadow-sm overflow-hidden">
+      {/* Column headers: project selectors */}
+      <div className="grid grid-cols-2 bg-muted/50 dark:bg-muted/25 border-b border-border/40">
+        <div className="p-3 border-r border-border/20">
+          <select
+            className="w-full text-xs font-bold p-1.5 rounded-lg border border-border/40 bg-background truncate"
+            value={leftIdx}
+            onChange={(e) => setLeftIdx(Number(e.target.value))}
+          >
+            {shortlistedProjects.map((p, i) => (
+              <option key={p.id} value={i}>{p.title}</option>
+            ))}
+          </select>
+        </div>
+        <div className="p-3">
+          <select
+            className="w-full text-xs font-bold p-1.5 rounded-lg border border-border/40 bg-background truncate"
+            value={rightIdx}
+            onChange={(e) => setRightIdx(Number(e.target.value))}
+          >
+            {shortlistedProjects.map((p, i) => (
+              <option key={p.id} value={i}>{p.title}</option>
+            ))}
+          </select>
+        </div>
       </div>
 
-      {/* Attribute-by-attribute */}
-      <div className="space-y-4">
-        {attrs.map((attr) => (
-          <div key={attr.label}>
-            <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-2">
-              {attr.label}
-            </p>
-            <div className="grid grid-cols-2 gap-3">
-              <div className="p-2 rounded-lg bg-secondary/10">
-                {attr.render(left)}
-              </div>
-              <div className="p-2 rounded-lg bg-secondary/10">
-                {attr.render(right)}
-              </div>
+      {/* Attribute rows */}
+      {rows.map((row) => (
+        <div key={row.label} className={row.stripe ? "bg-muted/20 dark:bg-muted/10" : ""}>
+          <div className="px-3 pt-2.5 pb-1">
+            <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
+              {row.label}
+            </span>
+          </div>
+          <div className="grid grid-cols-2">
+            <div className="px-3 pb-3 border-r border-border/15">
+              {row.render(left)}
+            </div>
+            <div className="px-3 pb-3">
+              {row.render(right)}
             </div>
           </div>
-        ))}
-      </div>
+        </div>
+      ))}
     </div>
   );
 }

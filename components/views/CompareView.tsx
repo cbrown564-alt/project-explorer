@@ -36,6 +36,8 @@ function DesktopTable({
     updateNote,
     getNote,
     setSelectedProject,
+    supervisors,
+    setSupervisorModal,
   } = shortlist;
 
   const [expandedDesc, setExpandedDesc] = useState<Set<number>>(new Set());
@@ -127,14 +129,35 @@ function DesktopTable({
           {/* Supervisor */}
           <tr className={stripeClass}>
             <td className={labelCellBase}>Supervisor</td>
-            {shortlistedProjects.map((p) => (
-              <td
-                key={p.id}
-                className={`${dataCellBase} `}
-              >
-                <span className="text-sm font-medium">{p.supervisor}</span>
-              </td>
-            ))}
+            {shortlistedProjects.map((p) => {
+              const sup = supervisors.find((s) => s.name === p.supervisor);
+              return (
+                <td
+                  key={p.id}
+                  className={`${dataCellBase} `}
+                >
+                  <button
+                    className="flex items-center gap-2.5 group/sup text-left"
+                    onClick={() => setSupervisorModal(p.supervisor)}
+                  >
+                    {sup?.photoUrl ? (
+                      <img
+                        src={sup.photoUrl}
+                        alt={p.supervisor}
+                        className="h-7 w-7 rounded-full object-cover ring-2 ring-border/30 shrink-0"
+                      />
+                    ) : (
+                      <div className="h-7 w-7 rounded-full bg-muted flex items-center justify-center text-[11px] font-bold text-muted-foreground ring-2 ring-border/30 shrink-0">
+                        {p.supervisor.split(" ").map((n) => n[0]).join("").slice(0, 2)}
+                      </div>
+                    )}
+                    <span className="text-sm font-medium group-hover/sup:text-primary transition-colors">
+                      {p.supervisor}
+                    </span>
+                  </button>
+                </td>
+              );
+            })}
           </tr>
 
           {/* Theme */}

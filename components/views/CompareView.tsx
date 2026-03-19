@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useCallback } from "react";
 import { useExplorer } from "@/lib/explorer-context";
 import { ThemeBadge } from "@/components/ThemeBadge";
 import { Badge } from "@/components/ui/badge";
@@ -19,6 +19,7 @@ import {
   Trash2,
   ChevronRight,
   Eye,
+  Check,
 } from "lucide-react";
 
 /* ─── Desktop: Comparison Table ─── */
@@ -53,27 +54,38 @@ function DesktopTable({
   const supervisors = shortlistedProjects.map((p) => p.supervisor);
   const supervisorsMatch = supervisors.every((s) => s === supervisors[0]);
 
+  // Shared cell styles
+  const labelCellBase =
+    "sticky left-0 z-10 px-4 py-3 text-[11px] font-bold text-muted-foreground uppercase tracking-widest bg-muted/40 dark:bg-muted/20 border-r border-border/30";
+  const dataCellBase = "px-4 py-3 border-l border-border/15";
+  const stripeClass = "bg-muted/20 dark:bg-muted/10";
+
   return (
-    <div className="overflow-x-auto rounded-xl border border-border/40">
-      <table className="w-full text-sm border-collapse">
+    <div className="overflow-x-auto rounded-2xl border border-border/50 bg-card shadow-[0_2px_20px_-4px_rgba(0,0,0,0.06)] dark:shadow-[0_2px_20px_-4px_rgba(0,0,0,0.3)]">
+      <table className="w-full text-sm border-collapse min-w-max">
+        {/* Column header: project titles */}
         <thead>
-          <tr className="border-b border-border/40">
-            <th className="sticky left-0 bg-background z-10 w-[140px] min-w-[140px]" />
+          <tr className="bg-muted/50 dark:bg-muted/25">
+            <th className="sticky left-0 z-20 w-[140px] min-w-[140px] bg-muted/60 dark:bg-muted/30 border-r border-border/30 border-b border-b-border/40 p-4">
+              <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-widest">
+                Project
+              </span>
+            </th>
             {shortlistedProjects.map((p) => (
               <th
                 key={p.id}
-                className="min-w-[220px] p-3 text-left border-l border-border/30"
+                className="min-w-[220px] max-w-[260px] p-4 text-left border-l border-border/15 border-b border-b-border/40 align-top"
               >
                 <div className="flex items-start justify-between gap-2">
                   <button
-                    className="font-heading text-sm font-bold leading-snug text-left hover:text-primary transition-colors line-clamp-2"
+                    className="font-heading text-[13px] font-bold leading-snug text-left hover:text-primary transition-colors line-clamp-3"
                     onClick={() => setSelectedProject(p)}
                   >
                     {p.title}
                   </button>
                   <button
                     onClick={() => toggleShortlist(p.id)}
-                    className="shrink-0 p-1 rounded-full text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors"
+                    className="shrink-0 p-1 rounded-lg text-muted-foreground/50 hover:text-destructive hover:bg-destructive/10 transition-colors mt-0.5"
                     title="Remove from shortlist"
                   >
                     <X className="h-3.5 w-3.5" />
@@ -85,13 +97,11 @@ function DesktopTable({
         </thead>
         <tbody>
           {/* Rank */}
-          <tr className="border-b border-border/20">
-            <td className="sticky left-0 bg-background z-10 px-4 py-2 text-xs font-bold text-muted-foreground uppercase tracking-widest">
-              Rank
-            </td>
+          <tr>
+            <td className={labelCellBase}>Rank</td>
             {shortlistedProjects.map((p, idx) => (
-              <td key={p.id} className="px-3 py-2 border-l border-border/20">
-                <div className="flex items-center gap-1">
+              <td key={p.id} className={dataCellBase}>
+                <div className="flex items-center gap-2">
                   <div className="flex flex-col -space-y-0.5">
                     <Button
                       variant="ghost"
@@ -112,7 +122,7 @@ function DesktopTable({
                       <ChevronDown className="h-3 w-3" />
                     </Button>
                   </div>
-                  <span className="text-sm font-bold text-foreground">
+                  <span className="h-7 w-7 rounded-full bg-primary/10 text-primary text-xs font-bold flex items-center justify-center tabular-nums">
                     {idx + 1}
                   </span>
                 </div>
@@ -121,14 +131,12 @@ function DesktopTable({
           </tr>
 
           {/* Supervisor */}
-          <tr className="border-b border-border/20">
-            <td className="sticky left-0 bg-background z-10 px-4 py-2 text-xs font-bold text-muted-foreground uppercase tracking-widest">
-              Supervisor
-            </td>
+          <tr className={stripeClass}>
+            <td className={labelCellBase}>Supervisor</td>
             {shortlistedProjects.map((p) => (
               <td
                 key={p.id}
-                className={`px-3 py-2 border-l border-border/20 ${!supervisorsMatch ? "bg-amber-50/50 dark:bg-amber-950/20" : ""}`}
+                className={`${dataCellBase} ${!supervisorsMatch ? "!bg-amber-50/60 dark:!bg-amber-950/20" : ""}`}
               >
                 <span className="text-sm font-medium">{p.supervisor}</span>
               </td>
@@ -136,14 +144,12 @@ function DesktopTable({
           </tr>
 
           {/* Theme */}
-          <tr className="border-b border-border/20">
-            <td className="sticky left-0 bg-background z-10 px-4 py-2 text-xs font-bold text-muted-foreground uppercase tracking-widest">
-              Theme
-            </td>
+          <tr>
+            <td className={labelCellBase}>Theme</td>
             {shortlistedProjects.map((p) => (
               <td
                 key={p.id}
-                className={`px-3 py-2 border-l border-border/20 ${!themesMatch ? "bg-amber-50/50 dark:bg-amber-950/20" : ""}`}
+                className={`${dataCellBase} ${!themesMatch ? "!bg-amber-50/60 dark:!bg-amber-950/20" : ""}`}
               >
                 <ThemeBadge theme={p.theme} />
               </td>
@@ -151,17 +157,15 @@ function DesktopTable({
           </tr>
 
           {/* Keywords */}
-          <tr className="border-b border-border/20">
-            <td className="sticky left-0 bg-background z-10 px-4 py-2 text-xs font-bold text-muted-foreground uppercase tracking-widest">
-              Keywords
-            </td>
+          <tr className={stripeClass}>
+            <td className={labelCellBase}>Keywords</td>
             {shortlistedProjects.map((p) => (
-              <td key={p.id} className="px-3 py-2 border-l border-border/20">
+              <td key={p.id} className={dataCellBase}>
                 <div className="flex flex-wrap gap-1">
                   {p.keywords.map((kw) => (
                     <span
                       key={kw}
-                      className="text-[10px] font-medium text-muted-foreground/70 bg-secondary/40 rounded-md px-2 py-0.5"
+                      className="text-[10px] font-medium text-muted-foreground/70 bg-secondary/50 rounded-md px-2 py-0.5"
                     >
                       {kw}
                     </span>
@@ -172,33 +176,29 @@ function DesktopTable({
           </tr>
 
           {/* Industry */}
-          <tr className="border-b border-border/20">
-            <td className="sticky left-0 bg-background z-10 px-4 py-2 text-xs font-bold text-muted-foreground uppercase tracking-widest">
-              Industry
-            </td>
+          <tr>
+            <td className={labelCellBase}>Industry</td>
             {shortlistedProjects.map((p) => (
-              <td key={p.id} className="px-3 py-2 border-l border-border/20">
+              <td key={p.id} className={dataCellBase}>
                 {p.industrial ? (
                   <Badge className="bg-orange-100 text-orange-700 dark:bg-orange-950 dark:text-orange-400 border-none px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider">
                     <Building2 className="h-3 w-3 mr-0.5" />
                     {p.industrial}
                   </Badge>
                 ) : (
-                  <span className="text-xs text-muted-foreground">—</span>
+                  <span className="text-xs text-muted-foreground/40">—</span>
                 )}
               </td>
             ))}
           </tr>
 
           {/* Description */}
-          <tr className="border-b border-border/20">
-            <td className="sticky left-0 bg-background z-10 px-4 py-2 text-xs font-bold text-muted-foreground uppercase tracking-widest align-top pt-3">
-              Description
-            </td>
+          <tr className={stripeClass}>
+            <td className={`${labelCellBase} align-top pt-4`}>Description</td>
             {shortlistedProjects.map((p) => (
               <td
                 key={p.id}
-                className="px-3 py-2 border-l border-border/20 align-top"
+                className={`${dataCellBase} align-top`}
               >
                 <p
                   className={`text-xs text-muted-foreground leading-relaxed ${expandedDesc.has(p.id) ? "" : "line-clamp-2"}`}
@@ -207,7 +207,7 @@ function DesktopTable({
                 </p>
                 <button
                   onClick={() => toggleDesc(p.id)}
-                  className="text-[10px] text-primary font-medium mt-1 hover:underline"
+                  className="text-[10px] text-primary font-semibold mt-1 hover:underline"
                 >
                   {expandedDesc.has(p.id) ? "Show less" : "Show more"}
                 </button>
@@ -216,18 +216,16 @@ function DesktopTable({
           </tr>
 
           {/* Notes */}
-          <tr className="border-b border-border/20">
-            <td className="sticky left-0 bg-background z-10 px-4 py-2 text-xs font-bold text-muted-foreground uppercase tracking-widest align-top pt-3">
-              Notes
-            </td>
+          <tr>
+            <td className={`${labelCellBase} align-top pt-4`}>Notes</td>
             {shortlistedProjects.map((p) => (
               <td
                 key={p.id}
-                className="px-3 py-2 border-l border-border/20 align-top"
+                className={`${dataCellBase} align-top`}
               >
                 <textarea
                   placeholder="Add a note…"
-                  className="w-full text-xs p-2 rounded-lg border border-border/50 bg-secondary/10 dark:bg-secondary/5 focus:bg-background resize-y min-h-[56px] outline-none focus:ring-2 focus:ring-primary/20 transition-all font-sans placeholder:text-muted-foreground/50"
+                  className="w-full text-xs p-2.5 rounded-xl border border-border/40 bg-background/80 focus:bg-background resize-y min-h-[60px] outline-none focus:ring-2 focus:ring-primary/20 transition-all font-sans placeholder:text-muted-foreground/40"
                   value={getNote(p.id)}
                   onChange={(e) => updateNote(p.id, e.target.value)}
                 />
@@ -236,17 +234,15 @@ function DesktopTable({
           </tr>
 
           {/* Actions */}
-          <tr>
-            <td className="sticky left-0 bg-background z-10 px-4 py-2 text-xs font-bold text-muted-foreground uppercase tracking-widest">
-              Actions
-            </td>
+          <tr className="border-t border-border/30">
+            <td className={labelCellBase}>Actions</td>
             {shortlistedProjects.map((p) => (
-              <td key={p.id} className="px-3 py-2 border-l border-border/20">
+              <td key={p.id} className={dataCellBase}>
                 <div className="flex items-center gap-2">
                   <Button
                     variant="outline"
                     size="sm"
-                    className="text-xs h-7"
+                    className="text-xs h-7 rounded-lg"
                     onClick={() => setSelectedProject(p)}
                   >
                     <Eye className="h-3 w-3 mr-1" />
@@ -255,7 +251,7 @@ function DesktopTable({
                   <Button
                     variant="ghost"
                     size="sm"
-                    className="text-xs h-7 text-destructive"
+                    className="text-xs h-7 text-destructive/70 hover:text-destructive"
                     onClick={() => toggleShortlist(p.id)}
                   >
                     <X className="h-3 w-3 mr-1" />
@@ -296,7 +292,7 @@ function MobileRankedList({
         return (
           <div
             key={p.id}
-            className="rounded-xl border border-border/40 bg-card overflow-hidden"
+            className="rounded-xl border border-border/40 bg-card overflow-hidden shadow-sm"
           >
             {/* Collapsed row */}
             <button
@@ -582,6 +578,7 @@ export function CompareView() {
   } = explorer;
 
   const [mobileMode, setMobileMode] = useState<"list" | "compare">("list");
+  const [copied, setCopied] = useState(false);
 
   const shortlistedProjects = useMemo(
     () =>
@@ -612,7 +609,7 @@ export function CompareView() {
       .filter(Boolean);
   }, [shortlistedProjects, projects, isShortlisted]);
 
-  const exportShortlist = () => {
+  const exportShortlist = useCallback(() => {
     const text = shortlistedProjects
       .map((p, i) => {
         const note = getNote(p.id);
@@ -622,7 +619,9 @@ export function CompareView() {
     navigator.clipboard.writeText(
       `My ECS8056 Project Shortlist\n${"=".repeat(30)}\n\n${text}`
     );
-  };
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  }, [shortlistedProjects, getNote]);
 
   // Empty state
   if (shortlistedProjects.length === 0) {
@@ -651,26 +650,45 @@ export function CompareView() {
   }
 
   return (
-    <div className="space-y-6">
-      {/* Toolbar */}
-      <div className="flex items-center justify-between gap-3 flex-wrap">
-        <span className="text-sm font-medium text-muted-foreground">
-          {shortlistCount} project{shortlistCount !== 1 ? "s" : ""} shortlisted
-        </span>
+    <div className="space-y-8">
+      {/* Toolbar — integrated into a card-like bar */}
+      <div className="flex items-center justify-between gap-3 flex-wrap bg-card rounded-2xl border border-border/40 px-5 py-3 shadow-sm">
+        <div className="flex items-center gap-3">
+          <div className="h-8 w-8 rounded-xl bg-primary/10 flex items-center justify-center">
+            <Star className="h-4 w-4 text-primary" fill="currentColor" />
+          </div>
+          <div>
+            <span className="text-sm font-bold text-foreground">
+              {shortlistCount} project{shortlistCount !== 1 ? "s" : ""}
+            </span>
+            <span className="text-sm text-muted-foreground ml-1">
+              shortlisted
+            </span>
+          </div>
+        </div>
         <div className="flex items-center gap-2">
           <Button
             variant="outline"
             size="sm"
-            className="text-xs h-8"
+            className="text-xs h-8 rounded-xl"
             onClick={exportShortlist}
           >
-            <Copy className="h-3 w-3 mr-1" />
-            Copy to clipboard
+            {copied ? (
+              <>
+                <Check className="h-3 w-3 mr-1 text-green-600" />
+                Copied!
+              </>
+            ) : (
+              <>
+                <Copy className="h-3 w-3 mr-1" />
+                Copy to clipboard
+              </>
+            )}
           </Button>
           <Button
             variant="ghost"
             size="sm"
-            className="text-xs h-8 text-destructive"
+            className="text-xs h-8 text-destructive/70 hover:text-destructive rounded-xl"
             onClick={clearShortlist}
           >
             <Trash2 className="h-3 w-3 mr-1" />
@@ -690,15 +708,15 @@ export function CompareView() {
       {/* Mobile (< md) */}
       <div className="md:hidden space-y-4">
         {/* Segmented toggle */}
-        <div className="flex rounded-lg border border-border/50 overflow-hidden">
+        <div className="flex rounded-xl border border-border/50 overflow-hidden bg-muted/30">
           <button
-            className={`flex-1 text-xs font-bold py-2 px-3 transition-colors ${mobileMode === "list" ? "bg-primary text-primary-foreground" : "bg-background text-muted-foreground hover:bg-accent"}`}
+            className={`flex-1 text-xs font-bold py-2.5 px-3 transition-colors ${mobileMode === "list" ? "bg-primary text-primary-foreground shadow-sm" : "text-muted-foreground hover:bg-accent/50"}`}
             onClick={() => setMobileMode("list")}
           >
             Ranked List
           </button>
           <button
-            className={`flex-1 text-xs font-bold py-2 px-3 transition-colors ${mobileMode === "compare" ? "bg-primary text-primary-foreground" : "bg-background text-muted-foreground hover:bg-accent"}`}
+            className={`flex-1 text-xs font-bold py-2.5 px-3 transition-colors ${mobileMode === "compare" ? "bg-primary text-primary-foreground shadow-sm" : "text-muted-foreground hover:bg-accent/50"}`}
             onClick={() => setMobileMode("compare")}
             disabled={shortlistedProjects.length < 2}
           >

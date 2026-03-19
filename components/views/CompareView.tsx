@@ -61,8 +61,8 @@ function DesktopTable({
   const stripeClass = "bg-muted/20 dark:bg-muted/10";
 
   return (
-    <div className="overflow-x-auto rounded-2xl border border-border/50 bg-card shadow-[0_2px_20px_-4px_rgba(0,0,0,0.06)] dark:shadow-[0_2px_20px_-4px_rgba(0,0,0,0.3)]">
-      <table className="w-full text-sm border-collapse min-w-max">
+    <div className="overflow-x-auto rounded-2xl border border-border/50 bg-card shadow-[0_2px_20px_-4px_rgba(0,0,0,0.06)] dark:shadow-[0_2px_20px_-4px_rgba(0,0,0,0.3)] max-w-full w-fit min-w-0">
+      <table className="text-sm border-collapse">
         {/* Column header: project titles */}
         <thead>
           <tr className="bg-muted/50 dark:bg-muted/25">
@@ -74,7 +74,7 @@ function DesktopTable({
             {shortlistedProjects.map((p) => (
               <th
                 key={p.id}
-                className="min-w-[220px] max-w-[260px] p-4 text-left border-l border-border/15 border-b border-b-border/40 align-top"
+                className="w-[260px] min-w-[220px] p-4 text-left border-l border-border/15 border-b border-b-border/40 align-top"
               >
                 <div className="flex items-start justify-between gap-2">
                   <button

@@ -129,7 +129,7 @@ export function ProjectCard({
                 {project.keywords.slice(0, 4).map((kw) => (
                   <span
                     key={kw}
-                    className="text-[10px] font-medium text-muted-foreground/70 bg-secondary/40 rounded-md px-2 py-0.5"
+                    className="text-[11px] font-medium text-muted-foreground/70 bg-secondary/40 rounded-md px-2 py-0.5"
                   >
                     {kw}
                   </span>

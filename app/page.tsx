@@ -106,10 +106,10 @@ function ExplorerContent() {
                 <TabsTrigger
                   key={tab.id}
                   value={tab.id}
-                  className="px-4 gap-2 text-sm"
+                  className="px-2 sm:px-4 gap-1.5 sm:gap-2 text-xs sm:text-sm"
                 >
                   <tab.icon className="h-4 w-4" />
-                  <span className="hidden sm:inline">{tab.label}</span>
+                  <span>{tab.label}</span>
                   {tab.id === "compare" && shortlistCount > 0 && (
                     <Badge className="h-5 min-w-5 px-1.5 text-[10px]">
                       {shortlistCount}

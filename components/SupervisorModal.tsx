@@ -114,7 +114,7 @@ export function SupervisorModal({
         </div>
 
         {/* Right Column: Projects */}
-        <div className="md:w-[65%] lg:flex-1 flex flex-col max-h-[50vh] md:max-h-none bg-white dark:bg-card">
+        <div className="md:w-[65%] lg:flex-1 flex flex-col md:max-h-none bg-white dark:bg-card">
           <ScrollArea className="flex-1">
             <div className="p-6 sm:p-8 md:p-10">
               <h3 className="text-sm font-extrabold text-primary mb-6 flex items-center gap-2 uppercase tracking-widest">

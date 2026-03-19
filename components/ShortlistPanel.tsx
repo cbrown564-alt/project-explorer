@@ -134,7 +134,8 @@ export function ShortlistPanel({
             <ScrollArea className="flex-1 mt-3 overflow-x-hidden">
               {comparing ? (
                 <div className="space-y-4">
-                  <table className="w-full text-xs">
+                  {/* Desktop: table layout */}
+                  <table className="w-full text-xs hidden sm:table">
                     <thead>
                       <tr className="border-b">
                         <th className="text-center p-2 font-medium w-10"></th>
@@ -188,6 +189,49 @@ export function ShortlistPanel({
                       ))}
                     </tbody>
                   </table>
+
+                  {/* Mobile: card layout */}
+                  <div className="sm:hidden space-y-3">
+                    {shortlistedProjects.map((p, index) => (
+                      <div key={p.id} className="flex gap-2 p-3 rounded-xl bg-secondary/15 border border-border/30">
+                        {reorderShortlist ? (
+                          <div className="flex flex-col items-center justify-center gap-0.5 shrink-0">
+                            <Button
+                              variant="ghost"
+                              size="icon"
+                              className="h-9 w-9 rounded-full"
+                              onClick={() => reorderShortlist(index, index - 1)}
+                              disabled={index === 0}
+                            >
+                              <ChevronUp className="h-4 w-4" />
+                            </Button>
+                            <span className="text-xs font-bold text-muted-foreground">{index + 1}</span>
+                            <Button
+                              variant="ghost"
+                              size="icon"
+                              className="h-9 w-9 rounded-full"
+                              onClick={() => reorderShortlist(index, index + 1)}
+                              disabled={index === shortlistedProjects.length - 1}
+                            >
+                              <ChevronDown className="h-4 w-4" />
+                            </Button>
+                          </div>
+                        ) : (
+                          <span className="text-sm font-bold text-muted-foreground shrink-0 pt-0.5">{index + 1}.</span>
+                        )}
+                        <div className="flex-1 min-w-0 space-y-1">
+                          <p className="text-sm font-medium leading-snug">{p.title}</p>
+                          <p className="text-xs text-muted-foreground">{p.supervisor}</p>
+                          <div className="flex flex-wrap gap-1.5">
+                            <span className="text-[11px] text-muted-foreground bg-secondary/50 px-2 py-0.5 rounded-md">{p.theme}</span>
+                            {p.industrial && (
+                              <span className="text-[11px] text-orange-700 dark:text-orange-400 bg-orange-100 dark:bg-orange-950 px-2 py-0.5 rounded-md">{p.industrial}</span>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               ) : (
                 <div className="space-y-4 px-1 pt-1 pb-1">
@@ -199,7 +243,7 @@ export function ShortlistPanel({
                             <Button
                               variant="ghost"
                               size="icon"
-                              className="h-8 w-8 rounded-full"
+                              className="h-10 w-10 rounded-full"
                               onClick={() => reorderShortlist(index, index - 1)}
                               disabled={index === 0}
                             >
@@ -209,7 +253,7 @@ export function ShortlistPanel({
                             <Button
                               variant="ghost"
                               size="icon"
-                              className="h-8 w-8 rounded-full"
+                              className="h-10 w-10 rounded-full"
                               onClick={() => reorderShortlist(index, index + 1)}
                               disabled={index === shortlistedProjects.length - 1}
                             >

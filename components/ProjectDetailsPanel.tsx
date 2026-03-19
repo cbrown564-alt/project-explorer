@@ -121,7 +121,7 @@ export function ProjectDetailsPanel({
                     <Badge
                       key={kw}
                       variant="secondary"
-                      className="text-[10px] lg:text-[11px] font-medium bg-white/60 dark:bg-background/60 text-foreground rounded-lg px-2.5 py-1 border-none shadow-sm"
+                      className="text-[11px] lg:text-[11px] font-medium bg-white/60 dark:bg-background/60 text-foreground rounded-lg px-2.5 py-1 border-none shadow-sm"
                     >
                       {kw}
                     </Badge>
@@ -152,7 +152,7 @@ export function ProjectDetailsPanel({
 
             {/* Right Column: Abstract Reading Area */}
             {/* Width optimized for character line length (max-w-3xl) */}
-            <div className="md:w-[65%] lg:flex-1 flex flex-col max-h-[50vh] md:max-h-none bg-white dark:bg-card">
+            <div className="md:w-[65%] lg:flex-1 flex flex-col md:max-h-none bg-white dark:bg-card">
               <ScrollArea className="flex-1">
                 <div className="p-6 sm:p-8 md:p-10 lg:p-12">
                   <div className="max-w-3xl mx-auto">

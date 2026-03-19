@@ -81,15 +81,12 @@ export function CompareView() {
   return (
     <div className="space-y-8">
       {/* Comparison table */}
-      <div className="overflow-x-auto">
-        <div
-          className="inline-flex gap-4 min-w-full pb-4"
-          style={{ minWidth: `${shortlistedProjects.length * 280}px` }}
-        >
+      <div className="md:overflow-x-auto">
+        <div className="flex flex-col gap-4 md:flex-row md:gap-4 md:min-w-full pb-4">
           {shortlistedProjects.map((project) => (
             <div
               key={project.id}
-              className="w-[280px] shrink-0 bg-white dark:bg-card rounded-xl border border-border/40 shadow-sm p-5 flex flex-col"
+              className="w-full md:w-[280px] md:shrink-0 bg-white dark:bg-card rounded-xl border border-border/40 shadow-sm p-5 flex flex-col"
             >
               <div className="flex items-start justify-between gap-2 mb-3">
                 <h3

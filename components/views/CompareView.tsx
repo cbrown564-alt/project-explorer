@@ -48,12 +48,6 @@ function DesktopTable({
       return next;
     });
 
-  // Detect differing values for visual emphasis
-  const themes = shortlistedProjects.map((p) => p.theme);
-  const themesMatch = themes.every((t) => t === themes[0]);
-  const supervisors = shortlistedProjects.map((p) => p.supervisor);
-  const supervisorsMatch = supervisors.every((s) => s === supervisors[0]);
-
   // Shared cell styles
   const labelCellBase =
     "sticky left-0 z-10 px-4 py-3 text-[11px] font-bold text-muted-foreground uppercase tracking-widest bg-muted/40 dark:bg-muted/20 border-r border-border/30";
@@ -136,7 +130,7 @@ function DesktopTable({
             {shortlistedProjects.map((p) => (
               <td
                 key={p.id}
-                className={`${dataCellBase} ${!supervisorsMatch ? "!bg-amber-50/60 dark:!bg-amber-950/20" : ""}`}
+                className={`${dataCellBase} `}
               >
                 <span className="text-sm font-medium">{p.supervisor}</span>
               </td>
@@ -149,7 +143,7 @@ function DesktopTable({
             {shortlistedProjects.map((p) => (
               <td
                 key={p.id}
-                className={`${dataCellBase} ${!themesMatch ? "!bg-amber-50/60 dark:!bg-amber-950/20" : ""}`}
+                className={`${dataCellBase} `}
               >
                 <ThemeBadge theme={p.theme} />
               </td>

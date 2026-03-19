@@ -26,7 +26,7 @@ const projects: Project[] = rawProjects.map((p) => ({
 const supervisors = supervisorsData as Supervisor[];
 const supervisorNames = [...new Set(projects.map((p) => p.supervisor))].sort();
 
-export type ViewId = "explore" | "projects" | "supervisors" | "compare";
+export type ViewId = "explore" | "projects" | "supervisors" | "shortlist";
 export type SortOption = "default" | "title" | "supervisor" | "theme";
 
 interface ExplorerContextValue {
@@ -151,8 +151,9 @@ export function ExplorerProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const onHash = () => {
       const hash = window.location.hash.replace("#", "");
-      if (["explore", "projects", "supervisors", "compare"].includes(hash)) {
-        setActiveViewState(hash as ViewId);
+      const resolvedHash = hash === "compare" ? "shortlist" : hash;
+      if (["explore", "projects", "supervisors", "shortlist"].includes(resolvedHash)) {
+        setActiveViewState(resolvedHash as ViewId);
       }
     };
     onHash();

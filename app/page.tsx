@@ -3,7 +3,7 @@
 import { lazy, Suspense } from "react";
 import { ExplorerProvider, useExplorer } from "@/lib/explorer-context";
 import { ProjectFilters } from "@/components/ProjectFilters";
-import { ShortlistPanel } from "@/components/ShortlistPanel";
+import { ShortlistPopover } from "@/components/ShortlistPopover";
 import { SupervisorModal } from "@/components/SupervisorModal";
 import { InfoPanel } from "@/components/InfoPanel";
 import { ProjectDetailsPanel } from "@/components/ProjectDetailsPanel";
@@ -12,7 +12,7 @@ import { SupervisorsView } from "@/components/views/SupervisorsView";
 import { CompareView } from "@/components/views/CompareView";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
-import { GraduationCap, Network, LayoutGrid, Users, ArrowLeftRight } from "lucide-react";
+import { GraduationCap, Network, LayoutGrid, Users, Star } from "lucide-react";
 import type { ViewId } from "@/lib/explorer-context";
 
 const GraphView = lazy(() =>
@@ -35,21 +35,13 @@ function ExplorerContent() {
     sortBy,
     setSortBy,
     filteredProjects,
-    shortlist,
-    toggleShortlist,
-    clearShortlist,
-    isShortlisted,
     shortlistCount,
-    updateNote,
-    reorderShortlist,
-    getNote,
     selectedProject,
     setSelectedProject,
     supervisorModal,
     setSupervisorModal,
     activeView,
     setActiveView,
-    navigateToView,
     handleProjectClick,
   } = useExplorer();
 
@@ -59,7 +51,7 @@ function ExplorerContent() {
     { id: "explore", label: "Explore", icon: Network },
     { id: "projects", label: "Projects", icon: LayoutGrid },
     { id: "supervisors", label: "Supervisors", icon: Users },
-    { id: "compare", label: "Compare", icon: ArrowLeftRight },
+    { id: "shortlist", label: "My Shortlist", icon: Star },
   ];
 
   return (
@@ -79,18 +71,7 @@ function ExplorerContent() {
             </div>
             <div className="flex items-center gap-3 shrink-0">
               <InfoPanel />
-              <ShortlistPanel
-                projects={projects}
-                shortlist={shortlist}
-                onToggle={toggleShortlist}
-                onClear={clearShortlist}
-                isShortlisted={isShortlisted}
-                onSupervisorClick={setSupervisorModal}
-                onCompare={() => navigateToView("compare")}
-                updateNote={updateNote}
-                reorderShortlist={reorderShortlist}
-                getNote={getNote}
-              />
+              <ShortlistPopover />
             </div>
           </div>
         </section>
@@ -110,7 +91,7 @@ function ExplorerContent() {
                 >
                   <tab.icon className="h-4 w-4" />
                   <span>{tab.label}</span>
-                  {tab.id === "compare" && shortlistCount > 0 && (
+                  {tab.id === "shortlist" && shortlistCount > 0 && (
                     <Badge className="h-5 min-w-5 px-1.5 text-[10px]">
                       {shortlistCount}
                     </Badge>
@@ -121,7 +102,7 @@ function ExplorerContent() {
           </div>
 
           {/* Filters — hidden on Compare view */}
-          {activeView !== "compare" && (
+          {activeView !== "shortlist" && (
             <section className="sticky top-0 z-40">
               <div className="bg-background/80 backdrop-blur-xl py-3 -mx-4 px-4 sm:-mx-6 sm:px-6 animate-in fade-in zoom-in-95 duration-500 delay-100">
                 <ProjectFilters
@@ -164,7 +145,7 @@ function ExplorerContent() {
             <SupervisorsView />
           </TabsContent>
 
-          <TabsContent value="compare">
+          <TabsContent value="shortlist">
             <CompareView />
           </TabsContent>
         </Tabs>
